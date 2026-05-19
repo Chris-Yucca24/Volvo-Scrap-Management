@@ -223,19 +223,22 @@ body {
 }
 .logout-menu {
   position: absolute;
-  top: 55px;
-  right: 20px;
+  top: 50px;
+  right: 50px;
   background: white;
   color: #000;
   border-radius: 6px;
+  
   padding: 0px 15px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
   cursor: pointer !important;
+   min-width: 100px;
+  text-align: center; 
 }
 .logout-menu p {
   color: #000;
   font-size: var(--text-sm);
-  font-weight: bold;
+  font-weight: 500;
 }
 
 .sync-btn {
