@@ -120,7 +120,122 @@ body {
   justify-content: space-between;
   align-items: center;
 }
+.login-main{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+ 
+}
+.log-main-image{
+  width:100%;
+}
+.log-body{
+  height: 60vh;
+  padding: 30px;
+}
+.login-form-card{
+  width: 100%;
+  max-width: 380px;
+  min-width: 380px;
+  background-color: #fff;
+  padding: 80px 40px 40px 40px;
+  border-radius: 10px;
+  z-index: 9999;
+  position: relative;
+  margin-top: -40px;
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+}
+.login-card-logo{
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  position: absolute;
+  top: -55px;   
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+.login-header{
+  width: 100%;
+  text-align: center;
+  font-size: 24px !important;
+  font-weight: 500;
+  margin-bottom: 40px;
+}
+.input-field{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 22px;
+}
 
+.input-field label{
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #2b2b2b;
+}
+
+.input-field input{ 
+  height: 48px;
+  border: 1px solid #d8d8d8;
+  border-radius: 6px;
+  padding: 0px 14px;
+  font-size: 14px;
+  outline: none;
+}
+.forgot-password{
+  margin-top: 8px;
+  font-size: 14px;
+  color: #1570EF;
+  cursor: pointer;
+
+  display: flex;
+  justify-content: flex-end;
+}
+.login-button{
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #222C47;
+  border: none;
+  color: #FCFCFD;
+}
+.login-form-section{
+  width: 20%;
+  margin-left: 20px;
+}
+.body-log-content{
+  padding: 0px 50px 0px 50px;
+  display: flex;
+  flex-direction: row;
+  z-index: 9999;
+  position: relative;
+  
+}
+.login-image-section{
+  width: 74%;
+  position: relative;
+  left: 5%;
+  
+}
+.bus-image-main{
+  width: 100%;
+  position: relative;
+  top: -20%;
+}
+.log-footer{
+ background: linear-gradient(
+  90deg,
+  #2E3A59 0%,
+  #202A44 100%
+  
+);
+height: 35vh;
+}
 .shadow-sm {
   box-shadow: var(--shadow-sm);
 }
@@ -1459,4 +1574,33 @@ select.input:has(option:checked:not([value=""])) {
     flex-direction: column !important;
     gap: 10px !important;
   }
+}
+/* Laptop Screens Only */
+@media screen and (min-width: 1024px) and (max-width: 1435px){
+  .login-form-section{
+  width: 15% !important;
+  margin-left: 20px;
+}
+  .login-form-card{
+    width: 100%;
+    max-width: 300px;
+    box-sizing: border-box;
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    position: relative;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+  }
+
+}
+@media screen and (min-width: 1440px){
+
+  .log-main-image{
+    height: 250px;
+    object-fit: contain;
+  }
+
 }

@@ -7,6 +7,7 @@ import L1L2L3Management from "./Modules/AdminDashboard/AdminPages/L1L2L3Manageme
 import UserManagement from "./Modules/AdminDashboard/AdminPages/Usermanagement"
 import LevelManagement from "./Modules/AdminDashboard/AdminPages/LevelManagement"
 import FinanceTeam from "./Modules/AdminDashboard/AdminPages/FinanceTeam"
+import LoginPage from "./Modules/LoginMain/Login"
 import AppLayout from "./layouts/AppLayout"
 
 export default function App() {
@@ -14,10 +15,11 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/inbound" element={<Inbound />} />
-        <Route path="/" element={<Outbound/>} />
+        <Route path="/outbound" element={<Outbound/>} />
         <Route path="/admin" element={<AdminAssembly />} />
         <Route path="/l1" element={<L1L2L3Management />} />
-        <Route path="/fin" element={<FinanceTeam />} />        
+        <Route path="/fin" element={<FinanceTeam />} /> 
+        <Route path="/" element={<LoginPage/>}/>       
         <Route
           path="/usermanagement"
           element={
