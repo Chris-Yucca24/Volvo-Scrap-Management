@@ -137,6 +137,9 @@ export default function UserManagement() {
           <AppButton variant="filled" style={{ height: "28px" }}>
             Add user
           </AppButton>
+          <AppButton variant="outlined" style={{ height: "28px" }}>
+            Save changes 
+          </AppButton>
         </div>
       </div>
 

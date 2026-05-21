@@ -82,8 +82,10 @@ export default function NavBar({
 
           {showLog && (
             <div className="logout-menu">
-              <p onClick={() =>
-                console.log("logout-clicked")
+              <p onClick={() =>{
+                setShowLog(false);
+                navigate("/")
+              }
               }>
                 Logout
               </p>

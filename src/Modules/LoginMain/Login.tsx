@@ -22,7 +22,8 @@ const LoginPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const [storedEmail] = useState("admin1212@gmail.com");
-  const [storedPassword, setStoredPassword] = useState("admin123");
+  const [storedPassword, setStoredPassword] = useState(
+    localStorage.getItem("storedPassword") || "admin123");
 
   /* Login Function */
   const handleLogin = () => {
@@ -56,6 +57,8 @@ const LoginPage = () => {
     }
 
     setStoredPassword(resetPassword);
+
+    localStorage.setItem("storedPassword", resetPassword);
 
     alert("Password Reset Successful");
 
