@@ -17,6 +17,7 @@ import AppButton from "../../../Common/Components/UI/ButtonUI";
 import backArrow from "../../../assets/image-assets/Back_Arrow.png";
 import AlertModal from "../../../Common/Components/UI/AlertModal";
 import { useState, useEffect } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 
 type User = {
   id: number;
@@ -109,6 +110,9 @@ export default function UserManagement() {
     setDeleteId(null);
   };
 
+
+  const navigate = useNavigate();
+
   const startIndex = (page - 1) * rowsPerPage;
   const paginatedUsers = users.slice(startIndex, startIndex + rowsPerPage);
 
@@ -122,7 +126,7 @@ export default function UserManagement() {
       {/* Header */}
       <div className="User-task">
         <div className="left-user-main">
-          <img src={backArrow} alt="back" className="back-main" />
+          <img src={backArrow} alt="back" className="back-main"  onClick={()=> navigate(-1)} />
           <div className="filter-title">
             <p>User Management</p>
           </div>
@@ -134,10 +138,10 @@ export default function UserManagement() {
             placeholder="Search user...."
             className="user-search"
           />
-          <AppButton variant="filled" style={{ height: "28px" }}>
+          <AppButton variant="filled">
             Add user
           </AppButton>
-          <AppButton variant="outlined" style={{ height: "28px" }}>
+          <AppButton variant="outlined">
             Save changes 
           </AppButton>
         </div>
@@ -151,8 +155,8 @@ export default function UserManagement() {
             xs: "60vh",
             sm: "65vh",
             md: "70vh",
-            lg: "74vh",
-            xl: "82vh"
+            lg: "70vh",
+            xl: "76vh"
           },
           overflow: "auto"
         }}
@@ -167,10 +171,10 @@ export default function UserManagement() {
               <TableCell sx={stickyTopRow}>User Name</TableCell>
               <TableCell sx={stickyTopRow}>Email ID</TableCell>
               <TableCell sx={stickyTopRow} align="center">Role</TableCell>
-              <TableCell sx={stickyTopRow} align="center">Assembly</TableCell>
               <TableCell sx={stickyTopRow} align="center">Inbound</TableCell>
+              <TableCell sx={stickyTopRow} align="center">outbound</TableCell>
               <TableCell sx={stickyTopRow} align="center" colSpan={3}>
-                Outbound
+                Outbound Approver
               </TableCell>
               <TableCell sx={stickyTopRow} align="center">Action</TableCell>
             </TableRow>

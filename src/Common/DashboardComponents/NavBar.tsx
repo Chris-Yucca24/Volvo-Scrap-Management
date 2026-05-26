@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import DownArrow from "../../assets/image-assets/Down Arrow.png";
 import SettingsIcon from "../../assets/image-assets/settings_ic.png";
 
+
+
 type NavBarProps = {
   showSettings?: boolean;
 };
@@ -28,7 +30,7 @@ export default function NavBar({
         src={logo}
         alt="Volvo Logo"
         className="logo-img"
-        onClick={()=> handleNavigation("/")}
+        onClick={()=> handleNavigation("/admin")}
       />
 
       <div className="right-section">
@@ -50,8 +52,11 @@ export default function NavBar({
                 <p onClick={() => handleNavigation("/UserManagement")}>
                   User Management
                 </p>
-                <p onClick={() => handleNavigation("/LevelManagement")}>
-                  Level Management
+                <p onClick={() => handleNavigation("/MaterialSettings")}>
+                  Material Settings
+                </p>
+                 <p onClick={() => handleNavigation("/LevelManagement")}>
+                  Log Export
                 </p>
               </div>
             )}

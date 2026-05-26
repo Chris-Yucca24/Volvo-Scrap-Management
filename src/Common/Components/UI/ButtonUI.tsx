@@ -42,9 +42,8 @@ export default function AppButton({
       disableElevation
       sx={{
         textTransform: "none",
-        
         fontWeight: 500,
-        padding: "8px 18px",
+        padding: "5px 18px",
         ...getVariantStyles(),
         ...sx,
       }}

@@ -6,6 +6,7 @@ import AdminAssembly from "./Modules/AdminDashboard/AdminPages/AdminAssembly"
 import L1L2L3Management from "./Modules/AdminDashboard/AdminPages/L1L2L3Management"
 import UserManagement from "./Modules/AdminDashboard/AdminPages/Usermanagement"
 import LevelManagement from "./Modules/AdminDashboard/AdminPages/LevelManagement"
+import MaterialSettings from "./Modules/AdminDashboard/AdminPages/MaterialSettings";
 import FinanceTeam from "./Modules/AdminDashboard/AdminPages/FinanceTeam"
 import LoginPage from "./Modules/LoginMain/Login"
 import AppLayout from "./layouts/AppLayout"
@@ -33,6 +34,14 @@ export default function App() {
           element={
             <AppLayout showSettings={true}>
               <LevelManagement/>
+            </AppLayout>
+          }
+        />
+         <Route
+          path="/MaterialSettings"
+          element={
+            <AppLayout showSettings={true}>
+              <MaterialSettings/>
             </AppLayout>
           }
         />
