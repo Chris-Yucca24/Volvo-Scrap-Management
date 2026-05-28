@@ -19,6 +19,9 @@ import ExportIcon from "../../../assets/image-assets/FileExport.svg";
 import userIcon from "../../../assets/image-assets/userIcon.svg";
 import arrowIcon from "../../../assets/image-assets/Down Arrow.png";
 import exportIcon from "../../../assets/image-assets/FileExport.svg";
+import { useNavigate } from "react-router-dom";
+import Pagination from "@mui/material/Pagination";
+import searchIcon from "../../../assets/image-assets/search_icon.png"
 
 export default function LevelManagement() {
   const tableColumns = [
@@ -78,6 +81,13 @@ export default function LevelManagement() {
     },
   ];
 
+  const [page, setPage] = useState(1);
+
+  const rowPerPage = 5;
+  const startIndex = (page - 1) * rowPerPage;
+
+  const paginatedData = tableData.slice(startIndex, startIndex + rowPerPage)
+
   const handleSync = async () => {
     console.log("Syncing materials...");
 
@@ -93,11 +103,13 @@ export default function LevelManagement() {
     }));
   };
 
+  const navigate = useNavigate()
+
   const [alertOpen, setAlertOpen] = useState(false);
   return (
     <Box
       sx={{
-        minHeight: "100vh",
+
         backgroundColor: "#f4f4f4",
         display: "flex",
         justifyContent: "center",
@@ -108,14 +120,22 @@ export default function LevelManagement() {
 
       <Box
         sx={{
-          width: "80%",
+          width: {
+            xs: "100%",   // mobile
+            sm: "95%",    // tablets
+            md: "85%",    // laptops
+            lg: "85%",
+            xl: "80%"   // desktops
+          },
           display: "flex",
           flexDirection: "column",
         }}
       >
 
         <Box sx={{ display: "flex", alignItems: "center", mb: 1, justifyContent: "space-between" }}>
-          <div className="left-user-main">
+          <div className="left-user-main"
+            onClick={() => navigate(-1)}
+            style={{ cursor: "pointer" }}>
             <img src={backArrow} alt="back" className="back-main" />
             <div className="filter-title">
               <p>Back</p>
@@ -349,15 +369,15 @@ export default function LevelManagement() {
 
                         width: {
                           xs: "100%", // mobile
-                          sm: "40%",  // tablet
-                          md: "40%",  // laptop
+                          sm: "50%",  // tablet
+                          md: "100%",  // laptop
                           lg: "40%",  // desktop
-                          xl: "50%"
+                          xl: "55%"
                         },
                       }}
                     >
                       {/* From Date */}
-                      <div
+                      <div className="input-from"
                         style={{
                           display: "flex",
                           flexDirection: "column",
@@ -387,7 +407,7 @@ export default function LevelManagement() {
                       </div>
 
                       {/* To Date */}
-                      <div
+                      <div className="input-to"
                         style={{
                           display: "flex",
                           flexDirection: "column",
@@ -434,18 +454,38 @@ export default function LevelManagement() {
                 <div className="grid-main-log">
                   <span className="log-list-head">Log List</span>
 
-                  <input
-                    type="search"
-                    placeholder="Search..."
+                  <div
                     style={{
-
-                      padding: "10px 14px",
-                      border: "1px solid #B8B8B8",
-                      borderRadius: "6px",
-                      outline: "none",
-                      fontSize: "14px",
+                      position: "relative",
+                      width: "250px",
                     }}
-                  />
+                  >
+                    <img
+                      src={searchIcon}
+                      alt="search"
+                      style={{
+                        position: "absolute",
+                        left: "12px",
+                        top: "50%",
+                        transform: "translateY(-50%)",
+                        width: "16px",
+                        height: "16px",
+                      }}
+                    />
+
+                    <input
+                      type="search"
+                      placeholder="Search..."
+                      style={{
+                        width: "100%",
+                        padding: "10px 14px 10px 40px",
+                        border: "1px solid #B8B8B8",
+                        borderRadius: "6px",
+                        outline: "none",
+                        fontSize: "14px",
+                      }}
+                    />
+                  </div>
                 </div>
                 <div className="log-table-container">
                   {/* Header */}
@@ -464,7 +504,7 @@ export default function LevelManagement() {
                   {/* Scrollable Body */}
                   <div className="log-table-body">
                     {tableData.length > 0 ? (
-                      tableData.map((row, index) => (
+                      paginatedData.map((row, index) => (
                         <div key={index} className="log-table-row">
                           <div className="checkbox-cell">
                             <input type="checkbox" />
@@ -479,6 +519,11 @@ export default function LevelManagement() {
                       <div className="no-data">No logs available</div>
                     )}
                   </div>
+                  <Pagination
+                    count={Math.ceil(tableData.length / rowPerPage)}
+                    page={page}
+                    onChange={(e, value) => setPage(value)}
+                  />
                 </div>
               </Paper>
               <Paper
