@@ -125,8 +125,8 @@ export default function UserManagement() {
 
       {/* Header */}
       <div className="User-task">
-        <div className="left-user-main">
-          <img src={backArrow} alt="back" className="back-main"  onClick={()=> navigate(-1)} />
+        <div className="left-user-main"  onClick={()=> navigate(-1)}>
+          <img src={backArrow} alt="back" className="back-main"  />
           <div className="filter-title">
             <p>User Management</p>
           </div>

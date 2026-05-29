@@ -31,12 +31,21 @@ const mockData2: ScrapItem[] = Array.from({ length: 19 }, (_, i) => ({
   weight: `${80 + i * 3}kg`,
   status: "Approved",
   time: "12-01-2026 16:40:29",
-  scheduledDate: i % 3 === 0
-    ? dateContext(0)   
-    : i % 3 === 1
-    ? dateContext(1)   
-    : undefined          
-  }));
+
+  holdDays:
+    i % 3 === 0
+      ? 60
+      : i % 3 === 1
+      ? 80
+      : 90,
+
+  scheduledDate:
+    i % 3 === 0
+      ? dateContext(0)
+      : i % 3 === 1
+      ? dateContext(1)
+      : undefined
+}));
 
 const mockData3: ScrapItem[] = Array.from({ length: 5 }, (_, i) => ({
   id: 155 + i * 2,

@@ -60,7 +60,7 @@ export default function FilterBar({ mode = "inbound",onFilterChange, counts }: F
             }}
           >
           <div className="scheduled-label">
-            Scheduled for Today ({counts?.today ?? 0})
+            60 days ({counts?.today ?? 0})
           </div>
           </AppButton>
 
@@ -73,7 +73,7 @@ export default function FilterBar({ mode = "inbound",onFilterChange, counts }: F
             }}
           >
           <div className="scheduled-label">
-            Scheduled for Tomorrow ({counts?.tomorrow ?? 0})
+            80 days ({counts?.tomorrow ?? 0})
           </div>
           </AppButton>
 
@@ -86,7 +86,7 @@ export default function FilterBar({ mode = "inbound",onFilterChange, counts }: F
           }}
           >
           <div className="scheduled-label">
-            Unscheduled ({counts?.unscheduled ?? 0})
+            90 days ({counts?.unscheduled ?? 0})
           </div>
           </AppButton>
         </div>
@@ -96,7 +96,7 @@ export default function FilterBar({ mode = "inbound",onFilterChange, counts }: F
 
         {!isOutbound && (
           <>
-            <input
+            <input type="search"
               className="input"
               placeholder="Search"
             />

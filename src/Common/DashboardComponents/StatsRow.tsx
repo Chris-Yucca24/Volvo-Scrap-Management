@@ -12,7 +12,7 @@ export default function StatsRow({
   variant = "default",
   onFilterChange,
   data,
-  activeFilter: externalFilter = "all"   // ✅ renamed prop (no removal)
+  activeFilter: externalFilter = "all" 
 }: StatsRowProps) {
 
   const [activeFilter, setActiveFilter] = useState<string>("all"); // ✅ kept
@@ -93,20 +93,22 @@ export default function StatsRow({
     ).length;
   };
 
+ 
+
   const stats = statsMap[variant] || [];
 
   const handleClick = (label: string) => {
-    setActiveFilter(label);        // ✅ keep local update
-    onFilterChange?.(label);       // ✅ notify parent
+    setActiveFilter(label);         
+    onFilterChange?.(label);       
   };
 
-  // ⏳ Simulated loading
+  //  Simulated loading
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 2500);
     return () => clearTimeout(timer);
   }, []);
 
-  // 🔥 NEW: Sync parent filter → local state
+  //  NEW: Sync parent filter → local state
   useEffect(() => {
     if (externalFilter !== undefined) {
       setActiveFilter(externalFilter);

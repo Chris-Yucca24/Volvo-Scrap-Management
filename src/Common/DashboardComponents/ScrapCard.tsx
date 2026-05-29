@@ -9,6 +9,7 @@ import AppButton from "../Components/UI/ButtonUI";
 import historyIcon from "../../assets/image-assets/history_icon.png"
 import HistoryDrawer from "../../Modules/AdminDashboard/AdminComponents/HistoryDrawer"
 import ConfirmActionDialog from "../Components/UI/ConfirmActionDialog";
+import alertIcon from "../../assets/image-assets/alert-triangle.svg"
 
 /* -------------------- TYPES -------------------- */
 
@@ -40,6 +41,7 @@ export type ScrapItem = {
   note?: string;
   icon?: string;
   scheduledDate?: string; //  parameter for defining which cards are scheduled and which are not in admin inbound
+  holdDays?: number;
 };
 
 type ScrapCardProps = {
@@ -224,72 +226,25 @@ const normalizedStatus = item.status?.trim().toLowerCase();
                   </div>
                 )}
 
-      {mode === "adminInbound" && (
-        <div className="card-actions">
+     {mode === "adminInbound" && (
+  <div
+    className={`hold-alert ${
+      item.holdDays >= 90
+        ? "danger"
+        : item.holdDays >= 80
+        ? "warning"
+        : "info"
+    }`}
+  >
+    <img
+      src={alertIcon}
+      alt="alert"
+      className="hold-alert-icon"
+    />
 
-          {item.scheduledDate ? (() => {
-            const today = new Date();
-            const scheduled = new Date(item.scheduledDate);
-
-            const isSameDay = (
-              d1: Date,
-              d2: Date
-            ) =>
-              d1.getFullYear() === d2.getFullYear() &&
-              d1.getMonth() === d2.getMonth() &&
-              d1.getDate() === d2.getDate();
-
-            const tomorrow = new Date();
-            tomorrow.setDate(today.getDate() + 1);
-
-            const formatDate = (date: Date) => {
-              return date.toLocaleDateString("en-GB", {
-                day: "2-digit",
-                month: "short",
-                year: "numeric",
-              });
-            };
-
-            let label = "Scheduled";
-
-            if (isSameDay(scheduled, today)) {
-              label = `Scheduled for Today (${formatDate(scheduled)})`;
-            } else if (isSameDay(scheduled, tomorrow)) {
-              label = `Scheduled for Tomorrow (${formatDate(scheduled)})`;
-            } else {
-              label = `Scheduled (${formatDate(scheduled)})`;
-            }
-
-            return (
-              <div
-                className="scheduled-text"
-                onClick={() => onUnscheduleClick?.(item)}
-                style={{ cursor: "pointer" }}
-              >
-                {label}
-                <img
-                  src={calendarIcon}
-                  alt="calendar"
-                  className="scheduled-icon"
-                />
-              </div>
-            );
-          })() : (
-            <AppButton
-              variant="filled"
-              sx={{
-                height: "30px",
-                padding: "4px 10px",
-                borderRadius: "2px",
-              }}
-              onClick={()=>openConfirm("Schedule")}
-            >
-              Schedule
-            </AppButton>
-          )}
-        </div>
-      )}
-
+    Material is on hold for more than {item.holdDays} Days
+  </div>
+)}
       {/* -------------------- OUTBOUND NOTE -------------------- */}
 
       {(mode === "outbound" ||
