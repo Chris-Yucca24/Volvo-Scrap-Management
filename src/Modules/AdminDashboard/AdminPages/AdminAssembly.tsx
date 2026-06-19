@@ -184,7 +184,7 @@ export default function AdminAssembly() {
             <div className="scrap-grid">
               {loading
                 ? Array.from({ length: 18 }).map((_, i) => (
-                    <ScrapCardSkeleton key={i} />
+                    <ScrapCardSkeleton key={i} type="scrap" />
                   ))
                 : paginatedAssembly.map((item) => (
                     <ScrapCard

@@ -91,7 +91,7 @@ if (scheduleFilter === "unscheduled") {
         {loading ? (
           Array.from({ length: 18 }).map((_, i) => (
             <div className="admin-inbound-card" key={i}>
-              <ScrapCardSkeleton />
+              <ScrapCardSkeleton type="scrap" />
             </div>
           ))
         ) : filteredData.length === 0 ? (

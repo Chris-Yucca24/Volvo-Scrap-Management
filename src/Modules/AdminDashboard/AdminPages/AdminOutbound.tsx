@@ -44,7 +44,7 @@ export default function AdminOutbound({
         {loading ? (
           Array.from({ length: 18 }).map((_, i) => (
             <div key={i}>
-              <ScrapCardSkeleton />
+              <ScrapCardSkeleton type="scrap"/>
             </div>
           ))
         ) : filteredData.length === 0 ? (

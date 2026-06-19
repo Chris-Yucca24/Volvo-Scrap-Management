@@ -53,17 +53,16 @@ export default function OutboundGrid({ filter }: Props) {
 
         {loading
           ? Array.from({ length: 18 }).map((_, i) => (
-              <ScrapCardSkeleton key={i} />
+              <ScrapCardSkeleton key={i} type="scrap"/>
             ))
           : paginateddata.map((item) => (   
               <ScrapCard
                 key={item.id}
                 item={item}
                 mode="outbound"
-                onClick={(item) => setSelectedItem(item)}
+                onClick={(item) => setSelectedItem(item)} 
               />
             ))}
-
       </div>
 
       {/* Pagination UI */}
