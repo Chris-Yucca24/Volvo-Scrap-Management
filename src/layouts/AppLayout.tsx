@@ -1,42 +1,54 @@
-import { ReactNode } from "react"
-import NavBar from "../Common/DashboardComponents/NavBar"
+import { ReactNode } from "react";
+import NavBar from "../Common/DashboardComponents/NavBar";
+import Sidebar from "../Common/DashboardComponents/Sidebar";
 
 type AppLayoutProps = {
-  header?: ReactNode
-  children: ReactNode
-  showSettings?: boolean
-  onSettingsClick?: () => void
-}
+  header?: ReactNode;
+  children: ReactNode;
+  showSettings?: boolean;
+  onSettingsClick?: () => void;
+};
 
 export default function AppLayout({
   header,
   children,
   showSettings = false,
   onSettingsClick,
-}: AppLayoutProps){
+}: AppLayoutProps) {
   return (
     <div className="app-shell">
-      {/* Global navbar */}
-      <NavBar 
-      showSettings={showSettings}
-      onSettingsClick={onSettingsClick}/>
 
-      {/* Everything below navbar */}
+      {/* Global Navbar */}
+      <NavBar
+        showSettings={showSettings}
+        onSettingsClick={onSettingsClick}
+      />
+
+      {/* Body with Sidebar */}
       <div className="app-body">
 
-        {/* Page level sticky header */}
-        {header && (
-          <header className="page-header">
-            {header}
-          </header>
-        )}
+        {/* Sidebar */}
+        <Sidebar />
 
-        {/* Main page content */}
-        <main className="page-main">
-          {children}
-        </main>
+        {/* Right Content */}
+        <div className="app-content">
+
+          {/* Page level sticky header */}
+          {header && (
+            <header className="page-header">
+              {header}
+            </header>
+          )}
+
+          {/* Main page content */}
+          <main className="page-main">
+            {children}
+          </main>
+
+        </div>
 
       </div>
+
     </div>
-  )
+  );
 }

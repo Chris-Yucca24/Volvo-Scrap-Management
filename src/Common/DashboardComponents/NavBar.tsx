@@ -1,11 +1,12 @@
-import logo from "../../assets/image-assets/volvo_logo.png";
+import logo from "../../assets/image-assets/Volvo-Spread-Word-Mark-Black 1.svg";
 import avatarImg from "../../assets/image-assets/account_icon.png";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import DownArrow from "../../assets/image-assets/Down Arrow.png";
 import SettingsIcon from "../../assets/image-assets/settings_ic.png";
 
+import SearchIcon from "@mui/icons-material/Search";
 
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 type NavBarProps = {
   showSettings?: boolean;
@@ -14,9 +15,9 @@ type NavBarProps = {
 export default function NavBar({
   showSettings = false,
 }: NavBarProps) {
-
   const [showLog, setShowLog] = useState(false);
   const [showSettingsMenu, setShowSettingsMenu] = useState(false);
+
   const navigate = useNavigate();
 
   const handleNavigation = (path: string) => {
@@ -26,16 +27,40 @@ export default function NavBar({
 
   return (
     <div className="navbar">
+      {/* LOGO */}
       <img
         src={logo}
         alt="Volvo Logo"
         className="logo-img"
-        onClick={()=> handleNavigation("/admin")}
+        onClick={() => handleNavigation("/admin")}
       />
 
-      <div className="right-section">
+      {/* CENTER SECTION */}
+      <div className="navbar-center">
+        {/* Greeting */}
+        <div className="greeting-section">
+          <div className="greeting" style={{marginLeft:"50px"}}>
+            Hello, Leonardo!  Welcome back....
+          </div>
 
-        {/* SETTINGS WRAPPER */}
+          
+        </div>
+
+        {/* Search Bar */}
+        <div className="search-bar">
+          <SearchIcon className="search-icon" />
+
+          <input
+            type="text"
+            placeholder="Search..."
+            className="search-input"
+          />
+        </div>
+      </div>
+
+      {/* RIGHT SECTION */}
+      <div className="right-section">
+        {/* SETTINGS */}
         {showSettings && (
           <div className="settings-wrapper">
             <img
@@ -52,10 +77,12 @@ export default function NavBar({
                 <p onClick={() => handleNavigation("/UserManagement")}>
                   User Management
                 </p>
+
                 <p onClick={() => handleNavigation("/MaterialSettings")}>
                   Material Settings
                 </p>
-                 <p onClick={() => handleNavigation("/LevelManagement")}>
+
+                <p onClick={() => handleNavigation("/LevelManagement")}>
                   Log Export
                 </p>
               </div>
@@ -63,9 +90,11 @@ export default function NavBar({
           </div>
         )}
 
-        {/* ACCOUNT SECTION */}
-        <div className="account-widget"
-          onClick={() => setShowLog(!showLog)}>
+        {/* ACCOUNT */}
+        <div
+          className="account-widget"
+          onClick={() => setShowLog(!showLog)}
+        >
           <div className="avatar-box">
             <img
               src={avatarImg}
@@ -75,8 +104,13 @@ export default function NavBar({
           </div>
 
           <div>
-            <div className="name">Leonardo Lian</div>
-            <div className="role">Environmental engineer</div>
+            <div className="name">
+              Leonardo Lian
+            </div>
+
+            <div className="role">
+              Environmental engineer
+            </div>
           </div>
 
           <img
@@ -87,17 +121,17 @@ export default function NavBar({
 
           {showLog && (
             <div className="logout-menu">
-              <p onClick={() =>{
-                setShowLog(false);
-                navigate("/")
-              }
-              }>
+              <p
+                onClick={() => {
+                  setShowLog(false);
+                  navigate("/");
+                }}
+              >
                 Logout
               </p>
             </div>
           )}
         </div>
-
       </div>
     </div>
   );

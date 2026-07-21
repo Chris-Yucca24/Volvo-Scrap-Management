@@ -86,7 +86,15 @@ textarea {
 
 .app-body {
   padding-top: var(--navbar-height);
+  display: flex;
+  gap: 2%;
+  
 }
+.app-content{
+  width: 80%;
+   padding-top: 20px;
+}
+.sidebar
 
 .page-header {
   position: sticky;
@@ -111,7 +119,7 @@ textarea {
 
 body {
   font-family: "Volvo Novum";
-  background: var(--bg-light);
+  background: "#E9ECEF";
   margin: 0;
 }
 
@@ -249,13 +257,67 @@ height: 35vh;
   left: 0;
   right: 0;
   z-index: 1000;
-  background: linear-gradient(90deg, var(--primary-mid), var(--primary-dark));
+  background-color: "#FFFFFF";
   color: white;
-  padding: 10px var(--layout-padding-x) 10px;
+  padding: 10px 30px 10px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.navbar-center {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 40px;
+}
+
+.greeting-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.greeting {
+  font-size: 16px;
+  font-weight: 500;
+  color: #111827;
+}
+
+.greeting-subtitle {
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+.search-bar {
+  width: 380px;
+  height: 42px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  background: #f8fafc;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+}
+
+.search-icon {
+  color: #9ca3af;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  margin-left: 10px;
+  font-size: 14px;
+}
+
+.search-input::placeholder {
+  color: #9ca3af;
 }
 .right-section {
   display: flex;
@@ -298,12 +360,14 @@ height: 35vh;
 
 .name {
   font-size: var(--text-md);
-  font-weight: 400;
+  font-weight: 500;
+   color: #000;
 }
 
 .role {
   font-size: var(--text-sm);
   font-weight: 400;
+  color: #000;
 }
 
 .logo-img {
