@@ -7,6 +7,7 @@ import L1L2L3Management from "./Modules/AdminDashboard/AdminPages/L1L2L3Manageme
 import UserManagement from "./Modules/AdminDashboard/AdminPages/Usermanagement"
 import LevelManagement from "./Modules/AdminDashboard/AdminPages/LevelManagement"
 import MaterialSettings from "./Modules/AdminDashboard/AdminPages/MaterialSettings";
+import AdminOutbound from "./Modules/AdminDashboard/AdminPages/AdminOutbound"
 import FinanceTeam from "./Modules/AdminDashboard/AdminPages/FinanceTeam"
 import LoginPage from "./Modules/LoginMain/Login"
 import AppLayout from "./layouts/AppLayout"
@@ -56,7 +57,9 @@ export default function App() {
             </AppLayout>
           }
         />
+        
       </Routes>
+      
     </BrowserRouter>
   )
 }

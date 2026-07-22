@@ -88,6 +88,9 @@ textarea {
   padding-top: var(--navbar-height);
   display: flex;
   gap: 1%;
+  background-color: #F7F9FC;
+  height: 100vh;
+
   
 }
 .app-content{
@@ -108,6 +111,8 @@ textarea {
 .page-main {
   padding: 20px;
   padding-bottom: 20px;
+  padding-top: 20px;
+  margin-top: 60px;
 }
 
 .page-footer {
@@ -117,7 +122,7 @@ textarea {
 
 body {
   font-family: "Volvo Novum";
-  background: "#E9ECEF";
+  background: "#DFDFDF";
   margin: 0;
 }
 
@@ -272,7 +277,7 @@ body {
   left: 0;
   right: 0;
   z-index: 1000;
-  background-color: "#FFFFFF";
+  background: #FFFFFF ;
   color: white;
   padding: 10px 30px 10px 30px;
   display: flex;
@@ -1813,6 +1818,7 @@ select:invalid {
   width: 73%;
   display: flex;
   flex-direction: column;
+
 }
 .left-log-content {
   display: flex;
@@ -2142,7 +2148,7 @@ select:invalid {
 }
 /* Scrollable Right Panel */
 .right-log-content {
-  height: 71vh;
+  height: 74vh;
   overflow-y: auto;
   padding-right: 4px;
   scrollbar-width: thin;
@@ -2526,10 +2532,11 @@ padding: 10px;
 
 @media screen and (min-width: 768px) and (max-width: 1920px) and (max-height: 1100px) {
   .left-log-content {
-    height: 71.5vh;
+    height: 75vh;
     overflow-y: auto;
     scrollbar-width: none;
   }
+  
 }
 @media screen and (min-width: 1440px) {
   .log-main-image {

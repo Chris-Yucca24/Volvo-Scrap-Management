@@ -15,6 +15,7 @@ import {
 import Delete from "../../../assets/image-assets/bin_delete.png";
 import AppButton from "../../../Common/Components/UI/ButtonUI";
 import backArrow from "../../../assets/image-assets/Back_Arrow.png";
+import AddIcon from "../../../assets/image-assets/Add-icon.svg";
 import AlertModal from "../../../Common/Components/UI/AlertModal";
 import { useState, useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
@@ -147,7 +148,15 @@ export default function UserManagement() {
             className="user-search"
           /> */}
           <AppButton variant="filled">
-            <img src=""></img>
+            <img
+  src={AddIcon}
+  alt="add"
+  style={{
+    width: "12px",
+    height: "12px",
+    marginRight:"10px"
+  }}
+/>
             Add User
           </AppButton>
           <AppButton variant="outlined">

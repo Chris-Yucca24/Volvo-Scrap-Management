@@ -30,18 +30,30 @@ interface MenuItem {
   path?: string;
   icon?: React.ReactNode;
   children?: MenuItem[];
+  defaultOpen?: boolean;
 }
 
 const menuItems: MenuItem[] = [
   {
-    title: "Dashboard",
-    icon: <DashboardIcon />,
-    path: "/dashboard",
-  },
+  title: "Dashboard",
+  icon: <DashboardIcon />,
+  path: "/AdminOutbound",
+ 
+  children: [
+    {
+      title: "Inbound Overview",
+      path: "/AdminInbound",
+    },
+    {
+      title: "Outbound Overview",
+      path: "/Reports",
+    },
+  ],
+},
   {
     title: "Reports",
     icon: <AssignmentIcon />,
-    path: "/reports",
+    path:"/LevelManagement",
   },
   {
     title: "Admin Settings",
@@ -68,16 +80,30 @@ const menuItems: MenuItem[] = [
 const MenuList = ({
   items,
   level = 0,
+  parentTitle,
 }: {
   items: MenuItem[];
   level?: number;
+  parentTitle?: string;
 }) => {
   const navigate = useNavigate();
 
-  const [openItems, setOpenItems] = useState<Record<string, boolean>>(() => {
-    const saved = localStorage.getItem("sidebar-open-items");
-    return saved ? JSON.parse(saved) : {};
+const [openItems, setOpenItems] = useState<Record<string, boolean>>(() => {
+  const saved = localStorage.getItem("sidebar-open-items");
+
+  const defaults: Record<string, boolean> = {};
+
+  items.forEach((item) => {
+    if (item.defaultOpen) {
+      defaults[item.title] = true;
+    }
   });
+
+  return {
+    ...defaults,
+    ...(saved ? JSON.parse(saved) : {}),
+  };
+});
 
   const handleClick = (item: MenuItem) => {
     if (item.children) {
@@ -101,24 +127,51 @@ const MenuList = ({
 
   return (
     <List disablePadding>
-      {items.map((item) => (
+      {items.map((item, index) =>(
         <React.Fragment key={item.title}>
 
           <ListItem disablePadding>
             <ListItemButton
-              onClick={() => handleClick(item)}
-              sx={{
-                pl: 2 + level * 3,
-                borderRadius: "8px",
-                mb: 1,
-                color: "#fff",
+  onClick={() => handleClick(item)}
+  sx={{
+    pl: 2 + level * 3,
+    borderRadius: "8px",
+   mb: parentTitle === "Dashboard" || parentTitle === "Master Data" ? 0 : 1,
+    ml: parentTitle === "Dashboard" ? 2.5 : 0,
+    color: "#fff",
+    position: "relative",
 
-                "&:hover": {
-                  background: "rgba(255,255,255,0.10)",
-                },
-              }}
-            >
+    "&:hover": {
+      background: "rgba(255,255,255,0.10)",
+    },
 
+    // Connector only for Dashboard children
+    ...((parentTitle === "Dashboard" || parentTitle === "Master Data") &&{
+  "&::before": {
+    content: '""',
+    position: "absolute",
+     left: `${20 + (level - 1) * 24}px`,
+    top: index === 0 ? "50%" : 0,
+    bottom: index === items.length - 1 ? "50%" : 0,
+    width: "1px",
+    backgroundColor: "rgba(255,255,255,0.35)",
+  },
+
+  "&::after": {
+    content: '""',
+    position: "absolute",
+     left: `${16 + (level - 1) * 24}px`,
+    top: "50%",
+    width: "6px",
+    height: "6px",
+    borderRadius: "50%",
+    backgroundColor: "transparent",
+    transform: "translateY(-50%)",
+    border:"1px solid #f5f5f5"
+  },
+}),
+  }}
+>
               {item.icon && level === 0 && (
                 <ListItemIcon
                   sx={{
@@ -151,18 +204,26 @@ const MenuList = ({
 
 
           {item.children && (
-            <Collapse
-              in={openItems[item.title]}
-              timeout="auto"
-              unmountOnExit
-            >
-              <MenuList
-                items={item.children}
-                level={level + 1}
-              />
-            </Collapse>
-          )}
-
+  item.title === "Dashboard" ? (
+    <MenuList
+  items={item.children}
+  level={level + 1}
+  parentTitle={item.title}
+/>
+  ) : (
+    <Collapse
+      in={openItems[item.title]}
+      timeout="auto"
+      unmountOnExit
+    >
+      <MenuList
+    items={item.children}
+    level={level + 1}
+    parentTitle={item.title}
+  />
+    </Collapse>
+  )
+)}
         </React.Fragment>
       ))}
     </List>
