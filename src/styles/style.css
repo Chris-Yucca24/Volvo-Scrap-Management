@@ -2184,9 +2184,9 @@ select:invalid {
   transform: rotate(180deg);
 }
 /* kspcb styles starts  */
-.kspcb-data .User-task{
+/* .kspcb-data .User-task{
   margin-top: 40px;
-}
+} */
 .kspcb-data .User-task .right-search-input .user-search{
 border: unset;
 
