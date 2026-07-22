@@ -1171,6 +1171,8 @@ select:invalid {
   align-items: center;
   justify-content: space-between;
 }
+
+
 .left-user-main {
   display: flex;
   gap: 10px;
@@ -2175,6 +2177,67 @@ select:invalid {
 .download-arrow.expanded {
   transform: rotate(180deg);
 }
+/* kspcb styles starts  */
+.kspcb-data .User-task{
+  margin-top: 40px;
+}
+.kspcb-data .User-task .right-search-input .user-search{
+border: unset;
+
+}
+.kspcb-data .User-task .search-input-field .user-search::placeholder{
+color: #ccc;
+}
+.kspcb-data .User-task .search-input-field .user-search:focus{
+  outline: none;
+}
+.kspcb-data .User-task .right-search-input{
+  flex: 1;
+}
+.kspcb-data .User-task .search-input-field{
+  border: 1px solid #ccc;
+  display: flex;
+align-items: center;
+border-radius: 6px;
+padding: 2px;
+}
+.kspcb-data .right-user-main .btn-filter{
+border-radius: 6px;
+}
+
+/* .kspcb-data .add-new-kspcb{
+color: #fff;
+} */
+
+/* kspcb popup start  */
+.input-field-popup-holder{
+display: grid;
+grid-template-columns: repeat(3,1fr);
+gap: 20px;
+}
+.input-field-popup-holder .popup-inputfield{
+
+  margin-bottom: 10px;
+}
+.input-field-popup-holder .popup-inputfield label{
+  margin-bottom: 5px;
+  display: block;
+}
+.input-field-popup-holder .popup-inputfield .MuiInputBase-root {
+padding: 10px;
+}
+
+.kspcb-popup-lastrow{
+  display: flex;
+  align-items: center;
+}
+.kspcb-popup-lastrow .upload-doc{
+
+}
+
+/* kspcb popup end  */
+
+/* kspcb styles end  */
 
 /* view dashboard slider start*/
 .viewdash-slider-page {

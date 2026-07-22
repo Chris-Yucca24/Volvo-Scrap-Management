@@ -54,7 +54,7 @@ const menuItems: MenuItem[] = [
       {
         title: "Master Data",
         children: [
-          { title: "KSPCB Data", path: "/UserManagement" },
+          { title: "KSPCB Data", path: "/AdminKSPCB" },
           { title: "Scrap Part Number", path: "/admin/master/plant" },
           { title: "Source and Destination", path: "/admin/master/supplier" },
           { title: "Slideshow Display Images", path: "/admin/master/user-roles" },

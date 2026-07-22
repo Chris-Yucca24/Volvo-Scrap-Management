@@ -11,6 +11,7 @@ import FinanceTeam from "./Modules/AdminDashboard/AdminPages/FinanceTeam"
 import LoginPage from "./Modules/LoginMain/Login"
 import AppLayout from "./layouts/AppLayout"
 import ViewDashboard from "./Modules/LoginMain/viewDashboard"
+import AdminKSPCB from "./Modules/AdminDashboard/AdminPages/AdminKSPCB"
 
 export default function App() {
   return (
@@ -22,7 +23,15 @@ export default function App() {
         <Route path="/l1" element={<L1L2L3Management />} />
         <Route path="/fin" element={<FinanceTeam />} /> 
         <Route path="/view" element={<ViewDashboard/>}/>       
-        <Route path="/" element={<LoginPage/>}/>       
+        <Route path="/" element={<LoginPage/>}/> 
+          <Route
+          path="/AdminKSPCB"
+          element={
+            <AppLayout showSettings={true}>
+              <AdminKSPCB/>
+            </AppLayout>
+          }
+        />      
         <Route
           path="/usermanagement"
           element={
