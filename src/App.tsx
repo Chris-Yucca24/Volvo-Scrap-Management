@@ -10,6 +10,7 @@ import MaterialSettings from "./Modules/AdminDashboard/AdminPages/MaterialSettin
 import FinanceTeam from "./Modules/AdminDashboard/AdminPages/FinanceTeam"
 import LoginPage from "./Modules/LoginMain/Login"
 import AppLayout from "./layouts/AppLayout"
+import ViewDashboard from "./Modules/LoginMain/viewDashboard"
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="/admin" element={<AdminAssembly />} />
         <Route path="/l1" element={<L1L2L3Management />} />
         <Route path="/fin" element={<FinanceTeam />} /> 
+        <Route path="/view" element={<ViewDashboard/>}/>       
         <Route path="/" element={<LoginPage/>}/>       
         <Route
           path="/usermanagement"
