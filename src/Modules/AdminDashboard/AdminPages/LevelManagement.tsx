@@ -110,9 +110,9 @@ export default function LevelManagement() {
     <Box
       sx={{
 
-        backgroundColor: "#f4f4f4",
+        // backgroundColor: "#f4f4f4",
         display: "flex",
-        justifyContent: "center",
+        
         alignItems: "flex-start",
 
       }}
@@ -124,15 +124,16 @@ export default function LevelManagement() {
             xs: "100%",   // mobile
             sm: "95%",    // tablets
             md: "85%",    // laptops
-            lg: "85%",
-            xl: "80%"   // desktops
+            lg: "95%",
+            xl: "100%",
           },
           display: "flex",
           flexDirection: "column",
+          
         }}
       >
 
-        <Box sx={{ display: "flex", alignItems: "center", mb: 1, justifyContent: "space-between" }}>
+        {/* <Box sx={{ display: "flex", alignItems: "center", mb: 1, justifyContent: "space-between" }}>
           <div className="left-user-main"
             onClick={() => navigate(-1)}
             style={{ cursor: "pointer" }}>
@@ -144,11 +145,11 @@ export default function LevelManagement() {
           <div className="right-sync-content">
             <SyncButton onSync={handleSync} />
           </div>
-        </Box>
+        </Box> */}
         <div className="log-user-main">
           <div className="log-left-main">
             <div className="log-header">
-              <h3>Log Export</h3>
+              <h3>Export Report</h3>
             </div>
             <div className="left-log-content">
               <Paper
@@ -159,6 +160,7 @@ export default function LevelManagement() {
                   borderRadius: "12px",
                   boxSizing: "border-box",
                   width: "100%",
+                   boxShadow: "0px 2px 4px rgba(0,0,0,0.08)",
 
                 }}
               >
@@ -253,6 +255,7 @@ export default function LevelManagement() {
                   borderRadius: "12px",
                   boxSizing: "border-box",
                   width: "100%",
+                   boxShadow: "0px 2px 4px rgba(0,0,0,0.08)",
 
                 }}
               >
@@ -449,6 +452,7 @@ export default function LevelManagement() {
                   borderRadius: 3,
                   boxSizing: "border-box",
                   width: "100%",
+                   boxShadow: "0px 2px 4px rgba(0,0,0,0.08)",
                 }}
               >
                 <div className="grid-main-log">
@@ -533,7 +537,7 @@ export default function LevelManagement() {
                   backgroundColor: "#fff",
                   borderRadius: "10px",
                   padding: "20px",
-
+                   boxShadow: "0px 2px 4px rgba(0,0,0,0.08)",
                   boxSizing: "border-box",
 
                 }}
