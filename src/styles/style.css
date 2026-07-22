@@ -87,11 +87,11 @@ textarea {
 .app-body {
   padding-top: var(--navbar-height);
   display: flex;
-  gap: 2%;
+  gap: 1%;
   
 }
 .app-content{
-  width: 80%;
+  width: 84%;
    padding-top: 20px;
 }
 .sidebar
@@ -108,7 +108,7 @@ textarea {
 }
 
 .page-main {
-  padding: var(--layout-padding-y) var(--layout-padding-x);
+  padding: 20px;
   padding-bottom: 20px;
 }
 

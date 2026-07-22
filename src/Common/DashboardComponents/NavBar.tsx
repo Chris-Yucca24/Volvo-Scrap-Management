@@ -109,7 +109,7 @@ export default function NavBar({
             </div>
 
             <div className="role">
-              Environmental engineer
+             Admin
             </div>
           </div>
 

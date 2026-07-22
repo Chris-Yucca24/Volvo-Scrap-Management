@@ -70,16 +70,20 @@ const getRoleColors = (role: string) => {
 const stickyTopRow = {
   position: "sticky",
   top: 0,
-  backgroundColor: "#fff",
+  backgroundColor: "#F1F5FC",
   zIndex: 3,
-  fontWeight: 500
+  fontWeight: 500,
+  padding: "8px 12px",   // reduce height
+  height: "32px",
 };
 
 const stickySecondRow = {
   position: "sticky",
   top: 45,
   backgroundColor: "#fff",
-  zIndex: 2
+  zIndex: 2,
+  padding: "8px 12px",   // reduce height
+  height: "32px",
 };
 
 export default function UserManagement() {
@@ -121,28 +125,33 @@ export default function UserManagement() {
   }, [users]);
 
   return (
-    <Box>
+    <Box sx={{
+      backgroundColor: "#fff",
+      padding: "10px 20px",
+      boxShadow: "0px 2px 6px rgba(0, 0, 0, 0.08)",
+    }}>
 
       {/* Header */}
       <div className="User-task">
-        <div className="left-user-main"  onClick={()=> navigate(-1)}>
-          <img src={backArrow} alt="back" className="back-main"  />
+        <div className="left-user-main" onClick={() => navigate(-1)}>
+          <img src={backArrow} alt="back" className="back-main" />
           <div className="filter-title">
             <p>User Management</p>
           </div>
         </div>
 
         <div className="right-user-main">
-          <input
+          {/* <input
             type="search"
             placeholder="Search user...."
             className="user-search"
-          />
+          /> */}
           <AppButton variant="filled">
-            Add user
+            <img src=""></img>
+            Add User
           </AppButton>
           <AppButton variant="outlined">
-            Save changes 
+            Save changes
           </AppButton>
         </div>
       </div>
@@ -156,17 +165,24 @@ export default function UserManagement() {
             sm: "65vh",
             md: "70vh",
             lg: "70vh",
-            xl: "76vh"
+            // xl: "74vh"
           },
           overflow: "auto"
         }}
       >
 
-        <Table stickyHeader>
+        <Table stickyHeader
+          sx={{
+            "& .MuiTableCell-root": {
+              padding: "6px 12px",
+              fontSize: "12px",
+              height: "32px"
+            },
+          }}>
 
           <TableHead>
 
-            <TableRow>
+            <TableRow >
               <TableCell sx={stickyTopRow}>Employee ID</TableCell>
               <TableCell sx={stickyTopRow}>User Name</TableCell>
               <TableCell sx={stickyTopRow}>Email ID</TableCell>
@@ -225,7 +241,9 @@ export default function UserManagement() {
                     size="small"
                     sx={{
                       color: "#202A44",
-                      "&.Mui-checked": { color: "#202A44" }
+                      "&.Mui-checked": { color: "#202A44" },
+                      transform: "scale(0.95)", // make it smaller
+                      padding: "2px",
                     }}
                   />
                 </TableCell>
@@ -239,8 +257,11 @@ export default function UserManagement() {
                     size="small"
                     sx={{
                       color: "#202A44",
-                      "&.Mui-checked": { color: "#202A44" }
+                      "&.Mui-checked": { color: "#202A44" },
+                      transform: "scale(0.95)", // make it smaller
+                      padding: "2px",
                     }}
+
                   />
                 </TableCell>
 
@@ -251,7 +272,9 @@ export default function UserManagement() {
                     size="small"
                     sx={{
                       color: "#202A44",
-                      "&.Mui-checked": { color: "#202A44" }
+                      "&.Mui-checked": { color: "#202A44" },
+                      transform: "scale(0.95)", // make it smaller
+                      padding: "2px",
                     }}
                   />
                 </TableCell>
@@ -263,7 +286,9 @@ export default function UserManagement() {
                     size="small"
                     sx={{
                       color: "#202A44",
-                      "&.Mui-checked": { color: "#202A44" }
+                      "&.Mui-checked": { color: "#202A44" },
+                      transform: "scale(0.95)", // make it smaller
+                      padding: "2px",
                     }}
                   />
                 </TableCell>
@@ -275,16 +300,18 @@ export default function UserManagement() {
                     size="small"
                     sx={{
                       color: "#202A44",
-                      "&.Mui-checked": { color: "#202A44" }
+                      "&.Mui-checked": { color: "#202A44" },
+                      transform: "scale(0.95)", // make it smaller
+                      padding: "2px",
                     }}
                   />
                 </TableCell>
 
                 <TableCell align="center">
-                  <IconButton   onClick={() => {
-                        setDeleteId(user.id);
-                        setAlertOpen(true);
-                      }}>
+                  <IconButton onClick={() => {
+                    setDeleteId(user.id);
+                    setAlertOpen(true);
+                  }}>
                     <img
                       src={Delete}
                       alt="delete"
@@ -306,36 +333,36 @@ export default function UserManagement() {
 
       {/* Pagination */}
       <Box
-  sx={{
-    position: "sticky",
-    bottom: 0,
-    background: "#fff",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: "5px 0",
-    borderTop: "1px solid #e0e0e0",
-    zIndex: 5,
-    borderBottomLeftRadius:"10px",
-    borderBottomRightRadius:"10px",
-    boxShadow: "0 -2px 6px rgba(0,0,0,0.05)"
-  }}
->
-  <Pagination
-    count={Math.ceil(users.length / rowsPerPage)}
-    page={page}
-    onChange={(e, value) => setPage(value)}
-  />
-</Box>
-    <AlertModal
-      open={alertOpen}
-      onCancel={() => {
-        setAlertOpen(false);
-        setDeleteId(null);
-      }}
-      onConfirm={confirmDelete}
-      message="You are about to delete this user. Are you sure you want to continue?"
-    />
+        sx={{
+          position: "sticky",
+          bottom: 0,
+          background: "#fff",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: "2px 0",
+          borderTop: "1px solid #e0e0e0",
+          zIndex: 5,
+          borderBottomLeftRadius: "10px",
+          borderBottomRightRadius: "10px",
+          boxShadow: "0 -2px 6px rgba(0,0,0,0.05)"
+        }}
+      >
+        <Pagination
+          count={Math.ceil(users.length / rowsPerPage)}
+          page={page}
+          onChange={(e, value) => setPage(value)}
+        />
+      </Box>
+      <AlertModal
+        open={alertOpen}
+        onCancel={() => {
+          setAlertOpen(false);
+          setDeleteId(null);
+        }}
+        onConfirm={confirmDelete}
+        message="You are about to delete this user. Are you sure you want to continue?"
+      />
     </Box>
   );
 }

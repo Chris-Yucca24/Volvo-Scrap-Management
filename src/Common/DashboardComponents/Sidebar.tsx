@@ -10,6 +10,8 @@ import {
   Collapse,
 } from "@mui/material";
 
+import { useNavigate } from "react-router-dom";
+
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -23,7 +25,14 @@ interface SidebarProps {
   onClose?: () => void;
 }
 
-const menuItems = [
+interface MenuItem {
+  title: string;
+  path?: string;
+  icon?: React.ReactNode;
+  children?: MenuItem[];
+}
+
+const menuItems: MenuItem[] = [
   {
     title: "Dashboard",
     icon: <DashboardIcon />,
@@ -40,20 +49,129 @@ const menuItems = [
     children: [
       {
         title: "User Management",
-        path: "/admin/users",
+        path: "/UserManagement",
       },
       {
         title: "Master Data",
-        path: "/admin/roles",
+        children: [
+          { title: "KSPCB Data", path: "/UserManagement" },
+          { title: "Scrap Part Number", path: "/admin/master/plant" },
+          { title: "Source and Destination", path: "/admin/master/supplier" },
+          { title: "Slideshow Display Images", path: "/admin/master/user-roles" },
+          { title: "Vendor Management", path: "/admin/master/user-roles" },
+        ],
       },
-     
     ],
   },
 ];
 
-const Sidebar: React.FC<SidebarProps> = ({ open = true, onClose }) => {
-  const [adminOpen, setAdminOpen] = useState(false);
+const MenuList = ({
+  items,
+  level = 0,
+}: {
+  items: MenuItem[];
+  level?: number;
+}) => {
+  const navigate = useNavigate();
 
+  const [openItems, setOpenItems] = useState<Record<string, boolean>>(() => {
+    const saved = localStorage.getItem("sidebar-open-items");
+    return saved ? JSON.parse(saved) : {};
+  });
+
+  const handleClick = (item: MenuItem) => {
+    if (item.children) {
+      setOpenItems((prev) => {
+        const updated = {
+          ...prev,
+          [item.title]: !prev[item.title],
+        };
+
+        localStorage.setItem(
+          "sidebar-open-items",
+          JSON.stringify(updated)
+        );
+
+        return updated;
+      });
+    } else if (item.path) {
+      navigate(item.path);
+    }
+  };
+
+  return (
+    <List disablePadding>
+      {items.map((item) => (
+        <React.Fragment key={item.title}>
+
+          <ListItem disablePadding>
+            <ListItemButton
+              onClick={() => handleClick(item)}
+              sx={{
+                pl: 2 + level * 3,
+                borderRadius: "8px",
+                mb: 1,
+                color: "#fff",
+
+                "&:hover": {
+                  background: "rgba(255,255,255,0.10)",
+                },
+              }}
+            >
+
+              {item.icon && level === 0 && (
+                <ListItemIcon
+                  sx={{
+                    color: "#fff",
+                    minWidth: 40,
+                  }}
+                >
+                  {item.icon}
+                </ListItemIcon>
+              )}
+
+              <ListItemText
+                primary={item.title}
+                primaryTypographyProps={{
+                  fontSize: level === 0 ? "14px" : "12px",
+                  fontWeight: level === 0 ? 500 : 400,
+                }}
+              />
+
+
+              {item.children &&
+                (openItems[item.title] ? (
+                  <ExpandLessIcon />
+                ) : (
+                  <ExpandMoreIcon />
+                ))}
+
+            </ListItemButton>
+          </ListItem>
+
+
+          {item.children && (
+            <Collapse
+              in={openItems[item.title]}
+              timeout="auto"
+              unmountOnExit
+            >
+              <MenuList
+                items={item.children}
+                level={level + 1}
+              />
+            </Collapse>
+          )}
+
+        </React.Fragment>
+      ))}
+    </List>
+  );
+};
+const Sidebar: React.FC<SidebarProps> = ({
+  open = true,
+  onClose,
+}) => {
   return (
     <Drawer
       variant="persistent"
@@ -66,7 +184,8 @@ const Sidebar: React.FC<SidebarProps> = ({ open = true, onClose }) => {
         "& .MuiDrawer-paper": {
           width: 260,
           boxSizing: "border-box",
-          background: "linear-gradient(135deg, #00214C 0%, #003274 100%)",
+          background:
+            "linear-gradient(135deg, #00214C 0%, #003274 100%)",
           borderRight: "1px solid #E5E7EB",
           color: "#ffffff",
           top: "64px",
@@ -82,84 +201,20 @@ const Sidebar: React.FC<SidebarProps> = ({ open = true, onClose }) => {
           flexDirection: "column",
         }}
       >
-        <List sx={{ px: 2, pt: 2 }}>
-          {menuItems.map((item) => (
-            <React.Fragment key={item.title}>
-              <ListItem disablePadding>
-                <ListItemButton
-                  onClick={() => {
-                    if (item.children) {
-                      setAdminOpen(!adminOpen);
-                    }
-                  }}
-                  sx={{
-                    borderRadius: "8px",
-                    mb: 1,
-                    color: "#fff",
 
-                    "&:hover": {
-                      background: "rgba(255,255,255,0.10)",
-                    },
-                  }}
-                >
-                  <ListItemIcon
-                    sx={{
-                      color: "#fff",
-                      minWidth: 40,
-                    }}
-                  >
-                    {item.icon}
-                  </ListItemIcon>
+        {/* Sidebar Menu */}
+        <Box
+          sx={{
+            flex: 1,
+            px: 2,
+            pt: 2,
+            pb: 12,
+            overflowY: "auto",
+          }}
+        >
+          <MenuList items={menuItems} />
+        </Box>
 
-                  <ListItemText
-                    primary={item.title}
-                    primaryTypographyProps={{
-                      fontSize: "14px",
-                      fontWeight: 400,
-                    }}
-                  />
-
-                  {item.children &&
-                    (adminOpen ? (
-                      <ExpandLessIcon />
-                    ) : (
-                      <ExpandMoreIcon />
-                    ))}
-                </ListItemButton>
-              </ListItem>
-
-              {item.children && (
-                <Collapse in={adminOpen} timeout="auto" unmountOnExit>
-                  <List disablePadding>
-                    {item.children.map((child) => (
-                      <ListItem key={child.title} disablePadding>
-                        <ListItemButton
-                          sx={{
-                            pl: 7,
-                            py: 0.75,
-                            color: "#D8E6F2",
-
-                            "&:hover": {
-                              background: "rgba(255,255,255,0.08)",
-                            },
-                          }}
-                        >
-                          <ListItemText
-                            primary={child.title}
-                            primaryTypographyProps={{
-                              fontSize: "13px",
-                              fontWeight: 400,
-                            }}
-                          />
-                        </ListItemButton>
-                      </ListItem>
-                    ))}
-                  </List>
-                </Collapse>
-              )}
-            </React.Fragment>
-          ))}
-        </List>
 
         {/* Watermark */}
         <Box
@@ -176,6 +231,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open = true, onClose }) => {
             pointerEvents: "none",
           }}
         />
+
       </Box>
     </Drawer>
   );
