@@ -18,33 +18,34 @@ import AlertModal from "../../../Common/Components/UI/AlertModal";
 import filterIcon from "../../../assets/image-assets/filter.png";
 import { useState, useEffect } from "react";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import { useNavigate } from "react-router-dom";
-import PopupWithTextarea from "../../../Common/Components/UI/PopupWithTextarea";
+// import { useNavigate } from "react-router-dom";
 import Popup from "../../../Common/Components/UI/popup";
 
 type User = {
   id: number;
-  name: string;
-  email: string;
-  role: string;
-  assembly: boolean;
-  inbound: boolean;
-  lastupdateddate: string;
+  wasteDescription: string;
+  userName: string;
+  DisposalMethod: string;
+  wasteType: string;
+  status:string;
+  lastupdateddate: Date;
 };
 
-const roles = ["Super Admin", "Admin", "Engineer", "Sentry"];
-
+const wasteTypestatus = ["Non-Hazardous" , "Hazardous"];
+const statusActivities = ["active", "inactive"];
 const generateUsers = (count: number): User[] => {
   return Array.from({ length: count }, (_, i) => {
-    const id = 3200 + i;
-    const role = roles[Math.floor(Math.random() * roles.length)];
-
+    const id = 1 + i;
+    const wasteType = wasteTypestatus[Math.floor(Math.random() * wasteTypestatus.length)];
+    const status = statusActivities[Math.floor(Math.random() * statusActivities.length)];
     return {
       id,
-      name: `User ${i + 1}`,
-      email: `user${i + 1}@volvo.com`,
-      role,
+      wasteDescription: `steel scrap ${i + 1}`,
+      userName: `user ${i + 1}`,
+      DisposalMethod: `recycle`,
+      wasteType,
       lastupdateddate: getRandomDate(),
+      status
     };
   });
 };
@@ -53,42 +54,41 @@ const generateUsers = (count: number): User[] => {
 function getRandomDate() {
   const start = new Date(2020, 0, 1); // Jan 1, 2020
   const end = new Date(); // today
-
   return new Date(
     start.getTime() + Math.random() * (end.getTime() - start.getTime()),
   );
 }
 
-const getRoleColors = (role: string) => {
-  switch (role) {
-    case "Super Admin":
+const getWasteType = (wasteType: string) => {
+  switch (wasteType) {
+    case "Non-Hazardous":
       return { bg: "#E1F8E0", text: "#258C20" };
-    case "Admin":
-      return { bg: "#E1F8E0", text: "#258C20" };
-    case "Engineer":
-      return { bg: "#DBE5FF", text: "#274799" };
-    case "Sentry":
-      return { bg: "#EDEDED", text: "#000000" };
+    case "Hazardous":
+      return { bg: "#FFD8D9", text: "#FB3B40" };
+ 
     default:
       return { bg: "#e0e0e0", text: "#000" };
   }
 };
 
+
+
+const getStatus = (status: string) => {
+  switch (status) {
+    case "active":
+      return { bg: "#E1F8E0", text: "#258C20" };
+    case "inactive":
+      return { bg: "#DBDBDB", text: "#4A4A4A" };
+    default:
+      return { bg: "#e0e0e0", text: "#000" };
+  }
+};
 const stickyTopRow = {
   position: "sticky",
   top: 0,
   backgroundColor: "#F1F5FC",
   zIndex: 3,
   fontWeight: 500,
-  padding: "8px 12px", // reduce height
-  height: "32px",
-};
-
-const stickySecondRow = {
-  position: "sticky",
-  top: 45,
-  backgroundColor: "#fff",
-  zIndex: 2,
   padding: "8px 12px", // reduce height
   height: "32px",
 };
@@ -100,13 +100,6 @@ export default function UserManagement() {
   const [page, setPage] = useState(1);
   const rowsPerPage = 10;
 
-  const handleCheckboxChange = (id: number, field: keyof User) => {
-    setUsers((prev) =>
-      prev.map((user) =>
-        user.id === id ? { ...user, [field]: !user[field] } : user,
-      ),
-    );
-  };
   const [deleteId, setDeleteId] = useState<number | null>(null);
   const [alertOpen, setAlertOpen] = useState(false);
   const handleDelete = (id: number) => {
@@ -120,7 +113,7 @@ export default function UserManagement() {
     setDeleteId(null);
   };
 
-  const navigate = useNavigate();
+  //   const navigate = useNavigate();
 
   const startIndex = (page - 1) * rowsPerPage;
   const paginatedUsers = users.slice(startIndex, startIndex + rowsPerPage);
@@ -164,10 +157,6 @@ export default function UserManagement() {
                 </div>
               </div>
 
-              {/* <AppButton variant="filled">
-            <img src=""></img>
-            Add User
-          </AppButton> */}
               <button className="btn-filter">
                 <img src={filterIcon} className="filter-icon" alt="" />
                 Filter
@@ -244,29 +233,35 @@ export default function UserManagement() {
                 {paginatedUsers.map((user) => (
                   <TableRow key={user.id} hover>
                     <TableCell>{user.id}</TableCell>
-                    <TableCell>{user.name}</TableCell>
+                    <TableCell>{user.wasteDescription}</TableCell>
                     <TableCell>
                       {" "}
                       <Chip
-                        label={user.role}
+                        label={user.wasteType}
                         size="small"
                         sx={{
-                          backgroundColor: getRoleColors(user.role).bg,
-                          color: getRoleColors(user.role).text,
+                          backgroundColor: getWasteType(user.wasteType).bg,
+                          color: getWasteType(user.wasteType).text,
                           fontWeight: 400,
                           borderRadius: "4px",
                         }}
                       />
                     </TableCell>
 
-                    <TableCell align="center">{user.email}</TableCell>
+                    <TableCell align="center">{user.DisposalMethod}</TableCell>
 
                     <TableCell align="center">
-                      <Chip label="active" size="small" />
+                      <Chip label={user.status} size="small"
+                        sx={{
+                          backgroundColor: getStatus(user.status).bg,
+                          color: getStatus(user.status).text,
+                          fontWeight: 400,
+                          borderRadius: "4px", }}
+                      />
                     </TableCell>
 
                     <TableCell align="center">
-                      <p> {user.name}</p>
+                      <p> {user.wasteDescription}</p>
                     </TableCell>
 
                     <TableCell align="center">
@@ -275,14 +270,19 @@ export default function UserManagement() {
                       </p>
                     </TableCell>
 
-                    <TableCell align="center">
+                    <TableCell align="center" className="kspcb-action-col">
+                      <EditOutlinedIcon
+                        sx={{
+                          width: "20px",
+                          verticalAlign:"middle",
+                        }}
+                      />
                       <IconButton
                         onClick={() => {
                           setDeleteId(user.id);
                           setAlertOpen(true);
                         }}
                       >
-                        <EditOutlinedIcon />
                         <img
                           src={Delete}
                           alt="delete"

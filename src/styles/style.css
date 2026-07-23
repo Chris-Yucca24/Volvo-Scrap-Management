@@ -2187,6 +2187,7 @@ select:invalid {
 .kspcb-data .User-task{
   margin-top: 40px;
 }
+
 .kspcb-data .User-task .right-search-input .user-search{
 border: unset;
 
@@ -2211,9 +2212,6 @@ padding: 2px;
 border-radius: 6px;
 }
 
-/* .kspcb-data .add-new-kspcb{
-color: #fff;
-} */
 
 /* kspcb popup start  */
 .input-field-popup-holder{
