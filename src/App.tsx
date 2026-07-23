@@ -7,7 +7,8 @@ import L1L2L3Management from "./Modules/AdminDashboard/AdminPages/L1L2L3Manageme
 import UserManagement from "./Modules/AdminDashboard/AdminPages/Usermanagement"
 import LevelManagement from "./Modules/AdminDashboard/AdminPages/LevelManagement"
 import MaterialSettings from "./Modules/AdminDashboard/AdminPages/MaterialSettings";
-import AdminOutbound from "./Modules/AdminDashboard/AdminPages/AdminOutbound"
+import AdminOutbound from "./Modules/AdminDashboard/AdminPages/AdminOutbound";
+import AdminInbound from "./Modules/AdminDashboard/AdminPages/AdminInbound"
 import FinanceTeam from "./Modules/AdminDashboard/AdminPages/FinanceTeam"
 import LoginPage from "./Modules/LoginMain/Login"
 import AppLayout from "./layouts/AppLayout"
@@ -17,6 +18,7 @@ import AdminScrapPart from "./Modules/AdminDashboard/AdminPages/AdminScrapPart"
 import AdminSourceDestination from "./Modules/AdminDashboard/AdminPages/AdminSourceDestination"
 import AdminSlideDisplay from "./Modules/AdminDashboard/AdminPages/AdminSlideDisplay"
 import AdminVendor from "./Modules/AdminDashboard/AdminPages/AdminVendor"
+
 
 export default function App() {
   return (
@@ -58,6 +60,22 @@ export default function App() {
           element={
             <AppLayout showSettings={true}>
               <AdminSlideDisplay/>
+            </AppLayout>
+          }
+        />   
+        <Route
+          path="/AdminOutbound"
+          element={
+            <AppLayout showSettings={true}>
+              <AdminOutbound data={[]}/>
+            </AppLayout>
+          }
+        />   
+        <Route
+          path="/AdminInbound"
+          element={
+            <AppLayout showSettings={true}>
+              <AdminInbound data={[]}/>
             </AppLayout>
           }
         />       

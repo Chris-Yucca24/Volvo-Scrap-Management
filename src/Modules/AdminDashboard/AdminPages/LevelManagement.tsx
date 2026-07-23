@@ -91,12 +91,7 @@ export default function LevelManagement() {
       partNumber: "SCRP120008",
       description: "Iron Pipe Waste",
     },
-    {
-      id: 11,
-      category: "Category - 1",
-      partNumber: "SCRP120008",
-      description: "Iron Pipe Waste",
-    },
+   
   ];
 
   const [page, setPage] = useState(1);
@@ -198,7 +193,7 @@ export default function LevelManagement() {
 
                     }}
                   >
-                    <Box sx={{ display: "flex", alignItems: "center", fontSize: "14px" }}>
+                    <Box sx={{ display: "flex", alignItems: "center", fontSize: "13px" }}>
                       <FormControlLabel
                         value="all"
                         control={<Radio size="small" sx={{
@@ -483,7 +478,8 @@ export default function LevelManagement() {
                     boxSizing: "border-box",
                     width: "100%",
                     // height: "71vh",
-                    overflowY: "auto"
+                    overflowY: "auto",
+                    boxShadow: "0px 2px 4px rgba(0,0,0,0.08)",
                   }}
                 >
                   <div className="download-history-main">

@@ -1,7 +1,8 @@
 import logo from "../../assets/image-assets/Volvo-Spread-Word-Mark-Black 1.svg";
 import avatarImg from "../../assets/image-assets/account_icon.png";
 import DownArrow from "../../assets/image-assets/Down Arrow.png";
-import SettingsIcon from "../../assets/image-assets/settings_ic.png";
+import NotificationIcon from "../../assets/image-assets/Notification_icon.svg";
+import CalendarIcon from "../../assets/image-assets/Calender-icon.svg";
 
 import SearchIcon from "@mui/icons-material/Search";
 
@@ -27,112 +28,124 @@ export default function NavBar({
 
   return (
     <div className="navbar">
-      {/* LOGO */}
+  {/* LEFT */}
+  <div className="navbar-left">
+    <div className="logo-sect">
+    <img
+      src={logo}
+      alt="Volvo Logo"
+      className="logo-img"
+      onClick={() => handleNavigation("/admin")}
+    />
+    </div>
+
+     <div className="greeting">
+      Hii, John! Welcome back....
+    </div>
+    
+  </div>
+
+  {/* CENTER */}
+  <div className="navbar-center">
+   
+
+    <div className="search-bar">
+      <SearchIcon className="search-icon" />
+
+      <input
+        type="text"
+        placeholder="Search..."
+        className="search-input"
+      />
+    </div>
+  </div>
+
+  {/* RIGHT */}
+  <div className="right-section">
+    <div className="date-range">
       <img
-        src={logo}
-        alt="Volvo Logo"
-        className="logo-img"
-        onClick={() => handleNavigation("/admin")}
+        src={CalendarIcon}
+        alt="calendar"
+        className="calendar-icon"
       />
 
-      {/* CENTER SECTION */}
-      <div className="navbar-center">
-        {/* Greeting */}
-        <div className="greeting-section">
-          <div className="greeting" style={{marginLeft:"50px"}}>
-            Hello, Leonardo!  Welcome back....
-          </div>
+      <span>
+        01 - June - 2026 to 13 - June - 2026
+      </span>
 
-          
-        </div>
+      <img
+        src={DownArrow}
+        alt="dropdown"
+        className="dropdown-arrow"
+      />
+    </div>
 
-        {/* Search Bar */}
-        <div className="search-bar">
-          <SearchIcon className="search-icon" />
+    {showSettings && (
+      <div className="settings-wrapper">
+        <img
+          src={NotificationIcon}
+          alt="notification"
+          className="settings-icon"
+          onClick={() =>
+            setShowSettingsMenu(!showSettingsMenu)
+          }
+        />
 
-          <input
-            type="text"
-            placeholder="Search..."
-            className="search-input"
-          />
-        </div>
-      </div>
+        {showSettingsMenu && (
+          <div className="settings-dropdown">
+            <p onClick={() => handleNavigation("/UserManagement")}>
+              User Management
+            </p>
 
-      {/* RIGHT SECTION */}
-      <div className="right-section">
-        {/* SETTINGS */}
-        {showSettings && (
-          <div className="settings-wrapper">
-            <img
-              src={SettingsIcon}
-              alt="settings"
-              className="settings-icon"
-              onClick={() =>
-                setShowSettingsMenu(!showSettingsMenu)
-              }
-            />
+            <p onClick={() => handleNavigation("/MaterialSettings")}>
+              Material Settings
+            </p>
 
-            {showSettingsMenu && (
-              <div className="settings-dropdown">
-                <p onClick={() => handleNavigation("/UserManagement")}>
-                  User Management
-                </p>
-
-                <p onClick={() => handleNavigation("/MaterialSettings")}>
-                  Material Settings
-                </p>
-
-                <p onClick={() => handleNavigation("/LevelManagement")}>
-                  Log Export
-                </p>
-              </div>
-            )}
+            <p onClick={() => handleNavigation("/LevelManagement")}>
+              Log Export
+            </p>
           </div>
         )}
-
-        {/* ACCOUNT */}
-        <div
-          className="account-widget"
-          onClick={() => setShowLog(!showLog)}
-        >
-          <div className="avatar-box">
-            <img
-              src={avatarImg}
-              alt="User Avatar"
-              className="avatar-img"
-            />
-          </div>
-
-          <div>
-            <div className="name">
-              Leonardo Lian
-            </div>
-
-            <div className="role">
-             Admin
-            </div>
-          </div>
-
-          <img
-            src={DownArrow}
-            alt="dropdown"
-            className="dropdown-arrow"
-          />
-
-          {showLog && (
-            <div className="logout-menu">
-              <p
-                onClick={() => {
-                  setShowLog(false);
-                  navigate("/");
-                }}
-              >
-                Logout
-              </p>
-            </div>
-          )}
-        </div>
       </div>
+    )}
+
+    <div
+      className="account-widget"
+      onClick={() => setShowLog(!showLog)}
+    >
+      <div className="avatar-box">
+        <img
+          src={avatarImg}
+          alt="avatar"
+          className="avatar-img"
+        />
+      </div>
+
+      <div className="account-info">
+        <div className="name">John Doe </div>
+        <div className="role">Admin</div>
+      </div>
+
+      <img
+        src={DownArrow}
+        alt="dropdown"
+        className="dropdown-arrow"
+      />
+
+      {showLog && (
+        <div className="logout-menu">
+          <p
+            onClick={() => {
+              setShowLog(false);
+              navigate("/");
+            }}
+          >
+            Logout
+          </p>
+        </div>
+      )}
     </div>
+  </div>
+</div>
   );
 }

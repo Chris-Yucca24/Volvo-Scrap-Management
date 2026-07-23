@@ -74,7 +74,7 @@ const stickyTopRow = {
   backgroundColor: "#F1F5FC",
   zIndex: 3,
   fontWeight: 500,
-  padding: "8px 12px",   // reduce height
+  padding: "8px 12px",  
   height: "32px",
 };
 
@@ -83,7 +83,7 @@ const stickySecondRow = {
   top: 45,
   backgroundColor: "#fff",
   zIndex: 2,
-  padding: "8px 12px",   // reduce height
+  padding: "8px 12px", 
   height: "32px",
 };
 
@@ -282,7 +282,7 @@ export default function UserManagement() {
                     sx={{
                       color: "#202A44",
                       "&.Mui-checked": { color: "#202A44" },
-                      transform: "scale(0.95)", // make it smaller
+                      transform: "scale(0.95)",
                       padding: "2px",
                     }}
                   />
@@ -296,7 +296,7 @@ export default function UserManagement() {
                     sx={{
                       color: "#202A44",
                       "&.Mui-checked": { color: "#202A44" },
-                      transform: "scale(0.95)", // make it smaller
+                      transform: "scale(0.95)", 
                       padding: "2px",
                     }}
                   />
@@ -310,7 +310,7 @@ export default function UserManagement() {
                     sx={{
                       color: "#202A44",
                       "&.Mui-checked": { color: "#202A44" },
-                      transform: "scale(0.95)", // make it smaller
+                      transform: "scale(0.95)", 
                       padding: "2px",
                     }}
                   />
