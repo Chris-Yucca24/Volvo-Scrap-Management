@@ -85,15 +85,7 @@ export default function Popup({ open, message, onClose, onConfirm }: Props) {
         </div>
 
         <div className="kspcb-popup-lastrow">
-          {/* upload document field  */}
-          <div className="upload-doc">
-            <label htmlFor="">Upload Document *</label>
-            <p>Click to upload or Drag and drop</p>
-            <TextField
-              placeholder="
-     PDF, PNG, JPEG (Max 5mb)"
-            />
-          </div>
+      
           {/* radio btn  */}
           <FormControl>
             <FormLabel id={""}>Status</FormLabel>

@@ -1191,7 +1191,7 @@ select:invalid {
   border-radius: 4px;
   border: 1px solid #3e3e3e;
 }
-.right-user-main {
+.right-btns-container {
   display: flex;
   gap: 10px;
 }
@@ -2183,36 +2183,9 @@ select:invalid {
 .download-arrow.expanded {
   transform: rotate(180deg);
 }
-/* kspcb styles starts  */
-/* .kspcb-data .User-task{
-  margin-top: 40px;
-<<<<<<< HEAD
-}
 
-=======
-} */
->>>>>>> 0ef85666a78bbf8892e17d7c240b1eb4edbbdadb
-.kspcb-data .User-task .right-search-input .user-search{
-border: unset;
 
-}
-.kspcb-data .User-task .search-input-field .user-search::placeholder{
-color: #ccc;
-}
-.kspcb-data .User-task .search-input-field .user-search:focus{
-  outline: none;
-}
-.kspcb-data .User-task .right-search-input{
-  flex: 1;
-}
-.kspcb-data .User-task .search-input-field{
-  border: 1px solid #ccc;
-  display: flex;
-align-items: center;
-border-radius: 6px;
-padding: 2px;
-}
-.kspcb-data .right-user-main .btn-filter{
+.kspcb-data .right-btns-container .btn-filter{
 border-radius: 6px;
 }
 
@@ -2239,13 +2212,38 @@ padding: 10px;
   display: flex;
   align-items: center;
 }
-.kspcb-popup-lastrow .upload-doc{
-
-}
 
 /* kspcb popup end  */
 
 /* kspcb styles end  */
+
+
+
+/* common search styles */
+ .search-input .user-search{
+border: unset;
+
+}
+ .search-input-field .user-search::placeholder{
+color: #ccc;
+}
+ .search-input-field .user-search:focus{
+  outline: none;
+}
+.search-input{
+  flex: 1;
+}
+.search-input-field{
+  border: 1px solid #ccc;
+  display: flex;
+align-items: center;
+border-radius: 6px;
+padding: 2px;
+}
+/* common search style end */
+
+
+
 
 /* view dashboard slider start*/
 .viewdash-slider-page {

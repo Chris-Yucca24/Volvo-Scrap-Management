@@ -13,13 +13,12 @@ import {
 
 import Delete from "../../../assets/image-assets/bin_delete.png";
 import AppButton from "../../../Common/Components/UI/ButtonUI";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import AlertModal from "../../../Common/Components/UI/AlertModal";
 import filterIcon from "../../../assets/image-assets/filter.png";
 import { useState, useEffect } from "react";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-// import { useNavigate } from "react-router-dom";
 import Popup from "../../../Common/Components/UI/popup";
+import SearchField from "../../../Common/DashboardComponents/searchField";
 
 type User = {
   id: number;
@@ -27,25 +26,28 @@ type User = {
   userName: string;
   DisposalMethod: string;
   wasteType: string;
-  status:string;
+  status: string;
   lastupdateddate: Date;
 };
 
-const wasteTypestatus = ["Non-Hazardous" , "Hazardous"];
+const wasteTypestatus = ["Non-Hazardous", "Hazardous"];
 const statusActivities = ["active", "inactive"];
+
 const generateUsers = (count: number): User[] => {
   return Array.from({ length: count }, (_, i) => {
     const id = 1 + i;
-    const wasteType = wasteTypestatus[Math.floor(Math.random() * wasteTypestatus.length)];
-    const status = statusActivities[Math.floor(Math.random() * statusActivities.length)];
+    const wasteType =
+      wasteTypestatus[Math.floor(Math.random() * wasteTypestatus.length)];
+    const status =
+      statusActivities[Math.floor(Math.random() * statusActivities.length)];
     return {
       id,
-      wasteDescription: `steel scrap ${i + 1}`,
-      userName: `user ${i + 1}`,
-      DisposalMethod: `recycle`,
+      wasteDescription: `Steel Scrap ${i + 1}`,
+      userName: `User ${i + 1}`,
+      DisposalMethod: `Recycle`,
       wasteType,
       lastupdateddate: getRandomDate(),
-      status
+      status,
     };
   });
 };
@@ -65,13 +67,11 @@ const getWasteType = (wasteType: string) => {
       return { bg: "#E1F8E0", text: "#258C20" };
     case "Hazardous":
       return { bg: "#FFD8D9", text: "#FB3B40" };
- 
+
     default:
       return { bg: "#e0e0e0", text: "#000" };
   }
 };
-
-
 
 const getStatus = (status: string) => {
   switch (status) {
@@ -83,6 +83,9 @@ const getStatus = (status: string) => {
       return { bg: "#e0e0e0", text: "#000" };
   }
 };
+
+
+
 const stickyTopRow = {
   position: "sticky",
   top: 0,
@@ -145,17 +148,8 @@ export default function UserManagement() {
               </div>
             </div>
 
-            <div className="right-user-main">
-              <div className="right-search-input">
-                <div className="search-input-field">
-                  <input
-                    type="search"
-                    placeholder="Search"
-                    className="user-search"
-                  />
-                  <SearchOutlinedIcon style={{ color: "#ccc" }} />
-                </div>
-              </div>
+            <div className="right-btns-container">
+              <SearchField />
 
               <button className="btn-filter">
                 <img src={filterIcon} className="filter-icon" alt="" />
@@ -251,12 +245,15 @@ export default function UserManagement() {
                     <TableCell align="center">{user.DisposalMethod}</TableCell>
 
                     <TableCell align="center">
-                      <Chip label={user.status} size="small"
+                      <Chip
+                        label={user.status}
+                        size="small"
                         sx={{
                           backgroundColor: getStatus(user.status).bg,
                           color: getStatus(user.status).text,
                           fontWeight: 400,
-                          borderRadius: "4px", }}
+                          borderRadius: "4px",
+                        }}
                       />
                     </TableCell>
 
@@ -274,7 +271,7 @@ export default function UserManagement() {
                       <EditOutlinedIcon
                         sx={{
                           width: "20px",
-                          verticalAlign:"middle",
+                          verticalAlign: "middle",
                         }}
                       />
                       <IconButton
