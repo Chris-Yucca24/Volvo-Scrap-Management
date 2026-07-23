@@ -17,6 +17,8 @@ import AssignmentIcon from "@mui/icons-material/Assignment";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import UserIcon from "../../assets/image-assets/User-Icon.svg"
+import MasterIcon from "../../assets/image-assets/Master-icon.svg"
 
 import sidebarWatermark from "../../assets/image-assets/VOLVO_WATERMARK.svg";
 
@@ -35,25 +37,25 @@ interface MenuItem {
 
 const menuItems: MenuItem[] = [
   {
-  title: "Dashboard",
-  icon: <DashboardIcon />,
-  path: "/AdminOutbound",
- 
-  children: [
-    {
-      title: "Inbound Overview",
-      path: "/AdminInbound",
-    },
-    {
-      title: "Outbound Overview",
-      path: "/Reports",
-    },
-  ],
-},
+    title: "Dashboard",
+    icon: <DashboardIcon />,
+    path: "/AdminOutbound",
+
+    children: [
+      {
+        title: "Inbound Overview",
+        path: "/AdminInbound",
+      },
+      {
+        title: "Outbound Overview",
+        path: "/AdminOutbound",
+      },
+    ],
+  },
   {
     title: "Reports",
     icon: <AssignmentIcon />,
-    path:"/LevelManagement",
+    path: "/LevelManagement",
   },
   {
     title: "Admin Settings",
@@ -61,10 +63,29 @@ const menuItems: MenuItem[] = [
     children: [
       {
         title: "User Management",
+        icon: (
+          <img
+            src={UserIcon}
+            alt="User"
+            style={{
+              width: 18,
+              height: 18,
+            }}
+          />
+        ),
         path: "/UserManagement",
+
       },
       {
         title: "Master Data",
+        icon: <img
+          src={MasterIcon}
+          alt="User"
+          style={{
+            width: 18,
+            height: 18,
+          }}
+        />,
         children: [
           { title: "KSPCB Data", path: "/AdminKSPCB" },
           { title: "Scrap Part Number", path: "/AdminScrapPart" },
@@ -88,22 +109,22 @@ const MenuList = ({
 }) => {
   const navigate = useNavigate();
 
-const [openItems, setOpenItems] = useState<Record<string, boolean>>(() => {
-  const saved = localStorage.getItem("sidebar-open-items");
+  const [openItems, setOpenItems] = useState<Record<string, boolean>>(() => {
+    const saved = localStorage.getItem("sidebar-open-items");
 
-  const defaults: Record<string, boolean> = {};
+    const defaults: Record<string, boolean> = {};
 
-  items.forEach((item) => {
-    if (item.defaultOpen) {
-      defaults[item.title] = true;
-    }
+    items.forEach((item) => {
+      if (item.defaultOpen) {
+        defaults[item.title] = true;
+      }
+    });
+
+    return {
+      ...defaults,
+      ...(saved ? JSON.parse(saved) : {}),
+    };
   });
-
-  return {
-    ...defaults,
-    ...(saved ? JSON.parse(saved) : {}),
-  };
-});
 
   const handleClick = (item: MenuItem) => {
     if (item.children) {
@@ -127,56 +148,57 @@ const [openItems, setOpenItems] = useState<Record<string, boolean>>(() => {
 
   return (
     <List disablePadding>
-      {items.map((item, index) =>(
+      {items.map((item, index) => (
         <React.Fragment key={item.title}>
 
           <ListItem disablePadding>
             <ListItemButton
-  onClick={() => handleClick(item)}
-  sx={{
-    pl: 2 + level * 3,
-    borderRadius: "8px",
-   mb: parentTitle === "Dashboard" || parentTitle === "Master Data" ? 0 : 1,
-    ml: parentTitle === "Dashboard" ? 2.5 : 0,
-    color: "#fff",
-    position: "relative",
+              onClick={() => handleClick(item)}
+              sx={{
+                pl: 2 + level * 3,
+                borderRadius: "8px",
+                mb: parentTitle === "Dashboard" || parentTitle === "Master Data" ? 0 : 1,
+                ml: parentTitle === "Dashboard" ? 2.5 : 0,
+                color: "#fff",
+                position: "relative",
 
-    "&:hover": {
-      background: "rgba(255,255,255,0.10)",
-    },
+                "&:hover": {
+                  background: "rgba(255,255,255,0.10)",
+                },
 
-    // Connector only for Dashboard children
-    ...((parentTitle === "Dashboard" || parentTitle === "Master Data") &&{
-  "&::before": {
-    content: '""',
-    position: "absolute",
-     left: `${20 + (level - 1) * 24}px`,
-    top: index === 0 ? "50%" : 0,
-    bottom: index === items.length - 1 ? "50%" : 0,
-    width: "1px",
-    backgroundColor: "rgba(255,255,255,0.35)",
-  },
+                // Connector only for Dashboard children
+                ...((parentTitle === "Dashboard" || parentTitle === "Master Data") && {
+                  "&::before": {
+                    content: '""',
+                    position: "absolute",
+                    left: `${20 + (level - 1) * 24}px`,
+                    top: index === 0 ? "50%" : 0,
+                    bottom: index === items.length - 1 ? "50%" : 0,
+                    width: "1px",
+                    backgroundColor: "rgba(255,255,255,0.35)",
+                  },
 
-  "&::after": {
-    content: '""',
-    position: "absolute",
-     left: `${16 + (level - 1) * 24}px`,
-    top: "50%",
-    width: "6px",
-    height: "6px",
-    borderRadius: "50%",
-    backgroundColor: "transparent",
-    transform: "translateY(-50%)",
-    border:"1px solid #f5f5f5"
-  },
-}),
-  }}
->
-              {item.icon && level === 0 && (
+                  "&::after": {
+                    content: '""',
+                    position: "absolute",
+                    left: `${16 + (level - 1) * 24}px`,
+                    top: "50%",
+                    width: "6px",
+                    height: "6px",
+                    borderRadius: "50%",
+                    backgroundColor: "transparent",
+                    transform: "translateY(-50%)",
+                    border: "1px solid #f5f5f5"
+                  },
+                }),
+              }}
+            >
+              {item.icon && (
                 <ListItemIcon
                   sx={{
                     color: "#fff",
-                    minWidth: 40,
+                    minWidth: 28,
+                    mr: 0.7,
                   }}
                 >
                   {item.icon}
@@ -204,26 +226,26 @@ const [openItems, setOpenItems] = useState<Record<string, boolean>>(() => {
 
 
           {item.children && (
-  item.title === "Dashboard" ? (
-    <MenuList
-  items={item.children}
-  level={level + 1}
-  parentTitle={item.title}
-/>
-  ) : (
-    <Collapse
-      in={openItems[item.title]}
-      timeout="auto"
-      unmountOnExit
-    >
-      <MenuList
-    items={item.children}
-    level={level + 1}
-    parentTitle={item.title}
-  />
-    </Collapse>
-  )
-)}
+            item.title === "Dashboard" ? (
+              <MenuList
+                items={item.children}
+                level={level + 1}
+                parentTitle={item.title}
+              />
+            ) : (
+              <Collapse
+                in={openItems[item.title]}
+                timeout="auto"
+                unmountOnExit
+              >
+                <MenuList
+                  items={item.children}
+                  level={level + 1}
+                  parentTitle={item.title}
+                />
+              </Collapse>
+            )
+          )}
         </React.Fragment>
       ))}
     </List>

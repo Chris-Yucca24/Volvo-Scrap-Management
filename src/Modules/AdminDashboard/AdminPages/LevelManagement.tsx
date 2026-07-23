@@ -79,11 +79,24 @@ export default function LevelManagement() {
       partNumber: "SCRP120008",
       description: "Iron Pipe Waste",
     },
+    {
+      id: 9,
+      category: "Category - 1",
+      partNumber: "SCRP120008",
+      description: "Iron Pipe Waste",
+    },
+    {
+      id: 10,
+      category: "Category - 1",
+      partNumber: "SCRP120008",
+      description: "Iron Pipe Waste",
+    },
+   
   ];
 
   const [page, setPage] = useState(1);
 
-  const rowPerPage = 5;
+  const rowPerPage = 10;
   const startIndex = (page - 1) * rowPerPage;
 
   const paginatedData = tableData.slice(startIndex, startIndex + rowPerPage)
@@ -112,7 +125,7 @@ export default function LevelManagement() {
 
         // backgroundColor: "#f4f4f4",
         display: "flex",
-        
+
         alignItems: "flex-start",
 
       }}
@@ -129,7 +142,7 @@ export default function LevelManagement() {
           },
           display: "flex",
           flexDirection: "column",
-          
+
         }}
       >
 
@@ -160,7 +173,7 @@ export default function LevelManagement() {
                   borderRadius: "12px",
                   boxSizing: "border-box",
                   width: "100%",
-                   boxShadow: "0px 2px 4px rgba(0,0,0,0.08)",
+                  boxShadow: "0px 2px 4px rgba(0,0,0,0.08)",
 
                 }}
               >
@@ -180,7 +193,7 @@ export default function LevelManagement() {
 
                     }}
                   >
-                    <Box sx={{ display: "flex", alignItems: "center", fontSize: "14px" }}>
+                    <Box sx={{ display: "flex", alignItems: "center", fontSize: "13px" }}>
                       <FormControlLabel
                         value="all"
                         control={<Radio size="small" sx={{
@@ -244,206 +257,90 @@ export default function LevelManagement() {
 
                     </Box>
 
+
                   </RadioGroup>
-                </div>
-              </Paper>
-              <Paper
-                elevation={0}
-                sx={{
-                  backgroundColor: "#fff",
-                  padding: "10px",
-                  borderRadius: "12px",
-                  boxSizing: "border-box",
-                  width: "100%",
-                   boxShadow: "0px 2px 4px rgba(0,0,0,0.08)",
 
-                }}
-              >
-                <div className="Duration-types">
-                  <span className="duration-head">Duration</span>
-                  <Box className="input-radios">
-                    <RadioGroup
-                      row
-                      defaultValue="pdf"
-                      sx={{
+                  <Box
+                    sx={{
+                      display: "flex",
+                      gap: "20px",
+                      alignItems: "flex-start",
+                      width: {
+                        xs: "100%",
+                        sm: "50%",
+                        md: "100%",
+                        lg: "30%",
+                        xl: "55%",
+                      },
+                    }}
+                  >
+                    {/* From Date */}
+                    <div
+                      style={{
                         display: "flex",
-                        flexDirection: "row",
-
-                        border: "1px solid #B8B8B8",
-                        padding: "0px 5px",
-                        borderRadius: "4px",
-                        width: "fit-content"
+                        alignItems: "center",
+                        gap: "10px",
+                        width: "50%",
                       }}
                     >
-                      <Box sx={{ display: "flex", alignItems: "center" }}>
-                        <FormControlLabel
-                          value="month"
-                          control={<Radio size="small" sx={{
+                      <label
+                        style={{
+                          fontSize: "12px",
+                          fontWeight: 400,
+                          color: "#888B8D",
+                          minWidth: "65px",
+                        }}
+                      >
+                        From Date
+                      </label>
 
-                            "&.Mui-checked": {
-                              color: "#202A44", // selected color
-                            },
-                          }} />}
-                          label="Month"
-                        />
-
-                        <Box
-                          sx={{
-                            width: "1px",
-                            height: "70%",
-                            backgroundColor: "#bdbdbd",
-                            alignSelf: "center",
-                            mx: 1,
-                          }}
-                        />
-                      </Box>
-
-                      <Box sx={{ display: "flex", alignItems: "center" }}>
-                        <FormControlLabel
-                          value="quarter"
-                          control={<Radio size="small" sx={{
-
-                            "&.Mui-checked": {
-                              color: "#202A44", // selected color
-                            },
-                          }} />}
-                          label="Quarter"
-                        />
-
-                        <Box
-                          sx={{
-                            width: "1px",
-                            height: "70%",
-                            backgroundColor: "#bdbdbd",
-                            alignSelf: "center",
-                            mx: 1,
-                          }}
-                        />
-                      </Box>
-                      <Box sx={{ display: "flex", alignItems: "center" }}>
-                        <FormControlLabel
-                          value="half"
-                          control={<Radio size="small" sx={{
-
-                            "&.Mui-checked": {
-                              color: "#202A44", // selected color
-                            },
-                          }} />}
-                          label="Half"
-                        />
-
-                        <Box
-                          sx={{
-                            width: "1px",
-                            height: "70%",
-                            backgroundColor: "#bdbdbd",
-                            alignSelf: "center",
-                            mx: 1,
-                          }}
-                        />
-                      </Box>
-
-
-                      <Box sx={{ display: "flex", alignItems: "center" }}>
-                        <FormControlLabel
-                          value="year"
-                          control={<Radio size="small"
-                            sx={{
-
-                              "&.Mui-checked": {
-                                color: "#202A44", // selected color
-                              },
-                            }} />}
-                          label="Year"
-                        />
-
-
-                      </Box>
-                    </RadioGroup>
-                    <div className="span-diff">
-                      <span>Or</span>
+                      <input
+                        type="date"
+                        style={{
+                          flex: 1,
+                          padding: "8px 12px",
+                          border: "1px solid #B8B8B8",
+                          borderRadius: "6px",
+                          outline: "none",
+                        }}
+                      />
                     </div>
 
-                    <Box
-                      sx={{
+                    {/* To Date */}
+                    <div
+                      style={{
                         display: "flex",
-                        gap: "20px",
-                        alignItems: "flex-start",
-
-                        width: {
-                          xs: "100%", // mobile
-                          sm: "50%",  // tablet
-                          md: "100%",  // laptop
-                          lg: "40%",  // desktop
-                          xl: "55%"
-                        },
+                        alignItems: "center",
+                        gap: "10px",
+                        width: "50%",
                       }}
                     >
-                      {/* From Date */}
-                      <div className="input-from"
+                      <label
                         style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          gap: "6px",
-                          width: "50%"
+                          fontSize: "12px",
+                          fontWeight: 400,
+                          color: "#888B8D",
+                          minWidth: "55px",
                         }}
                       >
-                        <label
-                          style={{
-                            fontSize: "12px",
-                            fontWeight: 400,
-                            color: "#888B8D",
-                          }}
-                        >
-                          From Date
-                        </label>
+                        To Date
+                      </label>
 
-                        <input
-                          type="date"
-                          style={{
-                            padding: "8px 12px",
-                            border: "1px solid #B8B8B8",
-                            borderRadius: "6px",
-                            outline: "none",
-                          }}
-                        />
-                      </div>
-
-                      {/* To Date */}
-                      <div className="input-to"
+                      <input
+                        type="date"
                         style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          gap: "6px",
-                          width: "50%"
+                          flex: 1,
+                          padding: "8px 12px",
+                          border: "1px solid #B8B8B8",
+                          borderRadius: "6px",
+                          outline: "none",
                         }}
-                      >
-                        <label
-                          style={{
-                            fontSize: "12px",
-                            fontWeight: 400,
-                            color: "#888B8D",
-                          }}
-                        >
-                          To Date
-                        </label>
-
-                        <input
-                          type="date"
-                          style={{
-                            padding: "8px 12px",
-                            border: "1px solid #B8B8B8",
-                            borderRadius: "6px",
-                            outline: "none",
-                          }}
-                        />
-                      </div>
-                    </Box>
-
+                      />
+                    </div>
                   </Box>
-
                 </div>
               </Paper>
+             
               <Paper
                 elevation={0}
                 sx={{
@@ -452,7 +349,8 @@ export default function LevelManagement() {
                   borderRadius: 3,
                   boxSizing: "border-box",
                   width: "100%",
-                   boxShadow: "0px 2px 4px rgba(0,0,0,0.08)",
+                  height:"520px",
+                  boxShadow: "0px 2px 4px rgba(0,0,0,0.08)",
                 }}
               >
                 <div className="grid-main-log">
@@ -537,7 +435,7 @@ export default function LevelManagement() {
                   backgroundColor: "#fff",
                   borderRadius: "10px",
                   padding: "20px",
-                   boxShadow: "0px 2px 4px rgba(0,0,0,0.08)",
+                  boxShadow: "0px 2px 4px rgba(0,0,0,0.08)",
                   boxSizing: "border-box",
 
                 }}
@@ -580,7 +478,8 @@ export default function LevelManagement() {
                     boxSizing: "border-box",
                     width: "100%",
                     // height: "71vh",
-                    overflowY: "auto"
+                    overflowY: "auto",
+                    boxShadow: "0px 2px 4px rgba(0,0,0,0.08)",
                   }}
                 >
                   <div className="download-history-main">
