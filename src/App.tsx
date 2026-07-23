@@ -13,6 +13,10 @@ import LoginPage from "./Modules/LoginMain/Login"
 import AppLayout from "./layouts/AppLayout"
 import ViewDashboard from "./Modules/LoginMain/viewDashboard"
 import AdminKSPCB from "./Modules/AdminDashboard/AdminPages/AdminKSPCB"
+import AdminScrapPart from "./Modules/AdminDashboard/AdminPages/AdminScrapPart"
+import AdminSourceDestination from "./Modules/AdminDashboard/AdminPages/AdminSourceDestination"
+import AdminSlideDisplay from "./Modules/AdminDashboard/AdminPages/AdminSlideDisplay"
+import AdminVendor from "./Modules/AdminDashboard/AdminPages/AdminVendor"
 
 export default function App() {
   return (
@@ -32,12 +36,44 @@ export default function App() {
               <AdminKSPCB/>
             </AppLayout>
           }
-        />      
+        /> 
+        <Route
+          path="/AdminScrapPart"
+          element={
+            <AppLayout showSettings={true}>
+              <AdminScrapPart/>
+            </AppLayout>
+          }
+        />  
+        <Route
+          path="/AdminSourceDestination"
+          element={
+            <AppLayout showSettings={true}>
+              <AdminSourceDestination/>
+            </AppLayout>
+          }
+        />  
+        <Route
+          path="/AdminSlideDisplay"
+          element={
+            <AppLayout showSettings={true}>
+              <AdminSlideDisplay/>
+            </AppLayout>
+          }
+        />       
         <Route
           path="/usermanagement"
           element={
             <AppLayout showSettings={true}>
               <UserManagement />
+            </AppLayout>
+          }
+        />
+        <Route
+          path="/AdminVendor"
+          element={
+            <AppLayout showSettings={true}>
+              <AdminVendor />
             </AppLayout>
           }
         />

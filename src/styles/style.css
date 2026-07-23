@@ -2184,10 +2184,14 @@ select:invalid {
   transform: rotate(180deg);
 }
 /* kspcb styles starts  */
-.kspcb-data .User-task{
+/* .kspcb-data .User-task{
   margin-top: 40px;
+<<<<<<< HEAD
 }
 
+=======
+} */
+>>>>>>> 0ef85666a78bbf8892e17d7c240b1eb4edbbdadb
 .kspcb-data .User-task .right-search-input .user-search{
 border: unset;
 
