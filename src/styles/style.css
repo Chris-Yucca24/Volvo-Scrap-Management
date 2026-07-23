@@ -620,6 +620,11 @@ select.input:has(option:checked:not([value=""])) {
   cursor: pointer;
 }
 
+.right-user-main{
+  display: flex;
+  gap: 10px;
+}
+
 .stat-card.primary {
   background: white;
   color: #202a44;

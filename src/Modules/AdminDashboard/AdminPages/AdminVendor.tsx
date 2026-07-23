@@ -20,6 +20,7 @@ import { useState, useEffect } from "react";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 // import { useNavigate } from "react-router-dom";
 import Popup from "../../../Common/Components/UI/popup";
+import SearchField from "../../../Common/DashboardComponents/searchField";
 
 type Vendor = {
   id: number;
@@ -166,20 +167,15 @@ const handleDelete = (id: number) => {
 
             <div className="right-user-main">
               <div className="right-search-input">
-                <div className="search-input-field">
-                  <input
-                    type="search"
-                    placeholder="Search"
-                    className="user-search"
-                  />
-                  <SearchOutlinedIcon style={{ color: "#ccc" }} />
+                <div className="search-input">
+                   <SearchField />
                 </div>
               </div>
 
-              <button className="btn-filter">
+              <AppButton variant="outlined" className="btn-filter">
                 <img src={filterIcon} className="filter-icon" alt="" />
                 Filter
-              </button>
+              </AppButton>
               <AppButton
                 variant="filled"
                 className="add-new-kspcb"
