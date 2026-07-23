@@ -281,6 +281,7 @@ const AdminSourceDestination = () => {
                               borderRadius: "6px",
                               padding: "0px",
                               height: "25px",
+                              fontWeight:'500'
                             }}
                           />
                         ) : col.field === "Action" ? (
