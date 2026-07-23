@@ -1877,7 +1877,7 @@ select:invalid {
   display: grid;
   grid-template-columns: 60px 1fr 1fr 2fr;
   align-items: center;
-  background: #e3e3e3;
+  background: #F1F5FC;
   padding: 12px 0;
   font-weight: 500;
   font-size: 14px;
@@ -1888,7 +1888,7 @@ select:invalid {
 }
 
 .log-table-body {
-  max-height: 250px;
+  max-height: 350px;
   overflow-y: auto;
 }
 
