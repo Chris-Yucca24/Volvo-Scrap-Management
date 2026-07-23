@@ -21,12 +21,7 @@ type Props = {
   onConfirm: (reason: string) => void;
 };
 
-export default function Popup({
-  open,
-  message,
-  onClose,
-  onConfirm,
-}: Props) {
+export default function Popup({ open, message, onClose, onConfirm }: Props) {
   const [reason, setReason] = useState("");
 
   const handleConfirm = () => {
@@ -67,15 +62,7 @@ export default function Popup({
       <DialogContent sx={{ px: 3, py: 3 }}>
         <Typography sx={{ mb: 2 }}>{message}</Typography>
 
-        {/* <TextField
-          fullWidth
-          multiline
-          minRows={1}
-          placeholder="Enter reason for unscheduling..."
-          value={reason}
-          onChange={(e) => setReason(e.target.value)}
-        />
-         */}
+       
 
         {/* input field  */}
         <div className="input-field-popup-holder">
@@ -97,38 +84,35 @@ export default function Popup({
           ))}
         </div>
 
-
-<div className="kspcb-popup-lastrow">
-
-        {/* upload document field  */}
-        <div className="upload-doc">
-      <label htmlFor="">Upload Document *</label>
-      <p>Click to upload or Drag and drop</p>
-     <TextField placeholder="
+        <div className="kspcb-popup-lastrow">
+          {/* upload document field  */}
+          <div className="upload-doc">
+            <label htmlFor="">Upload Document *</label>
+            <p>Click to upload or Drag and drop</p>
+            <TextField
+              placeholder="
      PDF, PNG, JPEG (Max 5mb)"
-     />
-     </div>
-        {/* radio btn  */}
-        <FormControl>
-          <FormLabel id={""}>Status</FormLabel>
-          <RadioGroup row aria-labelledby={""} name="row-radio-buttons-group">
-            <FormControlLabel
-              value="Active"
-              control={<Radio />}
-              label="Active"
             />
-            <FormControlLabel
-              value="InActive"
-              control={<Radio />}
-              label="InActive"
-            />
-          </RadioGroup>
-
-        </FormControl>
-</div>
-       
+          </div>
+          {/* radio btn  */}
+          <FormControl>
+            <FormLabel id={""}>Status</FormLabel>
+            <RadioGroup row aria-labelledby={""} name="row-radio-buttons-group">
+              <FormControlLabel
+                value="Active"
+                control={<Radio />}
+                label="Active"
+              />
+              <FormControlLabel
+                value="InActive"
+                control={<Radio />}
+                label="InActive"
+              />
+            </RadioGroup>
+          </FormControl>
+        </div>
       </DialogContent>
-      
+
       <DialogActions sx={{ px: 3, pb: 3 }}>
         <Box sx={{ display: "flex", gap: 2, ml: "auto" }}>
           <AppButton
