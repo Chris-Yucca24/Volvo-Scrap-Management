@@ -31,7 +31,7 @@ type User = {
 };
 
 const wasteTypestatus = ["Non-Hazardous", "Hazardous"];
-const statusActivities = ["active", "inactive"];
+const statusActivities = ["Active", "Inactive"];
 
 const generateUsers = (count: number): User[] => {
   return Array.from({ length: count }, (_, i) => {
@@ -75,9 +75,9 @@ const getWasteType = (wasteType: string) => {
 
 const getStatus = (status: string) => {
   switch (status) {
-    case "active":
+    case "Active":
       return { bg: "#E1F8E0", text: "#258C20" };
-    case "inactive":
+    case "Inactive":
       return { bg: "#DBDBDB", text: "#4A4A4A" };
     default:
       return { bg: "#e0e0e0", text: "#000" };
@@ -236,7 +236,7 @@ export default function UserManagement() {
                         sx={{
                           backgroundColor: getWasteType(user.wasteType).bg,
                           color: getWasteType(user.wasteType).text,
-                          fontWeight: 400,
+                          fontWeight: 500,
                           borderRadius: "4px",
                         }}
                       />
@@ -251,7 +251,7 @@ export default function UserManagement() {
                         sx={{
                           backgroundColor: getStatus(user.status).bg,
                           color: getStatus(user.status).text,
-                          fontWeight: 400,
+                          fontWeight: 500,
                           borderRadius: "4px",
                         }}
                       />
