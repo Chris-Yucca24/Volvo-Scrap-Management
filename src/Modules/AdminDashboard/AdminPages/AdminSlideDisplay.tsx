@@ -83,18 +83,18 @@ const AdminSlideDisplay = () => {
   }, [users]);
   return (
     <>
-      <Box
+      <Box 
         sx={{
           backgroundColor: "#fff",
           padding: "10px 20px",
           boxShadow: "0px 2px 6px rgba(0, 0, 0, 0.08)",
         }}
       >
-        <div className="User-task">
+        <div className="User-task" id="slide-display">
           <div className="left-user-main">
             <div className="filter-title">
               <div
-                style={{ display: "flex", gap: "10px", marginBottom: "20px" }}
+                style={{ display: "flex", gap: "10px"}}
               >
                 AdminSlideDisplay
               </div>

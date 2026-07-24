@@ -168,7 +168,7 @@ const AdminSourceDestination = () => {
               {/* <img src={backArrow} alt="back" className="back-main" /> */}
               <div className="filter-title">
                 <div
-                  style={{ display: "flex", gap: "10px", marginBottom: "20px" }}
+                  style={{ display: "flex", gap: "10px" }}
                 >
                   {tabs.map((tab) => (
                     <div
