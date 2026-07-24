@@ -1,144 +1,284 @@
-import { useState, useEffect } from "react"
-import ScrapCard, { ScrapItem } from "../../../Common/DashboardComponents/ScrapCard"
-import ScrapCardSkeleton from "../../../Common/Components/Skeleton/skeleton"
-import Pagination from "@mui/material/Pagination"
-import PopupWithTextarea from "../../../Common/Components/UI/PopupWithTextarea"
+import {
+  BarChart,
+  LineChart,
+  PieChart
+} from "@mui/x-charts";
 
-type AdminInboundProps = {
-  data: ScrapItem[]
-  loading?: boolean
-  statusFilter?: string
-  scheduleFilter?:string
-  emptyMessage?: string
-}
-
-export default function AdminInbound({
-  data,
-  loading = false,
-  statusFilter = "all",
-  scheduleFilter = "all",
-  emptyMessage = "No data available"
-}: AdminInboundProps) {
+import {
+  Box,
+  Typography,
+  Paper,
+  Icon
+} from "@mui/material";
 
 
-  const [popupOpen, setPopupOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<ScrapItem | null>(null);
-  const [page, setPage] = useState(1)
-  const handleUnscheduleClick = (item: ScrapItem) => {
-  setSelectedItem(item);
-  setPopupOpen(true);
-  };
-  
-  const itemsPerPage = 12
+import TotalScrap from "../../../assets/image-assets/Total_scrap.svg"
+import InVentory from "../../../assets/image-assets/Inventory-new.svg"
+import Disposable_schedule from "../../../assets/image-assets/Disposablecompleted.svg"
 
-//filtering logic
-const normalizeDate = (date: Date) => {
-  const d = new Date(date);
-  d.setHours(0, 0, 0, 0);
-  return d;
-};
 
-const today = normalizeDate(new Date());
-const tomorrow = normalizeDate(new Date());
-tomorrow.setDate(tomorrow.getDate() + 1);
+const summaryCards = [
+  {
+    title: "Total Scrap Received",
+    value: "125.60 T",
+     icon:TotalScrap
+  },
+  {
+    title: "Inventory on hand",
+    value: "2310.650 T",
+    icon:InVentory
+    
+  },
+  {
+    title: "Disposal scheduled",
+    value: "85.230 T",
+    icon: Disposable_schedule
+  },
+  {
+    title: "Disposal Completed",
+    value: "68.400 T",
+    color: "#3DBAC7"
+  },
+  {
+    title: "Hazardous Scrap",
+    value: "18.300 T",
+    color: "#EF5B63"
+  }
+]
 
-//status filter approved,pending,etc
-let filteredData = data;
 
-if (statusFilter !== "all") {
-  filteredData = filteredData.filter(
-    (item) =>
-      item.status.toLowerCase().trim() ===
-      statusFilter.toLowerCase().trim()
-  );
-}
-
-//schedule silter today,tomorrow...etc
-if (scheduleFilter === "today") {
-  filteredData = filteredData.filter((item) => {
-    if (!item.scheduledDate) return false;
-    const itemDate = normalizeDate(new Date(item.scheduledDate));
-    return itemDate.getTime() === today.getTime();
-  });
-}
-
-if (scheduleFilter === "tomorrow") {
-  filteredData = filteredData.filter((item) => {
-    if (!item.scheduledDate) return false;
-    const itemDate = normalizeDate(new Date(item.scheduledDate));
-    return itemDate.getTime() === tomorrow.getTime();
-  });
-}
-
-if (scheduleFilter === "unscheduled") {
-  filteredData = filteredData.filter(
-    (item) => !item.scheduledDate
-  );
-}
-  const startIndex = (page - 1) * itemsPerPage
-  const paginatedData = filteredData.slice(startIndex, startIndex + itemsPerPage)
-
-  // reset page when data or filter changes
-  useEffect(() => {
-    setPage(1)
-  }, [data, statusFilter])
-
+export default function AdminInbound() {
 
   return (
-    <>
-      <div className="scrap-grid">
 
-        {loading ? (
-          Array.from({ length: 18 }).map((_, i) => (
-            <div className="admin-inbound-card" key={i}>
-              <ScrapCardSkeleton type="scrap" />
-            </div>
+    <Box className="dashboard-container">
+
+
+      {/* Title */}
+
+      <Box className="dashboard-header">
+
+        <Typography variant="h6">
+          Inbound Overview
+        </Typography>
+
+        <Typography>
+          ↻ Last Updated : 28 June 2026 10:38 pm
+        </Typography>
+
+      </Box>
+
+
+
+      {/* Cards */}
+
+      <Box className="summary-grid">
+
+        {
+          summaryCards.map((card) => (
+            <Paper className="summary-card">
+
+              <Box
+  className="icon-box"
+  sx={{
+    background: card.color
+  }}
+>
+  <img
+    src={card.icon}
+    alt={card.title}
+  />
+</Box>
+
+              <Box>
+
+                <Typography>
+                  {card.title}
+                </Typography>
+
+                <Typography fontWeight={700}>
+                  {card.value}
+                </Typography>
+
+              </Box>
+
+
+            </Paper>
           ))
-        ) : filteredData.length === 0 ? (
+        }
 
-          // 🔹 EMPTY STATE
-          <div className="empty-state">
-            {emptyMessage}
-          </div>
+      </Box>
 
-        ) : (
-          paginatedData.map((item) => (
-            <div className="admin-inbound-card" key={item.id}>
-              <ScrapCard
-                item={item}
-                mode="adminInbound"
-                onUnscheduleClick={handleUnscheduleClick}
-              />
-            </div>
-          ))
-        )}
 
-      </div>
 
-      {!loading && filteredData.length > 0 && (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            marginTop: "20px",
-          }}
-        >
-          <Pagination
-            count={Math.ceil(filteredData.length / itemsPerPage)}
-            page={page}
-            onChange={(e, value) => setPage(value)}
+
+      {/* Charts */}
+
+      <Box className="chart-grid" >
+
+
+        <Paper className="chart-card" sx={{
+          height:"280px"}}>
+
+          <Typography>
+            Scrap by Source Location (T)
+          </Typography>
+
+
+          <BarChart
+
+            xAxis={[
+              {
+                scaleType: 'band',
+                data: [
+                  "Plant 1",
+                  "Plant 2",
+                  "Plant 3",
+                  "Plant 4",
+                  "Plant 5",
+                  "Plant 6",
+                  "Plant 7"
+                ]
+              }
+            ]}
+
+            series={[
+             {
+      data: [58, 50, 38, 30, 22, 20, 5],
+      color: "#4B5CEB",
+      
+    }
+            ]}
+             height={250}
+  slotProps={{
+    bar: {
+      rx: 8, // rounded corners
+      ry: 8
+    }
+  }}
+   categoryGapRatio={0.7}
+
+          
+
           />
-        </div>
-      )}
-      <PopupWithTextarea
-        open={popupOpen}
-        onClose={() => setPopupOpen(false)}
-        onConfirm={(reason) => {
-          console.log("Unschedule:", selectedItem?.id, reason);
-          setPopupOpen(false);
-        }}
-        message={`Do you want to unschedule Scrap ${selectedItem?.id}?`}
-      />
-    </>
+
+        </Paper>
+        <Paper className="chart-card" sx={{
+          height:"280px"
+        }}>
+
+          <Typography>
+            Scrap by Material Type (T)
+          </Typography>
+
+
+          <PieChart
+
+            series={[
+              {
+                data: [
+                  {
+                    id: 0,
+                    value: 52.4,
+                    label: "Metal Scrap"
+                  },
+                  {
+                    id: 1,
+                    value: 28.1,
+                    label: "Rubber"
+                  },
+                  {
+                    id: 2,
+                    value: 22.3,
+                    label: "Glass"
+                  },
+                  {
+                    id: 3,
+                    value: 9.9,
+                    label: "Battery Waste"
+                  },
+                  {
+                    id: 4,
+                    value: 22.3,
+                    label: "Hazardous"
+                  }
+                ],
+                
+
+                innerRadius: 50
+
+              }
+            ]}
+
+            height={250}
+
+          />
+
+        </Paper>
+
+
+
+
+
+        <Paper className="chart-card" sx={{
+          height:"280px"
+        }} >
+
+          <Typography>
+            Scrap Generation Trend(T)
+          </Typography>
+
+
+          <LineChart
+
+            xAxis={[
+              {
+                data: [
+                  "1",
+                  "2",
+                  "3",
+                  "4",
+                  "5",
+                  "6",
+                  "7",
+                  "8",
+                  "9",
+                  "10",
+                  "11",
+                  "12",
+                  "13"
+                ]
+              }
+            ]}
+
+            series={[
+              {
+                data: [
+                  10, 22, 27, 21, 26, 13, 22, 18, 23, 21, 7, 22, 19
+                ],
+                label: "Current"
+              },
+              {
+                data: [
+                  10, 19, 15, 24, 18, 20, 6, 14, 11, 12, 8, 12, 15
+                ],
+                label: "Previous"
+              }
+            ]}
+
+            height={250}
+
+          />
+
+
+        </Paper>
+
+
+      </Box>
+
+
+    </Box>
+
   )
+
 }

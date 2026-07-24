@@ -60,7 +60,7 @@ const AdminSlideDisplay = () => {
   const [alertOpen, setAlertOpen] = useState(false);
   // pagination state
   const [page, setPage] = useState(1);
-  const rowsPerPage = 5;
+  const rowsPerPage = 9;
   const paginatedUsers = users.slice(
     (page - 1) * rowsPerPage,
     page * rowsPerPage,
@@ -114,7 +114,7 @@ const AdminSlideDisplay = () => {
               xs: "60vh",
               sm: "65vh",
               md: "70vh",
-              lg: "70vh",
+              lg: "71vh",
             },
             overflow: "auto",
           }}

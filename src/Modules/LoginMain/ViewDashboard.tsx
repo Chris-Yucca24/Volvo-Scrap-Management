@@ -32,7 +32,7 @@ export default function ViewDashboard() {
   <SwiperSlide><img src={img2} /></SwiperSlide>
     </Swiper>
     <div className="dashboard-login-btn">
-  <Link to="/admin">
+  <Link to="/AdminInbound">
     <button>
       <img src={viewdashboardicon} alt="" /> View Dashboard
     </button>

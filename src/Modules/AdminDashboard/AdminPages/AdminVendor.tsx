@@ -120,7 +120,7 @@ const [vendors, setVendors] = useState<Vendor[]>(generateVendors(40));
 
   // pagination state
   const [page, setPage] = useState(1);
-  const rowsPerPage = 10;
+  const rowsPerPage = 12;
 
   const [deleteId, setDeleteId] = useState<number | null>(null);
   const [alertOpen, setAlertOpen] = useState(false);
