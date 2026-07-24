@@ -275,7 +275,7 @@ export default function LevelManagement() {
                     }}
                   >
                     {/* From Date */}
-                    <div
+                    <div className="report-from-date"
                       style={{
                         display: "flex",
                         alignItems: "center",
