@@ -2708,7 +2708,11 @@ select:invalid {
     flex-shrink: 0;
   }
 
-  /* eport */
+
+}
+@media screen and (min-width: 1024px) and (max-width: 1550px){
+  
+  /* report */
 
   .export-types{
         flex-direction: column;
@@ -2717,9 +2721,7 @@ select:invalid {
   .report-from-date{
     width:auto !important;
   }
-
 }
-
 @media screen and (min-width: 768px) and (max-width: 1920px) and (max-height: 1100px) {
   .left-log-content {
     height: 75vh;
