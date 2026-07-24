@@ -28,13 +28,13 @@ const summaryCards = [
   {
     title: "Total Scrap Received",
     value: "125.60 T",
-     icon:TotalScrap
+    icon: TotalScrap
   },
   {
     title: "Inventory on hand",
     value: "2310.650 T",
-    icon:InVentory
-    
+    icon: InVentory
+
   },
   {
     title: "Disposal scheduled",
@@ -53,23 +53,56 @@ const summaryCards = [
   }
 ]
 
-const inboundData=[
- {
-  scrapCode:"SCRAP-AL-001",
-  category:"Aluminum Cut Sheet",
-  entries:3,
-  total:"7.450",
-  approved:"5000",
-  pending:"2.450"
- },
- {
-  scrapCode:"SCRAP-AL-002",
-  category:"Copper Scrap",
-  entries:4,
-  total:"26.540",
-  approved:"15.600",
-  pending:"10.850"
- }
+const inboundData = [
+  {
+    scrapCode: "SCRAP-AL-001",
+    category: "Aluminum Cut Sheet",
+    entries: 3,
+    total: "7.450",
+    approved: "5000",
+    pending: "2.450"
+  },
+  {
+    scrapCode: "SCRAP-AL-002",
+    category: "Copper Scrap",
+    entries: 4,
+    total: "26.540",
+    approved: "15.600",
+    pending: "10.850"
+  }
+];
+
+const inventoryAgingData = [
+  {
+    bucket: "0-30 Days",
+    metalScrap: "12.5 ",
+    rubber: "4.2 ",
+    glass: "2.8 ",
+    batteryWaste: "1.5 ",
+    hazardous: "0.8 ",
+    nonHazardous: "6.4 ",
+    total: "28.2 "
+  },
+  {
+    bucket: "31-60 Days",
+    metalScrap: "8.5 ",
+    rubber: "3.1 ",
+    glass: "1.9 ",
+    batteryWaste: "0.9 ",
+    hazardous: "1.2 ",
+    nonHazardous: "4.8 ",
+    total: "20.4"
+  },
+  {
+    bucket: "60+ Days",
+    metalScrap: "5.2 ",
+    rubber: "1.8 ",
+    glass: "1.2 ",
+    batteryWaste: "0.5 ",
+    hazardous: "0.7 ",
+    nonHazardous: "3.6 ",
+    total: "13.0 "
+  }
 ];
 export default function AdminInbound() {
 
@@ -103,22 +136,22 @@ export default function AdminInbound() {
             <Paper className="summary-card">
 
               <Box
-  className="icon-box"
-  sx={{
-    background: card.color
-  }}
->
-  <img
-    src={card.icon}
-    alt={card.title}
-  />
-</Box>
+                className="icon-box"
+                sx={{
+                  background: card.color
+                }}
+              >
+                <img
+                  src={card.icon}
+                  alt={card.title}
+                />
+              </Box>
 
               <Box>
 
                 <Typography sx={{
-                  fontSize:"14px",
-                  fontWeight:500
+                  fontSize: "14px",
+                  fontWeight: 500
                 }}>
                   {card.title}
                 </Typography>
@@ -145,11 +178,12 @@ export default function AdminInbound() {
 
 
         <Paper className="chart-card" sx={{
-          height:"280px"}}>
+          height: "280px"
+        }}>
 
-          <Typography  sx={{
-            fontWeight:500,
-            fontSize:"14px"
+          <Typography sx={{
+            fontWeight: 500,
+            fontSize: "14px"
           }}>
             Scrap by Source Location (T)
           </Typography>
@@ -168,37 +202,38 @@ export default function AdminInbound() {
                   "Plant 5",
                   "Plant 6",
                   "Plant 7"
-                ]
+                ],
+                categoryGapRatio: 0.5,
               }
             ]}
 
             series={[
-             {
-      data: [58, 50, 38, 30, 22, 20, 5],
-      color: "#4B5CEB",
-      
-    }
+              {
+                data: [58, 50, 38, 30, 22, 20, 5],
+                color: "#4B5CEB",
+
+              }
             ]}
-             height={250}
-  slotProps={{
-    bar: {
-      rx: 8, // rounded corners
-      ry: 8
-    }
-  }}
-  
-          
+            height={250}
+            slotProps={{
+              bar: {
+                rx: 8, // rounded corners
+                ry: 8
+              }
+            }}
+
+
 
           />
 
         </Paper>
         <Paper className="chart-card" sx={{
-          height:"280px"
+          height: "280px"
         }}>
 
-          <Typography  sx={{
-            fontWeight:500,
-             fontSize:"14px"
+          <Typography sx={{
+            fontWeight: 500,
+            fontSize: "14px"
           }}>
             Scrap by Material Type (T)
           </Typography>
@@ -235,9 +270,10 @@ export default function AdminInbound() {
                     label: "Hazardous"
                   }
                 ],
-                
 
-                innerRadius: 50
+
+                innerRadius: 70,
+    // outerRadius: 100,
 
               }
             ]}
@@ -253,12 +289,12 @@ export default function AdminInbound() {
 
 
         <Paper className="chart-card" sx={{
-          height:"280px"
+          height: "280px"
         }} >
 
           <Typography sx={{
-            fontWeight:500,
-             fontSize:"14px"
+            fontWeight: 500,
+            fontSize: "14px"
           }}>
             Scrap Generation Trend(T)
           </Typography>
@@ -312,100 +348,226 @@ export default function AdminInbound() {
       </Box>
       {/* Inbound Entries */}
 
-<Paper className="table-card">
+      <Paper className="table-card">
 
-  <Box className="table-header">
+        <Box className="table-header">
 
-    <Typography fontWeight={600}>
-      Inbound Entries
-    </Typography>
+          <Typography fontWeight={500}>
+            Inbound Entries
+          </Typography>
 
-    <Typography className="view-link">
-      View All Entries
-    </Typography>
+          <Typography className="view-link">
+            View All Entries
+          </Typography>
 
-  </Box>
-
-
-  <TableContainer>
-
-    <Table>
-
-      <TableHead>
-
-        <TableRow>
-          <TableCell>Scrap Code</TableCell>
-          <TableCell>Waste Category</TableCell>
-          <TableCell align="center">
-            No.of Entries
-          </TableCell>
-          <TableCell align="right">
-            Total Weight(T)
-          </TableCell>
-          <TableCell align="right">
-            Approved Weight(T)
-          </TableCell>
-          <TableCell align="right">
-            Pending Weight(T)
-          </TableCell>
-        </TableRow>
-
-      </TableHead>
+        </Box>
 
 
-      <TableBody>
+        <TableContainer>
 
-        {
-          inboundData.map((row,index)=>(
-            <TableRow key={index}>
+          <Table
+            size="small"
+            sx={{
+              "& .MuiTableCell-root": {
+                padding: "14px 12px",
+                fontSize: "12px",
+              },
+              "& .MuiTableHead-root .MuiTableCell-root": {
+                fontSize: "12px",
+                fontWeight: 400,
+                padding: "8px 12px",
+              },
+            }}
+          >
 
-              <TableCell>
-                {row.scrapCode}
-              </TableCell>
+            <TableHead>
 
-              <TableCell>
-                {row.category}
-              </TableCell>
+              <TableRow sx={{
+                height: 36,
+              }}>
+                <TableCell>Scrap Code</TableCell>
+                <TableCell>Waste Category</TableCell>
+                <TableCell align="center">
+                  No.of Entries
+                </TableCell>
+                <TableCell align="center">
+                  Total Weight(T)
+                </TableCell>
+                <TableCell align="center">
+                  Approved Weight(T)
+                </TableCell>
+                <TableCell align="center">
+                  Pending Weight(T)
+                </TableCell>
+              </TableRow>
 
-              <TableCell align="center">
-                {row.entries}
-              </TableCell>
-
-              <TableCell align="right">
-                {row.total}
-              </TableCell>
-
-              <TableCell 
-                align="right"
-                sx={{
-                  color:"#20B978"
-                }}
-              >
-                {row.approved}
-              </TableCell>
-
-              <TableCell
-                align="right"
-                sx={{
-                  color:"#E59B00"
-                }}
-              >
-                {row.pending}
-              </TableCell>
-
-
-            </TableRow>
-          ))
-        }
-
-      </TableBody>
+            </TableHead>
 
 
-    </Table>
+            <TableBody>
 
-  </TableContainer>
+              {
+                inboundData.map((row, index) => (
+                  <TableRow key={index} sx={{
+                    fontSize: "12px"
+                  }}>
 
-</Paper>
+                    <TableCell>
+                      {row.scrapCode}
+                    </TableCell>
+
+                    <TableCell>
+                      {row.category}
+                    </TableCell>
+
+                    <TableCell align="center">
+                      {row.entries}
+                    </TableCell>
+
+                    <TableCell align="center">
+                      {row.total}
+                    </TableCell>
+
+                    <TableCell
+                      align="center"
+                      sx={{
+                        color: "#20B978"
+                      }}
+                    >
+                      {row.approved}
+                    </TableCell>
+
+                    <TableCell
+                      align="center"
+                      sx={{
+                        color: "#E59B00"
+                      }}
+                    >
+                      {row.pending}
+                    </TableCell>
+
+
+                  </TableRow>
+                ))
+              }
+
+            </TableBody>
+
+
+          </Table>
+
+        </TableContainer>
+
+      </Paper>
+
+      {/* Inventory Aging Summary */}
+
+      <Paper className="table-card">
+
+        <Box className="table-header">
+
+          <Typography fontWeight={500}>
+            Inventory Aging Summary
+          </Typography>
+
+          <Typography className="view-link">
+            View All Entries
+          </Typography>
+
+        </Box>
+
+
+        <TableContainer>
+
+          <Table size="small"
+            sx={{
+              "& .MuiTableCell-root": {
+                padding: "14px 12px",
+                fontSize: "12px",
+              },
+              "& .MuiTableHead-root .MuiTableCell-root": {
+                fontSize: "12px",
+                fontWeight: 400,
+                padding: "8px 12px",
+              },
+            }}
+          >
+
+            <TableHead>
+
+              <TableRow>
+                <TableCell>Aging Bucket</TableCell>
+                <TableCell align="center">Metal Scrap</TableCell>
+                <TableCell align="center">Rubber</TableCell>
+                <TableCell align="center">Glass</TableCell>
+                <TableCell align="center">Battery Waste</TableCell>
+                <TableCell align="center">Hazardous</TableCell>
+                <TableCell align="center">Non-Hazardous</TableCell>
+                <TableCell align="center">Total</TableCell>
+              </TableRow>
+
+            </TableHead>
+
+
+            <TableBody>
+
+              {
+                inventoryAgingData.map((row, index) => (
+                  <TableRow key={index}>
+
+                    <TableCell>
+                      {row.bucket}
+                    </TableCell>
+
+                    <TableCell align="center">
+                      {row.metalScrap}
+                    </TableCell>
+
+                    <TableCell align="center">
+                      {row.rubber}
+                    </TableCell>
+
+                    <TableCell align="center">
+                      {row.glass}
+                    </TableCell>
+
+                    <TableCell align="center">
+                      {row.batteryWaste}
+                    </TableCell>
+
+                    <TableCell
+                      align="center"
+                      sx={{
+                        color: "#E74C3C"
+                      }}
+                    >
+                      {row.hazardous}
+                    </TableCell>
+
+                    <TableCell align="center">
+                      {row.nonHazardous}
+                    </TableCell>
+
+                    <TableCell
+                      align="center"
+                      sx={{
+                        fontWeight: 500
+                      }}
+                    >
+                      {row.total}
+                    </TableCell>
+
+                  </TableRow>
+                ))
+              }
+
+            </TableBody>
+
+          </Table>
+
+        </TableContainer>
+
+      </Paper>
 
 
     </Box>

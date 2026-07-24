@@ -2434,8 +2434,8 @@ border-radius:12px;
 
 .view-link {
   color:#0A3369;
-  font-size:12px;
-  font-weight:600;
+  font-size:14px !important;
+  font-weight:500 !important;
   cursor:pointer;
 }
 
@@ -2445,6 +2445,7 @@ border-radius:12px;
 
 .MuiTableCell-head {
   font-weight:500 !important;
+  font-size: 12px !important;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
