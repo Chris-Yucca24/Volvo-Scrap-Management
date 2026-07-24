@@ -229,7 +229,7 @@ useEffect(() => {
                 xs: "60vh",
                 sm: "65vh",
                 md: "70vh",
-                lg: "70vh",
+                lg: "63vh",
                 // xl: "74vh"
               },
               overflow: "auto",

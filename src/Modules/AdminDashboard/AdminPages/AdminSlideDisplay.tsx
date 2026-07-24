@@ -114,7 +114,7 @@ const AdminSlideDisplay = () => {
               xs: "60vh",
               sm: "65vh",
               md: "70vh",
-              lg: "71vh",
+              lg: "63vh",
             },
             overflow: "auto",
           }}

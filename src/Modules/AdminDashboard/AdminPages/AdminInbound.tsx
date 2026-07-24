@@ -8,13 +8,20 @@ import {
   Box,
   Typography,
   Paper,
-  Icon
+  Icon,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
 } from "@mui/material";
 
 
 import TotalScrap from "../../../assets/image-assets/Total_scrap.svg"
 import InVentory from "../../../assets/image-assets/Inventory-new.svg"
 import Disposable_schedule from "../../../assets/image-assets/Disposablecompleted.svg"
+import hazordous from "../../../assets/image-assets/Hazardous-icon.svg"
 
 
 const summaryCards = [
@@ -37,16 +44,33 @@ const summaryCards = [
   {
     title: "Disposal Completed",
     value: "68.400 T",
-    color: "#3DBAC7"
+    icon: Disposable_schedule
   },
   {
     title: "Hazardous Scrap",
     value: "18.300 T",
-    color: "#EF5B63"
+    icon: hazordous
   }
 ]
 
-
+const inboundData=[
+ {
+  scrapCode:"SCRAP-AL-001",
+  category:"Aluminum Cut Sheet",
+  entries:3,
+  total:"7.450",
+  approved:"5000",
+  pending:"2.450"
+ },
+ {
+  scrapCode:"SCRAP-AL-002",
+  category:"Copper Scrap",
+  entries:4,
+  total:"26.540",
+  approved:"15.600",
+  pending:"10.850"
+ }
+];
 export default function AdminInbound() {
 
   return (
@@ -92,11 +116,14 @@ export default function AdminInbound() {
 
               <Box>
 
-                <Typography>
+                <Typography sx={{
+                  fontSize:"14px",
+                  fontWeight:500
+                }}>
                   {card.title}
                 </Typography>
 
-                <Typography fontWeight={700}>
+                <Typography fontWeight={400}>
                   {card.value}
                 </Typography>
 
@@ -120,7 +147,10 @@ export default function AdminInbound() {
         <Paper className="chart-card" sx={{
           height:"280px"}}>
 
-          <Typography>
+          <Typography  sx={{
+            fontWeight:500,
+            fontSize:"14px"
+          }}>
             Scrap by Source Location (T)
           </Typography>
 
@@ -156,8 +186,7 @@ export default function AdminInbound() {
       ry: 8
     }
   }}
-   categoryGapRatio={0.7}
-
+  
           
 
           />
@@ -167,7 +196,10 @@ export default function AdminInbound() {
           height:"280px"
         }}>
 
-          <Typography>
+          <Typography  sx={{
+            fontWeight:500,
+             fontSize:"14px"
+          }}>
             Scrap by Material Type (T)
           </Typography>
 
@@ -224,7 +256,10 @@ export default function AdminInbound() {
           height:"280px"
         }} >
 
-          <Typography>
+          <Typography sx={{
+            fontWeight:500,
+             fontSize:"14px"
+          }}>
             Scrap Generation Trend(T)
           </Typography>
 
@@ -266,7 +301,7 @@ export default function AdminInbound() {
               }
             ]}
 
-            height={250}
+            height={230}
 
           />
 
@@ -275,6 +310,102 @@ export default function AdminInbound() {
 
 
       </Box>
+      {/* Inbound Entries */}
+
+<Paper className="table-card">
+
+  <Box className="table-header">
+
+    <Typography fontWeight={600}>
+      Inbound Entries
+    </Typography>
+
+    <Typography className="view-link">
+      View All Entries
+    </Typography>
+
+  </Box>
+
+
+  <TableContainer>
+
+    <Table>
+
+      <TableHead>
+
+        <TableRow>
+          <TableCell>Scrap Code</TableCell>
+          <TableCell>Waste Category</TableCell>
+          <TableCell align="center">
+            No.of Entries
+          </TableCell>
+          <TableCell align="right">
+            Total Weight(T)
+          </TableCell>
+          <TableCell align="right">
+            Approved Weight(T)
+          </TableCell>
+          <TableCell align="right">
+            Pending Weight(T)
+          </TableCell>
+        </TableRow>
+
+      </TableHead>
+
+
+      <TableBody>
+
+        {
+          inboundData.map((row,index)=>(
+            <TableRow key={index}>
+
+              <TableCell>
+                {row.scrapCode}
+              </TableCell>
+
+              <TableCell>
+                {row.category}
+              </TableCell>
+
+              <TableCell align="center">
+                {row.entries}
+              </TableCell>
+
+              <TableCell align="right">
+                {row.total}
+              </TableCell>
+
+              <TableCell 
+                align="right"
+                sx={{
+                  color:"#20B978"
+                }}
+              >
+                {row.approved}
+              </TableCell>
+
+              <TableCell
+                align="right"
+                sx={{
+                  color:"#E59B00"
+                }}
+              >
+                {row.pending}
+              </TableCell>
+
+
+            </TableRow>
+          ))
+        }
+
+      </TableBody>
+
+
+    </Table>
+
+  </TableContainer>
+
+</Paper>
 
 
     </Box>
