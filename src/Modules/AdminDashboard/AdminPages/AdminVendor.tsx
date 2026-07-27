@@ -41,6 +41,51 @@ const materialTypes = [
   "Chemical Waste",
 ];
 
+
+const vendorPopupFields = [
+  {
+    label: "Vendor Code*",
+    name: "VendorCode",
+    type: "text",
+  },
+  {
+    label: "Vendor Name*",
+    name: "VendorName",
+    type: "text",
+  },
+  {
+    label: "Material Type*",
+    name: "MaterialType",
+    type: "select",
+    options: [
+      "Metal",
+      "Plastic",
+      "Rubber",
+      "Glass",
+      "Other",
+    ],
+  },
+  {
+    label: "Contact Person*",
+    name: "ContactPerson",
+    type: "text",
+  },
+  {
+    label: "Mobile No*",
+    name: "MobileNo",
+    type: "text",
+  },
+  {
+    label: "Status",
+    name: "Status",
+    type: "radio",
+    options: [
+      "Active",
+      "Inactive",
+    ],
+  },
+];
+
 const statusActivities = ["Active", "Inactive"];
 const generateVendors = (count: number): Vendor[] => {
   return Array.from({ length: count }, (_, i) => {
@@ -146,6 +191,67 @@ const handleDelete = (id: number) => {
 
   const [showPopup, setShowPopup] = useState(false);
 
+  const [vendorFormData, setVendorFormData] = useState({
+  VendorCode: "",
+  VendorName: "",
+  MaterialType: "",
+  ContactPerson: "",
+  MobileNo: "",
+  Status: "Active",
+});
+
+const handleAddVendor = () => {
+
+  const newVendor = {
+    id: Date.now(),
+
+    VendorCode: vendorFormData.VendorCode,
+
+    VendorName: vendorFormData.VendorName,
+
+    MaterialType: vendorFormData.MaterialType,
+
+    ContactPerson: vendorFormData.ContactPerson,
+
+    MobileNo: vendorFormData.MobileNo,
+
+    status: vendorFormData.Status,
+
+    ModifiedDate: new Date(),
+
+  };
+
+
+  console.log(newVendor);
+
+
+  // API call / grid update here
+
+
+  setVendorFormData({
+    VendorCode: "",
+    VendorName: "",
+    MaterialType: "",
+    ContactPerson: "",
+    MobileNo: "",
+    Status: "Active",
+  });
+
+
+  setShowPopup(false);
+};
+
+const handleVendorInputChange = (
+  e: React.ChangeEvent<HTMLInputElement>
+) => {
+  const { name, value } = e.target;
+
+  setVendorFormData((prev) => ({
+    ...prev,
+    [name]: value,
+  }));
+};
+
   return (
     <>
       <div className="kspcb-data">
@@ -185,14 +291,14 @@ const handleDelete = (id: number) => {
               </AppButton>
 
               <Popup
-                open={showPopup}
-                message="Enter KSPCB details"
-                onClose={() => setShowPopup(false)}
-                onConfirm={(value) => {
-                  console.log(value);
-                  setShowPopup(false);
-                }}
-              />
+  open={showPopup}
+  message="Add Vendor Details"
+  fields={vendorPopupFields}
+  formData={vendorFormData}
+  onChange={handleVendorInputChange}
+  onClose={() => setShowPopup(false)}
+  onConfirm={handleAddVendor}
+/>
             </div>
           </div>
 

@@ -1,127 +1,236 @@
 import {
-  Autocomplete,
-  TextField,
-  Popper,
-  Chip,
-  Button,
-  ClickAwayListener
-} from "@mui/material"
+  Box,
+  Checkbox,
+  FormControlLabel,
+  Popover,
+  Typography
+} from "@mui/material";
 
-import { useState } from "react"
+import { useState } from "react";
 
 
-type FilterModalProps = {
-  open: boolean
-  anchorEl: HTMLElement | null
-  onClose: () => void
-}
+type Props = {
+  open:boolean;
+  anchorEl: HTMLElement | null;
+  onClose:()=>void;
 
-const statusOptions = ["Pending", "Approved", "Rejected", "Overdue"]
-const weightOptions = ["25–50 kg", "50–75 kg", "75–100 kg", "100–125 kg"]
+  sections:{
+    title:string;
+    options:string[];
+  }[];
+
+  onApply?:(
+    filters:Record<string,string[]>
+  )=>void;
+};
 
 export default function FilterModal({
   open,
   anchorEl,
-  onClose
-}: FilterModalProps) {
+  onClose,
+  sections,
+  onApply
 
-  const [status, setStatus] = useState<string[]>([])
-  const [weight, setWeight] = useState<string[]>([])
+}:Props){
 
-  return (
-  <Popper
-    open={open}
-    anchorEl={anchorEl}
-    placement="bottom-end"
-    className="filter-popper"
-  >
-    <ClickAwayListener onClickAway={onClose}>
-      <div className="filter-dropdown">
 
-        <div className="filter-section">Date Range
-          <div className="date-row">
-            <div className="date-field">
-              <label>From</label>
-              <TextField type="date" size="small" fullWidth />
-            </div>
+const [filters,setFilters]=useState<
+Record<string,string[]>
+>({});
 
-            <div className="date-field">
-              <label>To</label>
-              <TextField type="date" size="small" fullWidth />
-            </div>
-          </div>
-        </div>
 
-        <div className="filter-divider" />
 
-        <div className="filter-section">
-          <div className="filter-section-title">Status</div>
+const handleChange = (
+ section:string,
+ option:string
+)=>{
 
-          <div className="chip-row">
-            {statusOptions.map((s) => (
-              <button
-                key={s}
-                className={`chip-btn ${status.includes(s) ? "active" : ""}`}
-                onClick={() =>
-                  setStatus((prev) =>
-                    prev.includes(s)
-                      ? prev.filter((i) => i !== s)
-                      : [...prev, s]
-                  )
-                }
-              >
-                {s}
-              </button>
-            ))}
-          </div>
-        </div>
 
-        <div className="filter-divider" />
+let updated = {
+ ...filters
+};
 
-        <div className="filter-section">
-          <div className="filter-section-title">Weight Range</div>
 
-          <div className="chip-row">
-            {weightOptions.map((w) => (
-              <button
-                key={w}
-                className={`chip-btn ${weight.includes(w) ? "active" : ""}`}
-                onClick={() =>
-                  setWeight((prev) =>
-                    prev.includes(w)
-                      ? prev.filter((i) => i !== w)
-                      : [...prev, w]
-                  )
-                }
-              >
-                {w}
-              </button>
-            ))}
-          </div>
-        </div>
+if(updated[section]?.includes(option)){
 
-        <div className="filter-divider" />
+ updated[section] =
+ updated[section].filter(
+  item=>item!==option
+ );
 
-        <div className="filter-actions">
-          <Button
-            variant="outlined"
-            className="btn-cancel"
-            onClick={onClose}
+}
+else{
+
+ updated[section]=[
+  ...(updated[section] || []),
+  option
+ ];
+
+}
+
+
+setFilters(updated);
+
+onFilterChange?.(updated);
+
+
+};
+
+
+
+return (
+
+<Popover
+
+ open={open}
+
+ anchorEl={anchorEl}
+
+ onClose={onClose}
+
+ anchorOrigin={{
+  vertical:"bottom",
+  horizontal:"left"
+ }}
+
+>
+
+
+<Box
+sx={{
+ padding:2,
+ width:250
+}}
+>
+
+
+<Typography fontWeight={500}>
+ Filter By
+</Typography>
+
+
+
+{
+sections.map((section)=>(
+
+<Box key={section.title}
+mt={2}
+>
+
+<Typography>
+ {section.title}
+</Typography>
+
+
+{
+  section.options.map(option=>(
+
+    <Box
+      key={option}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+
+      <FormControlLabel
+
+        control={
+          <Checkbox
+            size="small"
+            checked={
+              filters[section.title]
+              ?.includes(option)
+              || false
+            }
+
+            onChange={() =>
+              handleChange(
+                section.title,
+                option
+              )
+            }
+
+            sx={{
+              padding: "4px",
+            }}
+          />
+        }
+
+
+        label={
+          <Typography
+            sx={{
+              fontSize: "13px",
+              color:"#555",
+            }}
           >
-            Cancel
-          </Button>
+            {option}
+          </Typography>
+        }
 
-          <Button
-            variant="contained"
-            className="btn-apply"
-            onClick={onClose}
-          >
-            Apply
-          </Button>
-        </div>
 
-      </div>
-    </ClickAwayListener>
-    </Popper>
-  )
+        sx={{
+          margin:0,
+          height:"28px"
+        }}
+
+      />
+
+    </Box>
+
+  ))
+}
+
+</Box>
+
+))
+
+}
+
+<Box
+sx={{
+  display:"flex",
+  justifyContent:"flex-end",
+  marginTop:2,
+}}
+>
+
+<button
+
+onClick={()=>{
+
+  onApply?.(filters);
+
+  onClose();
+
+}}
+
+style={{
+  background:"#003274",
+  color:"#fff",
+  border:"none",
+  borderRadius:"4px",
+  padding:"6px 18px",
+  fontSize:"13px",
+  cursor:"pointer"
+}}
+
+>
+
+Apply
+
+</button>
+
+</Box>
+
+</Box>
+
+
+</Popover>
+
+
+);
+
+
 }
