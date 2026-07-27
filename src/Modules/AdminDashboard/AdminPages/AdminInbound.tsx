@@ -190,41 +190,53 @@ export default function AdminInbound() {
 
 
           <BarChart
-
-            xAxis={[
-              {
-                scaleType: 'band',
-                data: [
-                  "Plant 1",
-                  "Plant 2",
-                  "Plant 3",
-                  "Plant 4",
-                  "Plant 5",
-                  "Plant 6",
-                  "Plant 7"
-                ],
-                categoryGapRatio: 0.5,
-              }
-            ]}
-
-            series={[
-              {
-                data: [58, 50, 38, 30, 22, 20, 5],
-                color: "#4B5CEB",
-
-              }
-            ]}
-            height={250}
-            slotProps={{
-              bar: {
-                rx: 8, // rounded corners
-                ry: 8
-              }
-            }}
-
-
-
-          />
+  margin={{
+    left: 10,
+    right: 10,
+    top: 20,
+    bottom: 30,
+  }}
+  xAxis={[
+    {
+      scaleType: "band",
+      data: [
+        "Plant 1",
+        "Plant 2",
+        "Plant 3",
+        "Plant 4",
+        "Plant 5",
+        "Plant 6",
+        "Plant 7",
+      ],
+      categoryGapRatio: 0.5,
+    },
+  ]}
+  series={[
+    {
+      data: [58, 50, 38, 30, 22, 20, 5],
+      color: "#4B5CEB",
+    },
+  ]}
+  height={250}
+  slotProps={{
+    bar: {
+      rx: 8,
+      ry: 8,
+    },
+  }}
+  sx={{
+    "& .MuiChartsAxis-tickLabel": {
+      fill: "#6B7280", // X & Y axis label colour
+      fontSize: 12,
+    },
+    "& .MuiChartsAxis-line": {
+      stroke: "#D1D5DB",
+    },
+    "& .MuiChartsAxis-tick": {
+      stroke: "#D1D5DB",
+    },
+  }}
+/>
 
         </Paper>
         <Paper className="chart-card" sx={{
@@ -240,47 +252,22 @@ export default function AdminInbound() {
 
 
           <PieChart
-
-            series={[
-              {
-                data: [
-                  {
-                    id: 0,
-                    value: 52.4,
-                    label: "Metal Scrap"
-                  },
-                  {
-                    id: 1,
-                    value: 28.1,
-                    label: "Rubber"
-                  },
-                  {
-                    id: 2,
-                    value: 22.3,
-                    label: "Glass"
-                  },
-                  {
-                    id: 3,
-                    value: 9.9,
-                    label: "Battery Waste"
-                  },
-                  {
-                    id: 4,
-                    value: 22.3,
-                    label: "Hazardous"
-                  }
-                ],
-
-
-                innerRadius: 70,
-    // outerRadius: 100,
-
-              }
-            ]}
-
-            height={250}
-
-          />
+  margin={{ top: 10, bottom: 10, left: 20, right: 20 }}
+  series={[
+    {
+      data: [
+        { id: 0, value: 52.4, label: "Metal Scrap" },
+        { id: 1, value: 28.1, label: "Rubber" },
+        { id: 2, value: 22.3, label: "Glass" },
+        { id: 3, value: 9.9, label: "Battery Waste" },
+        { id: 4, value: 22.3, label: "Hazardous" },
+      ],
+      innerRadius: 55,
+      outerRadius: 80,
+    },
+  ]}
+  height={250}
+/>
 
         </Paper>
 
@@ -288,63 +275,197 @@ export default function AdminInbound() {
 
 
 
-        <Paper className="chart-card" sx={{
-          height: "280px"
-        }} >
+       <Paper
+  className="chart-card"
+  sx={{
+    height: "280px",
+    
+  }}
+>
+  {/* Header + Custom Legend */}
+  <Box
+    sx={{
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      mb: 1,
+    }}
+  >
+    <Typography
+      sx={{
+        fontWeight: 500,
+        fontSize: "14px",
+      }}
+    >
+      Scrap Generation Trend (T)
+    </Typography>
 
-          <Typography sx={{
-            fontWeight: 500,
-            fontSize: "14px"
-          }}>
-            Scrap Generation Trend(T)
-          </Typography>
+    {/* Custom Legend */}
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        gap: 2,
+      }}
+    >
+      {/* Current */}
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          gap: 0.7,
+        }}
+      >
+        <Box
+          sx={{
+            width: 14,
+            height: 3,
+            borderRadius: 2,
+            bgcolor: "#4B5CEB",
+          }}
+        />
+
+        <Typography
+          sx={{
+            fontSize: "12px",
+            color: "#6B7280",
+          }}
+        >
+          Current
+        </Typography>
+      </Box>
 
 
-          <LineChart
+      {/* Previous */}
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          gap: 0.7,
+        }}
+      >
+        <Box
+          sx={{
+            width: 14,
+            height: 3,
+            borderRadius: 2,
+            bgcolor: "#9CA3AF",
+          }}
+        />
 
-            xAxis={[
-              {
-                data: [
-                  "1",
-                  "2",
-                  "3",
-                  "4",
-                  "5",
-                  "6",
-                  "7",
-                  "8",
-                  "9",
-                  "10",
-                  "11",
-                  "12",
-                  "13"
-                ]
-              }
-            ]}
+        <Typography
+          sx={{
+            fontSize: "12px",
+            color: "#6B7280",
+          }}
+        >
+          Previous
+        </Typography>
+      </Box>
 
-            series={[
-              {
-                data: [
-                  10, 22, 27, 21, 26, 13, 22, 18, 23, 21, 7, 22, 19
-                ],
-                label: "Current"
-              },
-              {
-                data: [
-                  10, 19, 15, 24, 18, 20, 6, 14, 11, 12, 8, 12, 15
-                ],
-                label: "Previous"
-              }
-            ]}
-
-            height={230}
-
-          />
+    </Box>
+  </Box>
 
 
-        </Paper>
+  {/* Chart */}
+  <LineChart
+ slots={{
+    legend: () => null,
+  }}
+    xAxis={[
+      {
+        data: [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+          "13",
+        ],
+      },
+    ]}
 
+    series={[
+      {
+        data: [
+          10,
+          22,
+          27,
+          21,
+          26,
+          13,
+          22,
+          18,
+          23,
+          21,
+          7,
+          22,
+          19,
+        ],
+        label: "Current",
+        color: "#4B5CEB",
+      },
+      {
+        data: [
+          10,
+          19,
+          15,
+          24,
+          18,
+          20,
+          6,
+          14,
+          11,
+          12,
+          8,
+          12,
+          15,
+        ],
+        label: "Previous",
+        color: "#9CA3AF",
+      },
+    ]}
 
+    height={240}
+
+    
+
+    margin={{
+      left: 35,
+      right: 10,
+      top: 10,
+      bottom: 25,
+    }}
+
+    sx={{
+      "& .MuiChartsAxis-tickLabel": {
+        fill: "#6B7280",
+        fontSize: 12,
+      },
+
+      "& .MuiChartsAxis-line": {
+        stroke: "#E5E7EB",
+      },
+
+      "& .MuiChartsAxis-tick": {
+        stroke: "#E5E7EB",
+      },
+
+      "& .MuiChartsGrid-line": {
+        stroke: "#F3F4F6",
+      },
+    }}
+
+  />
+
+</Paper>
       </Box>
       {/* Inbound Entries */}
 

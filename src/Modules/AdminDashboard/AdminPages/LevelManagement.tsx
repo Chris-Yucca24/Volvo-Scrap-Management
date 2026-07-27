@@ -285,7 +285,7 @@ export default function LevelManagement() {
                     >
                       <label
                         style={{
-                          fontSize: "12px",
+                          fontSize: "11px",
                           fontWeight: 400,
                           color: "#888B8D",
                           minWidth: "65px",
@@ -298,7 +298,7 @@ export default function LevelManagement() {
                         type="date"
                         style={{
                           flex: 1,
-                          padding: "8px 12px",
+                          padding: "8px 10px",
                           border: "1px solid #B8B8B8",
                           borderRadius: "6px",
                           outline: "none",
@@ -317,7 +317,7 @@ export default function LevelManagement() {
                     >
                       <label
                         style={{
-                          fontSize: "12px",
+                          fontSize: "11px",
                           fontWeight: 400,
                           color: "#888B8D",
                           minWidth: "55px",
@@ -330,7 +330,7 @@ export default function LevelManagement() {
                         type="date"
                         style={{
                           flex: 1,
-                          padding: "8px 12px",
+                          padding: "8px 10px",
                           border: "1px solid #B8B8B8",
                           borderRadius: "6px",
                           outline: "none",
