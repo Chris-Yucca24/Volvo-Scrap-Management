@@ -39,6 +39,30 @@ const sourceColumns = [
   { field: "Action", header: "Action" },
 ];
 
+const sourcePopupFields = [
+  {
+    label: "Source Code*",
+    name: "SourceCode",
+    type: "text",
+  },
+  {
+    label: "Source Name*",
+    name: "SourceName",
+    type: "text",
+  },
+  {
+    label: "Scraps Collected*",
+    name: "ScrapsCollected",
+    type: "text",
+  },
+  {
+    label: "Status",
+    name: "Status",
+    type: "radio",
+    options: ["Active", "Inactive"],
+  },
+];
+
 const destinationColumns = [
   { field: "id", header: "Destination Code" },
   { field: "DestinationName", header: "Destination Name" },
@@ -152,6 +176,60 @@ const AdminSourceDestination = () => {
     setPage(1);
   }, [users]);
 
+  const [sourceFormData, setSourceFormData] = useState({
+  SourceCode: "",
+  SourceName: "",
+  ScrapsCollected: "",
+  Status: "Active",
+});
+
+
+ const handleSourceInputChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { name, value } = e.target;
+
+    setSourceFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+const handleAddSource = () => {
+
+  const newSource: User = {
+    id: Date.now(),
+
+    SourceName: sourceFormData.SourceName,
+
+    ScrapsCollected: sourceFormData.ScrapsCollected,
+
+    AddedBy: "Admin",
+
+    DestinationName: "",
+
+    ModifiedDate: new Date(),
+
+    status: sourceFormData.Status,
+  };
+
+
+  setSourceUsers((prev)=>[
+    newSource,
+    ...prev
+  ]);
+
+
+  setSourceFormData({
+    SourceCode:"",
+    SourceName:"",
+    ScrapsCollected:"",
+    Status:"Active",
+  });
+
+
+  setShowPopup(false);
+};
+
   return (
     <>
       <div className="kspcb-data">
@@ -218,14 +296,22 @@ const AdminSourceDestination = () => {
               </AppButton>
 
               <Popup
-                open={showPopup}
-                message="Enter KSPCB details"
-                onClose={() => setShowPopup(false)}
-                onConfirm={(value) => {
-                  console.log(value);
-                  setShowPopup(false);
-                }}
-              />
+  open={showPopup}
+  message={
+    activeTab === "Source Management"
+      ? "Add Source Details"
+      : "Add Destination Details"
+  }
+  fields={
+    activeTab === "Source Management"
+      ? sourcePopupFields
+      : []
+  }
+  formData={sourceFormData}
+  onChange={handleSourceInputChange}
+  onClose={() => setShowPopup(false)}
+  onConfirm={handleAddSource}
+/>
             </div>
           </div>
 

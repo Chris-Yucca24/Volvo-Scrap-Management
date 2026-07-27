@@ -19,8 +19,9 @@ import {
 
 
 import TotalScrap from "../../../assets/image-assets/Total_scrap.svg"
-import InVentory from "../../../assets/image-assets/Inventory-new.svg"
-import Disposable_schedule from "../../../assets/image-assets/Disposablecompleted.svg"
+import InVentory from "../../../assets/image-assets/INHand.svg"
+import Disposable_schedule from "../../../assets/image-assets/Disposed.svg"
+import Disposable_Completed from "../../../assets/image-assets/Complete-disposal.svg"
 import hazordous from "../../../assets/image-assets/Hazardous-icon.svg"
 
 
@@ -44,7 +45,7 @@ const summaryCards = [
   {
     title: "Disposal Completed",
     value: "68.400 T",
-    icon: Disposable_schedule
+    icon: Disposable_Completed
   },
   {
     title: "Hazardous Scrap",

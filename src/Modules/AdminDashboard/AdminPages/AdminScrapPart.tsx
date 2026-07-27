@@ -60,6 +60,76 @@ const createdByUsers = [
 ];
 
 
+const scrapPartFields = [
+  {
+    label: "Part Number*",
+    name: "partNumber",
+    type: "text",
+  },
+ 
+  {
+    label: "KSPCB No*",
+    name: "kspcbNo",
+    type: "text",
+  },
+  {
+    label: "Waste Type*",
+    name: "wasteType",
+    type: "select",
+    options: [
+      "Non-Hazardous",
+      "Hazardous",
+    ],
+  },
+  {
+    label: "Incineration Type*",
+    name: "incinerationType",
+    type: "select",
+    options: [
+      "Rotary Kiln",
+      "Fluidized Bed",
+      "Other",
+    ],
+  },
+  {
+    label: "UOM*",
+    name: "uom",
+    type: "select",
+    options: [
+      "KG",
+      "Ton",
+      "Nos",
+      "Litre",
+    ],
+  },
+  {
+    label: "Disposal Method*",
+    name: "disposalMethod",
+    type: "select",
+    options: [
+      "Recycle",
+      "Reuse",
+      "Incineration",
+      "Landfill",
+    ],
+  },
+   {
+    label: "Part Description*",
+    name: "partDescription",
+    type: "textarea",
+    multiline: true,
+  },
+  {
+    label: "Status",
+    name: "status",
+    type: "radio",
+    options: [
+      "Active",
+      "Inactive",
+    ],
+  },
+];
+
 const generateScrapParts = (count: number): ScrapPart[] => {
   return Array.from({ length: count }, (_, i) => {
     const wasteType =
@@ -173,6 +243,30 @@ useEffect(() => {
 
   // add new kspcb popup
 
+  const [scrapFormData, setScrapFormData] = useState({
+  partNumber: "",
+  partDescription: "",
+  kspcbNo: "",
+  wasteType: "",
+  incinerationType: "",
+  uom: "",
+  disposalMethod: "",
+  status: "Active",
+});
+
+const handleScrapPopupChange = (
+  e: React.ChangeEvent<HTMLInputElement>
+) => {
+
+  const { name, value } = e.target;
+
+  setScrapFormData((prev) => ({
+    ...prev,
+    [name]: value,
+  }));
+
+};
+
   const [showPopup, setShowPopup] = useState(false);
 
   return (
@@ -210,14 +304,44 @@ useEffect(() => {
               </AppButton>
 
               <Popup
-                open={showPopup}
-                message="Enter KSPCB details"
-                onClose={() => setShowPopup(false)}
-                onConfirm={(value) => {
-                  console.log(value);
-                  setShowPopup(false);
-                }}
-              />
+
+  open={showPopup}
+
+  message="Add Scrap Part Number"
+
+  fields={scrapPartFields}
+
+  formData={scrapFormData}
+
+  onChange={handleScrapPopupChange}
+
+  onClose={() => {
+    setShowPopup(false);
+
+    setScrapFormData({
+      partNumber: "",
+      partDescription: "",
+      kspcbNo: "",
+      wasteType: "",
+      incinerationType: "",
+      uom: "",
+      disposalMethod: "",
+      status: "Active",
+    });
+
+  }}
+
+  onConfirm={() => {
+
+    console.log(scrapFormData);
+
+    // API call later
+
+    setShowPopup(false);
+
+  }}
+
+/>
             </div>
           </div>
 
