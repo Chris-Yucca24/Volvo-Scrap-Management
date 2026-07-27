@@ -104,6 +104,7 @@ const inventoryAgingData = [
     total: "13.0 "
   }
 ];
+
 export default function AdminInbound() {
 
   return (
