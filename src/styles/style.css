@@ -2815,6 +2815,63 @@ select:invalid {
 
 
 }
+
+/* /Popup Styles */
+.input-field-popup-holder {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px 20px;
+}
+
+
+.popup-inputfield {
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+
+.popup-inputfield label {
+  font-size:14px;
+  font-weight:500;
+  color:#555;
+}
+
+
+.text-field .MuiInputBase-root {
+  height:42px;
+  font-size:14px;
+}
+
+
+.text-field textarea {
+  min-height:70px !important;
+}
+
+
+/* Make textarea span full width */
+.popup-inputfield:has(textarea) {
+  grid-column: span 1;
+}
+
+
+
+@media(max-width:900px){
+
+  .input-field-popup-holder{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+}
+
+
+@media(max-width:600px){
+
+  .input-field-popup-holder{
+    grid-template-columns:1fr;
+  }
+
+}
 @media screen and (min-width: 1024px) and (max-width: 1550px){
   
   /* report */

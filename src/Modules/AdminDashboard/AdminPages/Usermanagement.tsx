@@ -31,6 +31,7 @@ import AddIcon from "../../../assets/image-assets/Add-icon.svg";
 import AlertModal from "../../../Common/Components/UI/AlertModal";
 import { useState, useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
+import Popup from "../../../Common/Components/UI/popup";
 
 type User = {
   id: number;
@@ -214,6 +215,13 @@ export default function UserManagement() {
     setSelectedRoles([]);
     setOpenAddUser(false);
   };
+
+  const [userFormData, setUserFormData] = useState({
+  SearchUser: "",
+  Role: "",
+})
+
+
 
   const FieldLabel = ({ children }: { children: string }) => (
     <Box
@@ -498,10 +506,13 @@ export default function UserManagement() {
     "& .MuiDialog-paper": {
       width: "700px",
       maxWidth: "90%",
+      backgroundColor:"#F5F9FD",
+      padding:"10px",
+      borderRadius:"10px"
     },
   }}
 >
-  
+
         <DialogTitle>Add User</DialogTitle>
 
         <DialogContent>
@@ -527,6 +538,7 @@ export default function UserManagement() {
                     height: 36,
                     fontSize: "12px",
                       borderRadius:"8px",
+                      backgroundColor:"#fff"
                   },
                 }}
               />
@@ -599,6 +611,7 @@ export default function UserManagement() {
                 height: selectedRoles.length > 0 ? "auto" : 36,
                 fontSize: "12px",
                 borderRadius:"8px",
+                 backgroundColor:"#fff",
 
                 "& .MuiSelect-select": {
                   display: "flex",

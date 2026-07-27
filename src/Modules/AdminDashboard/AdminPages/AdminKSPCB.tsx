@@ -17,7 +17,7 @@ import AlertModal from "../../../Common/Components/UI/AlertModal";
 import filterIcon from "../../../assets/image-assets/filter.png";
 import { useState, useEffect } from "react";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import Popup from "../../../Common/Components/UI/popup";
+import Popup from "../../../Common/Components/UI/Popup";
 import SearchField from "../../../Common/DashboardComponents/searchField";
 
 type User = {
@@ -32,6 +32,78 @@ type User = {
 
 const wasteTypestatus = ["Non-Hazardous", "Hazardous"];
 const statusActivities = ["Active", "Inactive"];
+
+const kspcbFields = [
+  {
+    label: "KSPCB No*",
+    name: "KSPCBNo"
+  },
+  {
+    label: "Waste Description*",
+    name: "wasteDescription",
+     type: "select",
+    options: ["Hazardous", "Non-Hazardous"],
+    multiline: true
+  },
+  {
+    label: "Waste Type*",
+    name: "WasteType",
+    type: "select",
+    options: ["Hazardous", "Non-Hazardous"],
+  },
+  {
+    label: "Disposal Method*",
+    name: "DisposalMethod",
+    type: "select",
+    options: ["Hazardous", "Non-Hazardous"],
+  },
+  {
+    label: "Manifest Required",
+    name: "ManifestRequired",
+    type: "select",
+    options: ["Yes", "No"],
+  },
+  {
+    label: "Created By*",
+    name: "CreatedBy",
+    type: "select",
+    options: ["Admin", "Engineer"],
+  },
+  {
+    label: "Upload Document",
+    name: "UploadDocument",
+      type: "file",
+  },
+  {
+    label: "Status",
+    name: "Status",
+    type:"radio",
+     options: ["Active", "Inactive"],
+    
+  }
+];
+
+
+
+const handleInputChange = (
+  e: React.ChangeEvent<HTMLInputElement>
+) => {
+
+  const { name, value } = e.target;
+
+  setFormData((prev) => ({
+    ...prev,
+    [name]: value
+  }));
+
+};
+const handleSubmit = () => {
+
+  console.log(formData);
+
+  setShowPopup(false);
+
+};
 
 const generateUsers = (count: number): User[] => {
   return Array.from({ length: count }, (_, i) => {
@@ -129,6 +201,17 @@ export default function UserManagement() {
 
   const [showPopup, setShowPopup] = useState(false);
 
+  const [formData, setFormData] = useState({
+  KSPCBNo: "",
+  wasteDescription: "",
+  WasteType: "",
+  DisposalMethod: "",
+  ManifestRequired: "",
+  CreatedBy: "",
+  UploadDocument: "",
+  Status: ""
+});
+
   return (
     <>
       <div className="kspcb-data">
@@ -163,15 +246,15 @@ export default function UserManagement() {
                 + Add New KSPCB
               </AppButton>
 
-              <Popup
-                open={showPopup}
-                message="Enter KSPCB details"
-                onClose={() => setShowPopup(false)}
-                onConfirm={(value) => {
-                  console.log(value);
-                  setShowPopup(false);
-                }}
-              />
+             <Popup
+  open={showPopup}
+  message="Add KSPCB Details"
+  fields={kspcbFields}
+  formData={formData}
+  onChange={handleInputChange}
+  onClose={() => setShowPopup(false)}
+  onConfirm={handleSubmit}
+/>
             </div>
           </div>
 
@@ -334,3 +417,11 @@ export default function UserManagement() {
     </>
   );
 }
+function setOpenPopup(arg0: boolean) {
+  throw new Error("Function not implemented.");
+}
+
+function setShowPopup(arg0: boolean) {
+  throw new Error("Function not implemented.");
+}
+
