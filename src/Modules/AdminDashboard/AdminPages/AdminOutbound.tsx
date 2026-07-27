@@ -33,37 +33,37 @@ const summaryCards = [
     title: "Total Scrap (T)",
     value: "3,245.680",
     icon: OutTotalScrap,
-    color: "#2962FF",
+   color: "linear-gradient(180deg, #2874EE 0%, #003DA1 100%)",
   },
   {
     title: "Total Ready to Disposal (T)",
     value: "1,842.430",
     icon: ReadyToDispose,
-    color: "#24C35A",
+    color: " linear-gradient(180deg, #47CA7C 0%, #0A6830 100%)",
   },
   {
     title: "Pending Approvals",
     value: "18",
     icon: PendingApproval,
-    color: "#F6C343",
+    color: " linear-gradient(180deg, #EBD397 0%, #E6B526 100%)",
   },
   {
     title: "Scheduled Dispatches",
     value: "12",
     icon: ScheduledDispatch,
-    color: "#7C3AED",
+    color: "linear-gradient(180deg, #986AE3 0%, #5B19C4 100%)",
   },
   {
     title: "Completed Dispatch",
     value: "96",
     icon: CompletedDispatch,
-    color: "#23B44D",
+    color: " linear-gradient(180deg, #47CA7C 0%, #0A6830 100%)",
   },
   {
     title: "Gate Exits Today",
     value: "20",
     icon: GateExit,
-    color: "#2DB6E8",
+    color: "linear-gradient(180deg, #56D4E0 0%, #2FA4AF 100%)",
   },
 ];
 
@@ -185,7 +185,7 @@ export default function AdminOutbound() {
             <Box>
               <Typography
                 sx={{
-                  fontSize: "14px",
+                  fontSize: "13px",
                   fontWeight: 500,
                 }}
               >
@@ -195,7 +195,7 @@ export default function AdminOutbound() {
               <Typography
                 sx={{
                   fontSize: "18px",
-                  fontWeight: 700,
+                  fontWeight: 500,
                 }}
               >
                 {card.value}
@@ -211,7 +211,7 @@ export default function AdminOutbound() {
         {/* Disposal Readiness */}
 
         <Paper className="chart-card">
-          <Typography fontWeight={600}>Disposal Readiness</Typography>
+          <Typography fontWeight={500}>Disposal Readiness</Typography>
 
           <Box
             sx={{
@@ -222,6 +222,7 @@ export default function AdminOutbound() {
             }}
           >
             <Gauge
+           
               value={82}
               startAngle={-90}
               endAngle={90}
@@ -229,13 +230,25 @@ export default function AdminOutbound() {
               height={140}
               innerRadius="70%"
               outerRadius="100%"
+
               sx={{
-                "& .MuiGauge-valueText": {
+                 "& .MuiGauge-valueArc": {
+      fill: "#2AAD43", 
+    },
+    "& .MuiGauge-referenceArc": {
+      fill: "#E4B66D",
+    },
+                "& .MuiGauge-valueText": {  
                   fontSize: "22px",
-                  fontWeight: 700,
+                  fontWeight: 500,
+                  background:'red'
                 },
               }}
-            />
+              
+           />
+            <svg width="0" height="0">
+   
+  </svg>
 
             <Box sx={{ ml: 2 }}>
               <Box display="flex" gap={1} alignItems="center">
@@ -275,7 +288,7 @@ export default function AdminOutbound() {
 
         <Paper className="chart-card">
           <Box display="flex" justifyContent="space-between">
-            <Typography fontWeight={600}>Aging Scrap Summary</Typography>
+            <Typography fontWeight={500}>Aging Scrap Summary</Typography>
 
             <Typography fontSize={12} color="primary">
               View Full Report
@@ -340,7 +353,7 @@ export default function AdminOutbound() {
 
         <Paper className="chart-card">
           <Box display="flex" justifyContent="space-between">
-            <Typography fontWeight={600}>Threshold Monitoring</Typography>
+            <Typography fontWeight={500}>Threshold Monitoring</Typography>
 
             <IconButton size="small">⚙</IconButton>
           </Box>
@@ -451,8 +464,8 @@ export default function AdminOutbound() {
                   </TableCell>{" "}
                   <TableCell align="center">{row.gateExit}</TableCell>
                   <TableCell align="center">{row.challan}</TableCell>
-                  <TableCell className="outbound-actions" align="center">
-                    <img src={Eyeicon} alt="" />{" "}
+                  <TableCell className="outbound-actions" align="center" >
+                    <img src={Eyeicon} alt=""  />{" "}
                     <img src={DownloadIcon} alt="" />
                   </TableCell>
                 </TableRow>
@@ -471,10 +484,10 @@ export default function AdminOutbound() {
           className="chart-card"
           sx={{
             height: "300px",
-              
+              boxShadow: "0px 2px 6px rgba(0,0,0,0.08)"
           }}
         >
-          <Typography fontWeight={600} mb={3}>Disposal Readiness</Typography>
+          <Typography fontWeight={500} mb={3}>Disposal Readiness</Typography>
 
           <Box
             sx={{
@@ -496,9 +509,13 @@ export default function AdminOutbound() {
                   ],
                   innerRadius: 50,
                   outerRadius: 100,
+                
                 },
               ]}
               height={250}
+              sx={{"& path": {
+      stroke: "none", 
+    },}}
             />
 
             <Box sx={{ ml: 2 }}>
@@ -559,7 +576,7 @@ export default function AdminOutbound() {
         >
           {/* Header */}
           <Box display="flex" justifyContent="space-between" mb={3}>
-            <Typography fontWeight={600}>
+            <Typography fontWeight={500}>
               Pending Approvals (18.620 T)
             </Typography>
 
@@ -581,15 +598,15 @@ export default function AdminOutbound() {
                     backgroundColor: "#f1f3f6",
                   }}
                 >
-                  <TableCell sx={{ fontWeight: 600 }}>
+                  <TableCell sx={{ fontWeight: 500 }}>
                     Approval Levels
                   </TableCell>
 
-                  <TableCell align="center" sx={{ fontWeight: 600 }}>
+                  <TableCell align="center" sx={{ fontWeight: 500 }}>
                     Pending(T)
                   </TableCell>
 
-                  <TableCell align="center" sx={{ fontWeight: 600 }}>
+                  <TableCell align="center" sx={{ fontWeight: 500 }}>
                     Items
                   </TableCell>
                 </TableRow>
@@ -612,10 +629,10 @@ export default function AdminOutbound() {
 
         {/*  Vendor Performance */}
 
-        <Box sx={{ p: 2, bgcolor: "#f5f6fa", borderRadius: 2, }}>
+        <Box sx={{ p: 2, borderRadius: 2,boxShadow:"0px 2px 6px rgba(0,0,0,0.08)" }}>
           {/* Header */}
           <Box display="flex" justifyContent="space-between" mb={3} >
-            <Typography fontWeight={600}>
+            <Typography fontWeight={500}>
               Pending Approvals (18.620 T)
             </Typography>
 
@@ -629,7 +646,7 @@ export default function AdminOutbound() {
           </Box>
 
           {vendors.map((vendor, i) => (
-            <Box key={i} display="flex" alignItems="center" gap={2} mb={3} padding={"2px"} >
+            <Box key={i} display="flex" alignItems="center" gap={2} mb={2} padding={"2px"} >
               {/* Vendor Name */}
               <Typography sx={{ minWidth: 160, fontSize: 13 }}>
                 {vendor.name}

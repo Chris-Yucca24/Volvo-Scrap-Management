@@ -1225,6 +1225,8 @@ select:invalid {
   border: 1px solid #DFDFDF;
   padding: 5px;
   border-radius: 6px;
+  height: auto;
+  vertical-align: middle;
 }
 
 /* User management styles starts */
@@ -2378,8 +2380,8 @@ select:invalid {
 .summary-card {
   display: flex;
   align-items: center;
-  gap: 15px;
-  padding: 20px;
+  gap: 10px;
+  padding: 20px 12px;
   border-radius: 10px;
 }
 
@@ -2491,7 +2493,7 @@ select:invalid {
   display: flex;
   align-items: center;
   gap: 15px;
-  padding: 15px;
+  padding:  15px 12px;
   border-radius: 10px;
 }
  
@@ -2505,6 +2507,7 @@ select:invalid {
   grid-template-columns: 1fr 1fr 1fr;
   gap: 16px;
   margin-top: 16px;
+  align-items: stretch;
 }
  
  
