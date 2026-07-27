@@ -154,7 +154,7 @@ const AdminSourceDestination = () => {
   };
 
   const [showPopup, setShowPopup] = useState(false);
-  const tabs = ["Source Management", "Destination Management"];
+  const tabs = ["Source Management"];
   const [sourceUsers, setSourceUsers] = useState<User[]>(generateUsers(40));
   const [destinationUsers, setDestinationUsers] = useState<User[]>(
     generateUsers(40),
@@ -253,10 +253,11 @@ const handleAddSource = () => {
                       className="source-tab-wrapper"
                       style={{
                         padding: activeTab === tab ? "1.3px" : "0px",
-                        background:
-                          activeTab === tab
-                            ? "linear-gradient(to bottom, #EAF2FF , #012F6E) "
-                            : "#fff",
+                        // background:
+                        //   activeTab === tab
+                        //     ? "linear-gradient(to bottom, #EAF2FF , #012F6E) "
+                        //     : "#fff",
+                        
                       }}
                     >
                       <div
@@ -265,9 +266,12 @@ const handleAddSource = () => {
                         onClick={() => setActiveTab(tab)}
                         style={{
                           padding: "10px 20px",
-                          cursor: "pointer",
+                          cursor: "text",
                           background: "#fff",
-                          color: activeTab === tab ? "#000" : "#9D9D9D",
+                          // color: activeTab === tab ? "#000" : "#9D9D9D",
+                          color:"#000",
+                         
+
                         }}
                       >
                         {tab}
