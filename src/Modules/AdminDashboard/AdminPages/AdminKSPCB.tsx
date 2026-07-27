@@ -19,6 +19,7 @@ import { useState, useEffect } from "react";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import Popup from "../../../Common/Components/UI/Popup";
 import SearchField from "../../../Common/DashboardComponents/searchField";
+import FilterModal from "../../../Common/DashboardComponents/FilterModal";
 
 type User = {
   id: number;
@@ -83,7 +84,30 @@ const kspcbFields = [
   }
 ];
 
-
+const kspcbFilters = [
+  {
+    title: "Waste Type",
+    options: [
+      "Hazardous",
+      "Non-Hazardous"
+    ]
+  },
+  {
+    title: "Status",
+    options: [
+      "Active",
+      "Inactive"
+    ]
+  },
+  {
+    title: "Disposal Method",
+    options: [
+      "Recycle",
+      "Landfill",
+      "Reuse"
+    ]
+  }
+];
 
 const handleInputChange = (
   e: React.ChangeEvent<HTMLInputElement>
@@ -188,6 +212,8 @@ export default function UserManagement() {
     setDeleteId(null);
   };
 
+  const [filterAnchor, setFilterAnchor] = useState<HTMLElement | null>(null);
+
   //   const navigate = useNavigate();
 
   const startIndex = (page - 1) * rowsPerPage;
@@ -234,10 +260,34 @@ export default function UserManagement() {
             <div className="right-btns-container">
               <SearchField />
 
-              <button className="btn-filter">
-                <img src={filterIcon} className="filter-icon" alt="" />
-                Filter
-              </button>
+              <button
+  className="btn-filter"
+  onClick={(e)=>setFilterAnchor(e.currentTarget)}
+>
+  <img 
+    src={filterIcon} 
+    className="filter-icon" 
+    alt="" 
+  />
+
+  Filter
+</button>
+
+<FilterModal
+
+  open={Boolean(filterAnchor)}
+
+  anchorEl={filterAnchor}
+
+  onClose={() => setFilterAnchor(null)}
+
+  sections={kspcbFilters}
+
+  onFilterChange={(filters)=>{
+    console.log("Selected Filters:", filters);
+  }}
+
+/>
               <AppButton
                 variant="filled"
                 className="add-new-kspcb"

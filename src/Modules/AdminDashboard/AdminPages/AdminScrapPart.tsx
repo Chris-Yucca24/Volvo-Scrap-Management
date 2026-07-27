@@ -19,6 +19,7 @@ import { useState, useEffect } from "react";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import Popup from "../../../Common/Components/UI/popup";
 import SearchField from "../../../Common/DashboardComponents/searchField";
+import FilterModal from "../../../Common/DashboardComponents/FilterModal";
 
 type ScrapPart = {
   id: number;
@@ -128,6 +129,32 @@ const scrapPartFields = [
       "Inactive",
     ],
   },
+];
+
+const scrapPartNumberFilters = [
+  {
+    title: "Material Type",
+    options: [
+      "Aluminium",
+      "Steel",
+      "Plastic",
+      "Rubber"
+    ]
+  },
+  {
+    title: "Status",
+    options: [
+      "Active",
+      "Inactive"
+    ]
+  },
+  {
+    title: "Part Category",
+    options: [
+      "OEM",
+      "Non OEM"
+    ]
+  }
 ];
 
 const generateScrapParts = (count: number): ScrapPart[] => {
@@ -254,6 +281,9 @@ useEffect(() => {
   status: "Active",
 });
 
+const [filterAnchor, setFilterAnchor] =
+  useState<HTMLElement | null>(null);
+
 const handleScrapPopupChange = (
   e: React.ChangeEvent<HTMLInputElement>
 ) => {
@@ -291,10 +321,44 @@ const handleScrapPopupChange = (
             <div className="right-btns-container">
               <SearchField />
 
-              <button className="btn-filter">
-                <img src={filterIcon} className="filter-icon" alt="" />
-                Filter
-              </button>
+              <button
+  className="btn-filter"
+  onClick={(e)=>setFilterAnchor(e.currentTarget)}
+>
+  <img 
+    src={filterIcon} 
+    className="filter-icon" 
+    alt="" 
+  />
+
+  Filter
+</button>
+
+<FilterModal
+
+  open={Boolean(filterAnchor)}
+
+  anchorEl={filterAnchor}
+
+  onClose={() =>
+    setFilterAnchor(null)
+  }
+
+  sections={scrapPartNumberFilters}
+
+
+  onApply={(filters)=>{
+
+    console.log(
+      "Scrap Part Number Filters:",
+      filters
+    );
+
+    // apply filtering logic here
+
+  }}
+
+/>
               <AppButton
                 variant="filled"
                 className="add-new-kspcb"
