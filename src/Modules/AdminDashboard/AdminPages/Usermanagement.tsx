@@ -10,8 +10,18 @@ import {
   IconButton,
   Paper,
   Pagination,
-   Select,
   MenuItem,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  Autocomplete,
+  FormControl,
+  InputLabel,
+  OutlinedInput,
+  Select,
+  ListItemText,
 } from "@mui/material";
 
 import Delete from "../../../assets/image-assets/bin_delete.png";
@@ -67,6 +77,37 @@ const generateUsers = (count: number): User[] => {
   });
 };
 
+
+const availableUsers = [
+  {
+    id: 5001,
+    firstName: "John",
+    lastName: "Smith",
+    designation: "Software Engineer",
+    email: "john.smith@volvo.com",
+  },
+  {
+    id: 5002,
+    firstName: "Sarah",
+    lastName: "Johnson",
+    designation: "Finance Executive",
+    email: "sarah.johnson@volvo.com",
+  },
+  {
+    id: 5003,
+    firstName: "David",
+    lastName: "Wilson",
+    designation: "Maintenance Engineer",
+    email: "david.wilson@volvo.com",
+  },
+  {
+    id: 5004,
+    firstName: "Emma",
+    lastName: "Thomas",
+    designation: "Security Officer",
+    email: "emma.thomas@volvo.com",
+  },
+];
 const getRoleColors = (role: string) => {
   switch (role) {
     case "Finance Executive":
@@ -75,12 +116,12 @@ const getRoleColors = (role: string) => {
       return { bg: "#E1F8E0", text: "#258C20" };
     case "Maintenance":
       return { bg: "#DBE5FF", text: "#274799" };
-       case "Finance":
+    case "Finance":
       return { bg: "#DBE5FF", text: "#274799" };
-      case "Maintenance & Finance":
+    case "Maintenance & Finance":
       return { bg: "#DBE5FF", text: "#274799" };
     case "Security":
-      return { bg:"#FDECEC", text: "#C62828" };
+      return { bg: "#FDECEC", text: "#C62828" };
     default:
       return { bg: "#e0e0e0", text: "#000" };
   }
@@ -92,7 +133,7 @@ const stickyTopRow = {
   backgroundColor: "#F1F5FC",
   zIndex: 3,
   fontWeight: 500,
-  padding: "8px 12px",  
+  padding: "8px 12px",
   height: "32px",
 };
 
@@ -106,12 +147,12 @@ export default function UserManagement() {
   const rowsPerPage = 12;
 
   const handleAccessChange = (id: number, value: string) => {
-  setUsers((prev) =>
-    prev.map((user) =>
-      user.id === id ? { ...user, access: value } : user
-    )
-  );
-};
+    setUsers((prev) =>
+      prev.map((user) =>
+        user.id === id ? { ...user, access: value } : user
+      )
+    );
+  };
 
   const handleCheckboxChange = (id: number, field: keyof User) => {
     setUsers((prev) =>
@@ -143,6 +184,50 @@ export default function UserManagement() {
     setPage(1);
   }, [users]);
 
+  // States for updating and adding the users.
+  const [openAddUser, setOpenAddUser] = useState(false);
+
+  const [selectedUser, setSelectedUser] =
+    useState<(typeof availableUsers)[0] | null>(null);
+
+  const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
+  const handleAddUser = () => {
+    if (!selectedUser) return;
+
+    const newUser: User = {
+      id: selectedUser.id,
+      name: `${selectedUser.firstName} ${selectedUser.lastName}`,
+      email: selectedUser.email,
+      role: selectedRoles.join(", "),
+      access: "Inbound",
+      initiator: false,
+      l1: false,
+      l2: false,
+      l3: false,
+      l4: false,
+      l5: false,
+    };
+
+    setUsers((prev) => [newUser, ...prev]);
+
+    setSelectedUser(null);
+    setSelectedRoles([]);
+    setOpenAddUser(false);
+  };
+
+  const FieldLabel = ({ children }: { children: string }) => (
+    <Box
+      sx={{
+        fontSize: "13px",
+        fontWeight: 500,
+        color: "#333",
+        mb: "6px",
+      }}
+    >
+      {children}
+    </Box>
+  );
+
   return (
     <Box sx={{
       backgroundColor: "#fff",
@@ -165,16 +250,17 @@ export default function UserManagement() {
             placeholder="Search user...."
             className="user-search"
           /> */}
-          <AppButton variant="filled">
+          <AppButton variant="filled"
+            onClick={() => setOpenAddUser(true)}>
             <img
-  src={AddIcon}
-  alt="add"
-  style={{
-    width: "12px",
-    height: "12px",
-    marginRight:"10px"
-  }}
-/>
+              src={AddIcon}
+              alt="add"
+              style={{
+                width: "12px",
+                height: "12px",
+                marginRight: "10px"
+              }}
+            />
             Add User
           </AppButton>
           <AppButton variant="outlined">
@@ -210,21 +296,21 @@ export default function UserManagement() {
           <TableHead>
 
             <TableRow>
-  <TableCell sx={stickyTopRow}>Employee ID</TableCell>
-  <TableCell sx={stickyTopRow}>Name</TableCell>
-  <TableCell sx={stickyTopRow}>Email ID</TableCell>
-  <TableCell sx={stickyTopRow} align="center">Role</TableCell>
-  <TableCell sx={stickyTopRow} align="center">Access</TableCell>
-  <TableCell sx={stickyTopRow} align="center">Initiator</TableCell>
-  <TableCell sx={stickyTopRow} align="center">L1</TableCell>
-  <TableCell sx={stickyTopRow} align="center">L2</TableCell>
-  <TableCell sx={stickyTopRow} align="center">L3</TableCell>
-  <TableCell sx={stickyTopRow} align="center">L4</TableCell>
-  <TableCell sx={stickyTopRow} align="center">L5</TableCell>
-  <TableCell sx={stickyTopRow} align="center">Action</TableCell>
-</TableRow>
+              <TableCell sx={stickyTopRow}>Employee ID</TableCell>
+              <TableCell sx={stickyTopRow}>Name</TableCell>
+              <TableCell sx={stickyTopRow}>Email ID</TableCell>
+              <TableCell sx={stickyTopRow} align="center">Role</TableCell>
+              <TableCell sx={stickyTopRow} align="center">Access</TableCell>
+              <TableCell sx={stickyTopRow} align="center">Initiator</TableCell>
+              <TableCell sx={stickyTopRow} align="center">L1</TableCell>
+              <TableCell sx={stickyTopRow} align="center">L2</TableCell>
+              <TableCell sx={stickyTopRow} align="center">L3</TableCell>
+              <TableCell sx={stickyTopRow} align="center">L4</TableCell>
+              <TableCell sx={stickyTopRow} align="center">L5</TableCell>
+              <TableCell sx={stickyTopRow} align="center">Action</TableCell>
+            </TableRow>
 
-            
+
 
           </TableHead>
 
@@ -250,31 +336,31 @@ export default function UserManagement() {
                   />
                 </TableCell>
                 <TableCell align="center">
-  <Select
-    size="small"
-    value={user.access}
-    onChange={(e) =>
-      handleAccessChange(user.id, e.target.value)
-    }
-    sx={{
-      minWidth: 110,
-      height: 32,
-      fontSize: "12px",
-    }}
-  >
-    {accessLevels.map((item) => (
-      <MenuItem key={item} value={item}>
-        {item}
-      </MenuItem>
-    ))}
-  </Select>
-</TableCell>
+                  <Select
+                    size="small"
+                    value={user.access}
+                    onChange={(e) =>
+                      handleAccessChange(user.id, e.target.value)
+                    }
+                    sx={{
+                      minWidth: 110,
+                      height: 32,
+                      fontSize: "12px",
+                    }}
+                  >
+                    {accessLevels.map((item) => (
+                      <MenuItem key={item} value={item}>
+                        {item}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </TableCell>
 
                 <TableCell align="center">
                   <Checkbox
                     checked={user.initiator}
                     onChange={() =>
-                     handleCheckboxChange(user.id, "initiator")
+                      handleCheckboxChange(user.id, "initiator")
                     }
                     size="small"
                     sx={{
@@ -286,7 +372,7 @@ export default function UserManagement() {
                   />
                 </TableCell>
 
-                
+
 
                 <TableCell align="center">
                   <Checkbox
@@ -310,7 +396,7 @@ export default function UserManagement() {
                     sx={{
                       color: "#202A44",
                       "&.Mui-checked": { color: "#202A44" },
-                      transform: "scale(0.95)", 
+                      transform: "scale(0.95)",
                       padding: "2px",
                     }}
                   />
@@ -324,7 +410,7 @@ export default function UserManagement() {
                     sx={{
                       color: "#202A44",
                       "&.Mui-checked": { color: "#202A44" },
-                      transform: "scale(0.95)", 
+                      transform: "scale(0.95)",
                       padding: "2px",
                     }}
                   />
@@ -337,7 +423,7 @@ export default function UserManagement() {
                     sx={{
                       color: "#202A44",
                       "&.Mui-checked": { color: "#202A44" },
-                      transform: "scale(0.95)", 
+                      transform: "scale(0.95)",
                       padding: "2px",
                     }}
                   />
@@ -350,7 +436,7 @@ export default function UserManagement() {
                     sx={{
                       color: "#202A44",
                       "&.Mui-checked": { color: "#202A44" },
-                      transform: "scale(0.95)", 
+                      transform: "scale(0.95)",
                       padding: "2px",
                     }}
                   />
@@ -403,6 +489,187 @@ export default function UserManagement() {
           onChange={(e, value) => setPage(value)}
         />
       </Box>
+
+      <Dialog
+  open={openAddUser}
+  onClose={() => setOpenAddUser(false)}
+  fullWidth
+  sx={{
+    "& .MuiDialog-paper": {
+      width: "700px",
+      maxWidth: "90%",
+    },
+  }}
+>
+  
+        <DialogTitle>Add User</DialogTitle>
+
+        <DialogContent>
+
+          <FieldLabel>
+            Search User
+          </FieldLabel>
+
+          <Autocomplete
+            options={availableUsers}
+            getOptionLabel={(option) =>
+              `${option.firstName} ${option.lastName}`
+            }
+            value={selectedUser}
+            onChange={(e, value) => setSelectedUser(value)}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                placeholder="Search user"
+                size="small"
+                sx={{
+                  "& .MuiInputBase-root": {
+                    height: 36,
+                    fontSize: "12px",
+                      borderRadius:"8px",
+                  },
+                }}
+              />
+            )}
+          />
+          <Box
+  sx={{
+    mt: 2,
+    // border: "1px solid #E0E0E0",
+    borderRadius: "8px",
+    overflow: "hidden",
+    backgroundColor: "#F1F5FC",
+  }}
+>
+          <Table
+            size="small"
+            sx={{
+              
+              border: "1px solid #D9D9D9",
+              borderRadius:"10px",
+              "& .MuiTableCell-root": {
+                // border: "1px solid #E5E5E5",
+                padding: "10px 14px",
+                fontSize: "13px",
+              },
+            }}
+          >
+            <TableHead>
+              <TableRow sx={{color: "#7A7A7A",}}>
+                <TableCell  sx={{color: "#7A7A7A", fontWeight:" 400 !important"}}>First Name</TableCell>
+                <TableCell  sx={{color: "#7A7A7A", fontWeight:" 400 !important"}}>Last Name</TableCell>
+                <TableCell  sx={{color: "#7A7A7A", fontWeight:" 400 !important"}}>Employee ID</TableCell>
+                <TableCell  sx={{color: "#7A7A7A", fontWeight:" 400 !important"}}>Designation</TableCell>
+              </TableRow>
+            </TableHead>
+
+            <TableBody>
+              <TableRow>
+                <TableCell>{selectedUser?.firstName || "-"}</TableCell>
+                <TableCell>{selectedUser?.lastName || "-"}</TableCell>
+                <TableCell>{selectedUser?.id || "-"}</TableCell>
+                <TableCell>{selectedUser?.designation || "-"}</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+          </Box>
+
+          <FormControl
+            fullWidth
+            margin="normal"
+          >
+            <FieldLabel>
+              Role
+            </FieldLabel>
+
+
+
+            <Select
+              multiple
+              value={selectedRoles}
+              onChange={(e) =>
+                setSelectedRoles(
+                  typeof e.target.value === "string"
+                    ? e.target.value.split(",")
+                    : e.target.value
+                )
+              }
+              sx={{
+                minHeight: 36,
+                height: selectedRoles.length > 0 ? "auto" : 36,
+                fontSize: "12px",
+                borderRadius:"8px",
+
+                "& .MuiSelect-select": {
+                  display: "flex",
+                  alignItems: "center",
+                  flexWrap: "wrap",
+                  gap: "4px",
+                  padding: "6px 10px",
+                  minHeight: "24px",
+                },
+              }}
+              // input={<OutlinedInput label="Role" />}
+              renderValue={(selected) => (
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    gap: 0.5,
+                  }}
+                >
+                  {selected.map((value) => (
+                    <Chip
+                      key={value}
+                      label={value}
+                      size="small"
+                      onDelete={() =>
+                        setSelectedRoles((prev) =>
+                          prev.filter((role) => role !== value)
+                        )
+                      }
+                      onMouseDown={(e) => e.stopPropagation()} // prevents reopening the dropdown
+                    />
+                  ))}
+                </Box>
+              )}
+            >
+              {roles.map((role) => (
+                <MenuItem
+                  key={role}
+                  value={role}
+                >
+                  <Checkbox
+                    checked={selectedRoles.indexOf(role) > -1}
+                  />
+                  <ListItemText primary={role} />
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+        </DialogContent>
+
+        <DialogActions sx={{
+          mr:2
+        }}>
+
+          <AppButton
+            variant="outlined"
+            onClick={() => setOpenAddUser(false)}
+          >
+            Cancel
+          </AppButton>
+
+          <AppButton
+            variant="filled"
+            onClick={handleAddUser}
+          >
+             + Add
+          </AppButton>
+
+        </DialogActions>
+      </Dialog>
       <AlertModal
         open={alertOpen}
         onCancel={() => {
