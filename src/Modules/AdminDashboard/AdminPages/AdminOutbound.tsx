@@ -165,14 +165,20 @@ export default function AdminOutbound() {
       <Box className="dashboard-header">
         <Typography variant="h6">Outbound Overview</Typography>
 
-        <Typography>↻ Last Updated : 28 June 2026 10:38 pm</Typography>
+        <Typography sx={{
+          fontSize:"12px"
+        }}>↻ Last Updated : 28 June 2026 10:38 pm</Typography>
       </Box>
 
       {/* Summary Cards */}
 
       <Box className="summary-grid outbound-summary-grid">
         {summaryCards.map((card) => (
-          <Paper key={card.title} className="summary-card">
+          <Paper key={card.title} className="summary-card"
+          sx={{
+             borderRadius:"10px",
+              boxShadow: "0px 2px 10px rgba(0, 43, 92, 0.08)"
+          }}>
             <Box
               className="icon-box"
               sx={{
@@ -210,190 +216,392 @@ export default function AdminOutbound() {
       <Box className="outbound-chart-grid">
         {/* Disposal Readiness */}
 
-        <Paper className="chart-card">
+        <Paper className="chart-card"
+        sx={{
+          borderRadius:"10px",
+              boxShadow: "0px 2px 10px rgba(0, 43, 92, 0.08)"
+        }}>
           <Typography fontWeight={500}>Disposal Readiness</Typography>
 
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              mt: 1,
-            }}
-          >
-            <Gauge
-           
-              value={82}
-              startAngle={-90}
-              endAngle={90}
-              width={220}
-              height={140}
-              innerRadius="70%"
-              outerRadius="100%"
+         <Box
+  sx={{
+    display: "flex",
+    alignItems: "center",
+    justifyContent:"space-between",
+    mt: 1,
+  }}
+>
+  {/* Gauge Wrapper */}
+  <Box
+    sx={{
+      position: "relative",
+      width: 280,
+      height: 200,
+    }}
+  >
+    <Gauge
+      value={82}
+      startAngle={-90}
+      endAngle={90}
+      width={280}
+      height={180}
+      innerRadius="72%"
+      outerRadius="100%"
+      sx={{
+        "& .MuiGauge-valueArc": {
+          fill: "#2AAD43",
+        },
+        "& .MuiGauge-referenceArc": {
+          fill: "#E4B66D",
+        },
+        "& .MuiGauge-valueText": {
+          display: "none",
+        },
+      }}
+    />
 
-              sx={{
-                 "& .MuiGauge-valueArc": {
-      fill: "#2AAD43", 
-    },
-    "& .MuiGauge-referenceArc": {
-      fill: "#E4B66D",
-    },
-                "& .MuiGauge-valueText": {  
-                  fontSize: "22px",
-                  fontWeight: 500,
-                  background:'red'
-                },
-              }}
-              
-           />
-            <svg width="0" height="0">
-   
-  </svg>
+    {/* Gauge Center Text */}
+    <Box
+      sx={{
+        position: "absolute",
+        top: "78%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
+      <Typography
+        sx={{
+          fontSize: "20px",
+          fontWeight: 600,
+          color: "#1F2937",
+          lineHeight: 1,
+        }}
+      >
+        82%
+      </Typography>
 
-            <Box sx={{ ml: 2 }}>
-              <Box display="flex" gap={1} alignItems="center">
-                <Box
-                  sx={{
-                    width: 8,
-                    height: 8,
-                    borderRadius: "50%",
-                    background: "#22C55E",
-                  }}
-                />
+      <Typography
+        sx={{
+          fontSize: "13px",
+          color: "#6B7280",
+          mt: 0.5,
+        }}
+      >
+        Ready
+      </Typography>
+    </Box>
+  </Box>
 
-                <Typography fontSize={12}>Ready</Typography>
-              </Box>
+  <svg width="0" height="0"></svg>
 
-              <Typography fontSize={11}>82% (70.20 T)</Typography>
+  {/* Legend */}
+  <Box sx={{ ml: 2 }}>
+    <Box display="flex" gap={1} alignItems="center">
+      <Box
+        sx={{
+          width: 8,
+          height: 8,
+          borderRadius: "50%",
+          background: "#22C55E",
+        }}
+      />
 
-              <Box display="flex" gap={1} alignItems="center" mt={2}>
-                <Box
-                  sx={{
-                    width: 8,
-                    height: 8,
-                    borderRadius: "50%",
-                    background: "#F59E0B",
-                  }}
-                />
+      <Typography fontSize={12} sx={{
+        fontWeight:500
+      }}>Ready</Typography>
+    </Box>
 
-                <Typography fontSize={12}>Pending</Typography>
-              </Box>
+    <Typography fontSize={11}>
+      82% (70.20 T)
+    </Typography>
 
-              <Typography fontSize={11}>18% (15.21 T)</Typography>
-            </Box>
-          </Box>
+    <Box display="flex" gap={1} alignItems="center" mt={2}>
+      <Box
+        sx={{
+          width: 8,
+          height: 8,
+          borderRadius: "50%",
+          background: "#F59E0B",
+        }}
+      />
+
+      <Typography fontSize={12}  sx={{
+        fontWeight:500
+      }}>Pending</Typography>
+    </Box>
+
+    <Typography fontSize={11}>
+      18% (15.21 T)
+    </Typography>
+  </Box>
+</Box>
         </Paper>
 
         {/* Aging Scrap Summary */}
 
-        <Paper className="chart-card">
-          <Box display="flex" justifyContent="space-between">
-            <Typography fontWeight={500}>Aging Scrap Summary</Typography>
+       <Paper
+  className="chart-card"
+  sx={{
+    borderRadius: "10px",
+    boxShadow: "0px 2px 10px rgba(0, 43, 92, 0.08)",
+   
+  }}
+>
+  <Box
+    display="flex"
+    justifyContent="space-between"
+    alignItems="center"
+    sx={{ mb: 1.5 }}
+  >
+    <Typography fontWeight={500} fontSize={14}>
+      Aging Scrap Summary
+    </Typography>
 
-            <Typography fontSize={12} color="primary">
-              View Full Report
-            </Typography>
-          </Box>
+    <Typography
+      fontSize={12}
+      color="primary"
+      sx={{ cursor: "pointer" }}
+    >
+      View Full Report
+    </Typography>
+  </Box>
 
-          <TableContainer>
-            <Table size="small">
-              <TableHead>
-                <TableRow>
-                  <TableCell>Aging bucket</TableCell>
 
-                  <TableCell align="right">Total Weight</TableCell>
+  <TableContainer
+    sx={{
+      border: "1px solid #E5E7EB",
+      borderRadius: "8px",
+      overflow: "hidden",
+    }}
+  >
+    <Table size="small">
 
-                  <TableCell align="right">% of Total</TableCell>
-                </TableRow>
-              </TableHead>
+      <TableHead>
+        <TableRow
+          sx={{
+            background: "#F8FAFC",
+          }}
+        >
+          <TableCell
+            sx={{
+              fontSize: 12,
+              fontWeight: 500,
+              color: "#000",
+              borderBottom: "1px solid #E5E7EB",
+            }}
+          >
+            Aging Bucket
+          </TableCell>
 
-              <TableBody>
-                {agingData.map((item) => (
-                  <TableRow key={item.bucket}>
-                    <TableCell>
-                      <Box display="flex" gap={1} alignItems="center">
-                        <Box
-                          sx={{
-                            width: 7,
-                            height: 7,
-                            borderRadius: "50%",
-                            background: item.color,
-                          }}
-                        />
+          <TableCell
+            align="center"
+            sx={{
+              fontSize: 12,
+              fontWeight: 500,
+              color: "#000",
+              borderBottom: "1px solid #E5E7EB",
+            }}
+          >
+            Total Weight
+          </TableCell>
 
-                        {item.bucket}
-                      </Box>
-                    </TableCell>
+          <TableCell
+            align="center"
+            sx={{
+              fontSize: 12,
+              fontWeight: 500,
+              color: "#000",
+              borderBottom: "1px solid #E5E7EB",
+            }}
+          >
+            % of Total
+          </TableCell>
+        </TableRow>
+      </TableHead>
 
-                    <TableCell align="right">{item.totalWeight}</TableCell>
 
-                    <TableCell align="right">{item.percent}</TableCell>
-                  </TableRow>
-                ))}
+      <TableBody>
 
-                <TableRow>
-                  <TableCell>
-                    <b>Total</b>
-                  </TableCell>
+        {agingData.map((item) => (
+          <TableRow
+            key={item.bucket}
+            sx={{
+              "&:last-child td": {
+                borderBottom: 0,
+              },
+            }}
+          >
 
-                  <TableCell align="right">
-                    <b>23.450</b>
-                  </TableCell>
+            <TableCell
+              sx={{
+                fontSize: 12,
+                color: "#374151",
+              }}
+            >
+              <Box
+                display="flex"
+                gap={1}
+                alignItems="center"
+              >
+                <Box
+                  sx={{
+                    width: 7,
+                    height: 7,
+                    borderRadius: "50%",
+                    background: item.color,
+                  }}
+                />
 
-                  <TableCell align="right">
-                    <b>26.5%</b>
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Paper>
+                {item.bucket}
+              </Box>
+            </TableCell>
 
+
+            <TableCell
+              align="center"
+              sx={{
+                fontSize: 12,
+                color: "#374151",
+              }}
+            >
+              {item.totalWeight}
+            </TableCell>
+
+
+            <TableCell
+              align="center"
+              sx={{
+                fontSize: 12,
+                color: "#374151",
+              }}
+            >
+              {item.percent}
+            </TableCell>
+
+          </TableRow>
+        ))}
+
+
+        {/* Total Row */}
+        <TableRow
+          sx={{
+            background: "#F8FAFC",
+          }}
+        >
+
+          <TableCell
+            sx={{
+              fontSize: 12,
+              fontWeight: 500,
+              color: "#1F2937",
+            }}
+          >
+            Total
+          </TableCell>
+
+          <TableCell
+            align="center"
+            sx={{
+              fontSize: 12,
+              fontWeight: 500,
+              color: "#1F2937",
+            }}
+          >
+            23.450
+          </TableCell>
+
+          <TableCell
+            align="center"
+            sx={{
+              fontSize: 12,
+              fontWeight: 500,
+              color: "#1F2937",
+            }}
+          >
+            26.5%
+          </TableCell>
+
+        </TableRow>
+
+      </TableBody>
+
+    </Table>
+  </TableContainer>
+</Paper>
         {/* agling summary  */}
 
-        <Paper className="chart-card">
-          <Box display="flex" justifyContent="space-between">
-            <Typography fontWeight={500}>Threshold Monitoring</Typography>
+        <Paper
+  className="chart-card"
+  sx={{
+    borderRadius: "10px",
+    boxShadow: "0px 2px 10px rgba(0, 43, 92, 0.08)",
+    overflow: "hidden",
+  }}
+>
+  <Box
+    display="flex"
+    justifyContent="space-between"
+    alignItems="center"
+    sx={{ mb: 0.5 }}
+  >
+    <Typography fontWeight={500} fontSize={14}>
+      Threshold Monitoring
+    </Typography>
 
-            <IconButton size="small">⚙</IconButton>
-          </Box>
+    <IconButton size="small">
+      ⚙
+    </IconButton>
+  </Box>
 
-          <LineChart
-            height={160}
-            series={[
-              {
-                data: [20, 45, 60, 42, 58, 15, 68, 80],
-                area: false,
-                color: "#2563EB",
-              },
-            ]}
-            xAxis={[
-              {
-                scaleType: "point",
-                data: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
-              },
-            ]}
-            yAxis={[
-              {
-                min: 0,
-                max: 100,
-              },
-            ]}
-            grid={{
-              horizontal: true,
-            }}
-            margin={{
-              left: 40,
-              right: 20,
-              top: 20,
-              bottom: 25,
-            }}
-          />
-        </Paper>
+
+  <LineChart
+    height={180}
+    series={[
+      {
+        data: [20, 45, 60, 42, 58, 15, 68, 80],
+        area: false,
+        color: "#002B5C",
+      },
+    ]}
+    xAxis={[
+      {
+        scaleType: "point",
+        data: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
+        tickLabelStyle: {
+          fontSize: 10,
+        },
+      },
+    ]}
+    yAxis={[
+      {
+        min: 0,
+        max: 100,
+        tickLabelStyle: {
+          fontSize: 10,
+        },
+      },
+    ]}
+    grid={{
+      horizontal: true,
+    }}
+    margin={{
+      left:-10,
+      right: 10,
+      top: 10,
+      bottom: 5,
+    }}
+  />
+</Paper>
       </Box>
       {/* Inbound Entries */}
 
-      <Paper className="table-card">
+      <Paper className="table-card"  sx={{
+          borderRadius:"10px",
+              boxShadow: "0px 2px 10px rgba(0, 43, 92, 0.08)"
+        }}>
         <Box className="table-header">
           <Typography fontWeight={500}>Inbound Entries</Typography>
 
@@ -481,96 +689,123 @@ export default function AdminOutbound() {
         {/* Disposal Readiness */}
 
         <Paper
-          className="chart-card"
+  className="chart-card"
+  sx={{
+    height: "300px",
+    borderRadius: "10px",
+   
+    boxShadow: "0px 2px 6px rgba(0,0,0,0.06)",
+  }}
+>
+  <Typography fontWeight={500} mb={2}>
+    Disposal Readiness
+  </Typography>
+
+  <Box
+    sx={{
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "flex-start",
+      mt: 1,
+     borderRadius:"8px",
+       border: "1px solid #E5E7EB",
+       padding:2,
+    }}
+  >
+    <PieChart
+     height={250}
+      width={260}
+      margin={{ 
+        top: 5, 
+        bottom: 5, 
+        left: -10, 
+        right: 5 
+      }}
+      series={[
+        {
+          data: [
+            { id: 0, value: 83.3, color: "#2AAD43" },
+            { id: 1, value: 5.1, color: "#EA585C" },
+            { id: 2, value: 15.4, color: "#DDA346" },
+          ],
+          innerRadius: 60,
+          outerRadius: 115,
+        },
+      ]}
+     
+      sx={{
+        "& path": {
+          stroke: "none",
+        },
+      }}
+    />
+
+    <Box sx={{ ml: 1.5 }}>
+      <Box display="flex" gap={1} alignItems="center">
+        <Box
           sx={{
-            height: "300px",
-              boxShadow: "0px 2px 6px rgba(0,0,0,0.08)"
+            width: 8,
+            height: 8,
+            borderRadius: "50%",
+            background: "#22C55E",
           }}
-        >
-          <Typography fontWeight={500} mb={3}>Disposal Readiness</Typography>
+        />
+        <Typography fontSize={12}>
+          Uploaded
+        </Typography>
+      </Box>
 
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              mt: 1,
-           
-            }}
-          >
-            <PieChart
-              margin={{ top: 10, bottom: 10, left: 20, right: 20 }}
-              series={[
-                {
-                  data: [
-                    { id: 0, value: 83.3, color: "#2AAD43" },
-                    { id: 1, value: 5.1, color: "#EA585C" },
-                    { id: 2, value: 15.4, color: "#DDA346" },
-                  ],
-                  innerRadius: 50,
-                  outerRadius: 100,
-                
-                },
-              ]}
-              height={250}
-              sx={{"& path": {
-      stroke: "none", 
-    },}}
-            />
+      <Typography fontSize={11}>
+        130 (83.3%)
+      </Typography>
 
-            <Box sx={{ ml: 2 }}>
-              <Box display="flex" gap={1} alignItems="center">
-                <Box
-                  sx={{
-                    width: 8,
-                    height: 8,
-                    borderRadius: "50%",
-                    background: "#22C55E",
-                  }}
-                />
 
-                <Typography fontSize={12}>uploaded</Typography>
-              </Box>
+      <Box display="flex" gap={1} alignItems="center" mt={2}>
+        <Box
+          sx={{
+            width: 8,
+            height: 8,
+            borderRadius: "50%",
+            background: "#EA585C",
+          }}
+        />
+        <Typography fontSize={12}>
+          Failed
+        </Typography>
+      </Box>
 
-              <Typography fontSize={11}>130(83.3%)</Typography>
+      <Typography fontSize={11}>
+        5 (5.1%)
+      </Typography>
 
-              <Box display="flex" gap={1} alignItems="center" mt={2}>
-                <Box
-                  sx={{
-                    width: 8,
-                    height: 8,
-                    borderRadius: "50%",
-                    background: "#EA585C",
-                  }}
-                />
 
-                <Typography fontSize={12}>Failed</Typography>
-              </Box>
+      <Box display="flex" gap={1} alignItems="center" mt={2}>
+        <Box
+          sx={{
+            width: 8,
+            height: 8,
+            borderRadius: "50%",
+            background: "#F59E0B",
+          }}
+        />
+        <Typography fontSize={12}>
+          Pending
+        </Typography>
+      </Box>
 
-              <Typography fontSize={11}>5(5.1%)</Typography>
-              <Box display="flex" gap={1} alignItems="center" mt={2}>
-                <Box
-                  sx={{
-                    width: 8,
-                    height: 8,
-                    borderRadius: "50%",
-                    background: "#F59E0B",
-                  }}
-                />
+      <Typography fontSize={11}>
+        24 (15.4%)
+      </Typography>
+    </Box>
 
-                <Typography fontSize={12}>Pending</Typography>
-              </Box>
-
-              <Typography fontSize={11}>24 (15.4%)</Typography>
-            </Box>
-          </Box>
-        </Paper>
+  </Box>
+</Paper>
 
         {/* pending approvals */}
         <Paper
           sx={{
             p: 2,
-            borderRadius: 2,
+            borderRadius:"10px",
             boxShadow: "0px 2px 6px rgba(0,0,0,0.08)",
           }}
         >
@@ -583,22 +818,29 @@ export default function AdminOutbound() {
             <Typography
               fontSize={12}
               color="primary"
-              sx={{ cursor: "pointer" }}
+              sx={{ cursor: "pointer", fontWeight:"500" }}
             >
               View All
             </Typography>
           </Box>
 
           {/* Table */}
-          <TableContainer>
+          <TableContainer
+  sx={{
+    border: "1px solid #E5E7EB",
+    borderRadius: "8px",
+    overflow: "hidden",
+  }}
+>
             <Table size="small">
               <TableHead>
                 <TableRow
                   sx={{
                     backgroundColor: "#f1f3f6",
+                   
                   }}
                 >
-                  <TableCell sx={{ fontWeight: 500 }}>
+                  <TableCell sx={{ fontWeight: 500 , }}>
                     Approval Levels
                   </TableCell>
 
@@ -615,9 +857,9 @@ export default function AdminOutbound() {
               <TableBody>
                 {approvalData.map((row) => (
                   <TableRow key={row.level}>
-                    <TableCell style={{padding:"12px"}}>{row.level}</TableCell>
+                    <TableCell style={{padding:"12px", fontSize:"12px"}}>{row.level}</TableCell>
 
-                    <TableCell align="center">{row.pending}</TableCell>
+                    <TableCell align="center" style={{fontSize:"12px"}}>{row.pending}</TableCell>
 
                     <TableCell align="center">{row.items}</TableCell>
                   </TableRow>
@@ -629,17 +871,17 @@ export default function AdminOutbound() {
 
         {/*  Vendor Performance */}
 
-        <Box sx={{ p: 2, borderRadius: 2,boxShadow:"0px 2px 6px rgba(0,0,0,0.08)" }}>
+        <Box sx={{ p: 2, borderRadius: 2,boxShadow:"0px 2px 6px rgba(0,0,0,0.08)" , background:"#fff"}}>
           {/* Header */}
           <Box display="flex" justifyContent="space-between" mb={3} >
             <Typography fontWeight={500}>
-              Pending Approvals (18.620 T)
+            Vendor Performance (one time dispatch %)
             </Typography>
 
             <Typography
               fontSize={12}
               color="primary"
-              sx={{ cursor: "pointer" }}
+              sx={{ cursor: "pointer", fontWeight:500 }}
             >
               View All
             </Typography>

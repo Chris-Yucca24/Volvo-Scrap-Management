@@ -7,6 +7,9 @@ import "swiper/css/pagination";
 
 import img1 from "../../assets/image-assets/bus1.png";
 import img2 from "../../assets/image-assets/bus2.png";
+import img3 from "../../assets/image-assets/Img3.svg";
+import img4 from "../../assets/image-assets/Img4.svg";
+import img5 from "../../assets/image-assets/IMG55.svg";
 import viewdashboardicon from "../../assets/image-assets/viewdashboard-icon.png";
 
  
@@ -14,7 +17,7 @@ export default function ViewDashboard() {
   return (
     <>
     <div className="viewdash-slider-page">
-      <p>Dashboard !</p>
+      <p>Welcome !</p>
       <Swiper className="viewdashboard-container"
    modules={[Autoplay, Pagination]}
   loop={true}
@@ -27,9 +30,10 @@ export default function ViewDashboard() {
       
     >
        <SwiperSlide><img src={img1} /></SwiperSlide>
-  <SwiperSlide><img src={img1} /></SwiperSlide>
-  <SwiperSlide><img src={img1} /></SwiperSlide>
   <SwiperSlide><img src={img2} /></SwiperSlide>
+  <SwiperSlide><img src={img3} /></SwiperSlide>
+  <SwiperSlide><img src={img4} /></SwiperSlide>
+  <SwiperSlide><img src={img5} /></SwiperSlide>
     </Swiper>
     <div className="dashboard-login-btn">
   <Link to="/AdminInbound">

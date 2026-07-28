@@ -253,7 +253,7 @@ const handleAddSource = () => {
                     <div
                       className="source-tab-wrapper"
                       style={{
-                        padding: activeTab === tab ? "1.3px" : "0px",
+                        // padding: activeTab === tab ? "1.3px" : "0px",
                         // background:
                         //   activeTab === tab
                         //     ? "linear-gradient(to bottom, #EAF2FF , #012F6E) "

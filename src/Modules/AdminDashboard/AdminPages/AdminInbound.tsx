@@ -70,6 +70,22 @@ const inboundData = [
     total: "26.540",
     approved: "15.600",
     pending: "10.850"
+  },
+  {
+    scrapCode: "SCRAP-AL-002",
+    category: "Copper Scrap",
+    entries: 4,
+    total: "26.540",
+    approved: "15.600",
+    pending: "10.850"
+  },
+  {
+    scrapCode: "SCRAP-AL-002",
+    category: "Copper Scrap",
+    entries: 4,
+    total: "26.540",
+    approved: "15.600",
+    pending: "10.850"
   }
 ];
 
@@ -121,7 +137,9 @@ export default function AdminInbound() {
           Inbound Overview
         </Typography>
 
-        <Typography>
+        <Typography sx={{
+          fontSize:"12px"
+        }}>
           ↻ Last Updated : 28 June 2026 10:38 pm
         </Typography>
 
@@ -135,12 +153,17 @@ export default function AdminInbound() {
 
         {
           summaryCards.map((card) => (
-            <Paper className="summary-card">
+            <Paper className="summary-card"
+            sx={{
+              borderRadius:"10px",
+              boxShadow: "0px 2px 10px rgba(0, 43, 92, 0.08)"
+            }}>
 
               <Box
                 className="icon-box"
                 sx={{
-                  background: card.color
+                  background: card.color,
+                  
                 }}
               >
                 <img
@@ -158,7 +181,7 @@ export default function AdminInbound() {
                   {card.title}
                 </Typography>
 
-                <Typography fontWeight={400}>
+                <Typography fontWeight={500}>
                   {card.value}
                 </Typography>
 
@@ -180,9 +203,14 @@ export default function AdminInbound() {
 
 
         <Paper className="chart-card" sx={{
-          height: "280px"
+          height: "280px",
+          borderRadius:"10px",
+              boxShadow: "0px 2px 10px rgba(0, 43, 92, 0.08)"
         }}>
-
+          <Box sx={{
+            display:"flex",
+            justifyContent:"space-between"
+          }}>
           <Typography sx={{
             fontWeight: 500,
             fontSize: "14px"
@@ -190,10 +218,23 @@ export default function AdminInbound() {
             Scrap by Source Location (T)
           </Typography>
 
+          <Typography sx={{
+             fontWeight: 500,
+            fontSize: "14px"
+          }}>
+            View all
+          </Typography>
+          </Box>
+
 
           <BarChart
+           yAxis={[
+    {
+      width: 30, // or even 15
+    },
+  ]}
   margin={{
-    left: 10,
+    left: 0,
     right: 10,
     top: 20,
     bottom: 30,
@@ -214,16 +255,27 @@ export default function AdminInbound() {
     },
   ]}
   series={[
+    
     {
-      data: [58, 50, 38, 30, 22, 20, 5],
-      color: "#4B5CEB",
+      data: [48, 50, 38, 30, 22, 20, 5],
+      color: "#003A70",
+      barLabel: (item) => `${item.value}`,
+      barLabelPlacement: "outside",
     },
+    
   ]}
-  height={250}
+  height={270}
   slotProps={{
     bar: {
       rx: 8,
       ry: 8,
+    },
+    barLabel: {
+      style: {
+        fill: "#374151",
+        fontSize: 12,
+        fontWeight: 500,
+      },
     },
   }}
   sx={{
@@ -242,7 +294,9 @@ export default function AdminInbound() {
 
         </Paper>
         <Paper className="chart-card" sx={{
-          height: "280px"
+          height: "280px",
+          borderRadius:"10px",
+              boxShadow: "0px 2px 10px rgba(0, 43, 92, 0.08)"
         }}>
 
           <Typography sx={{
@@ -253,24 +307,100 @@ export default function AdminInbound() {
           </Typography>
 
 
-          <PieChart
-  margin={{ top: 10, bottom: 10, left: 20, right: 20 }}
-  series={[
-    {
-      data: [
-        { id: 0, value: 52.4, label: "Metal Scrap" },
-        { id: 1, value: 28.1, label: "Rubber" },
-        { id: 2, value: 22.3, label: "Glass" },
-        { id: 3, value: 9.9, label: "Battery Waste" },
-        { id: 4, value: 22.3, label: "Hazardous" },
-      ],
-      innerRadius: 55,
-      outerRadius: 80,
-    },
-  ]}
-  height={250}
-/>
+         <Box
+  sx={{
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "100%",
+  }}
+>
+  {/* Pie Chart */}
+  <PieChart
+    slots={{
+      legend: () => null,
+    }}
+    margin={{ top: 10, bottom: 10, left: 0, right: 0 }}
+    series={[
+      {
+        data: [
+          { id: 0, value: 52.4, label: "Metal Scrap", color: "#124682" },
+          { id: 1, value: 28.1, label: "Rubber", color: "#28A745" },
+          { id: 2, value: 22.3, label: "Glass", color: "#F4B400" },
+          { id: 3, value: 9.9, label: "Battery Waste", color: "#D32F2F" },
+          { id: 4, value: 22.3, label: "Hazardous", color: "#df5482" },
+        ],
+        innerRadius: 55,
+        outerRadius: 95,
+        cornerRadius: 3,
+      },
+    ]}
+    height={230}
+    width={230}
+  />
 
+
+  {/* Custom Legend */}
+  <Box
+    sx={{
+      display: "grid",
+      gridTemplateColumns: "repeat(2, 1fr)",
+      gap: 1.5,
+      flex: 1,
+      ml: 2,
+    }}
+  >
+    {[
+      { label: "Metal Scrap", value: 52.4, color: "#124682" },
+      { label: "Rubber", value: 28.1, color: "#28A745" },
+      { label: "Glass", value: 22.3, color: "#F4B400" },
+      { label: "Battery Waste", value: 9.9, color: "#D32F2F" },
+      { label: "Hazardous", value: 22.3, color: "#df5482" },
+    ].map((item) => (
+      <Box
+        key={item.label}
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          gap: 1,
+        }}
+      >
+        <Box
+          sx={{
+            width: 10,
+            height: 10,
+            borderRadius: "50%",
+            backgroundColor: item.color,
+            flexShrink: 0,
+          }}
+        />
+
+        <Box>
+          <Typography
+            sx={{
+              fontSize: "12px",
+              fontWeight: 400,
+              lineHeight: 1.2,
+            }}
+          >
+            {item.label}
+          </Typography>
+
+          <Typography
+            sx={{
+              
+               fontSize: "11px",
+              color: "#6B7280",
+              lineHeight: 2,
+            }}
+          >
+            {item.value} T
+          </Typography>
+        </Box>
+      </Box>
+    ))}
+  </Box>
+</Box>
         </Paper>
 
 
@@ -281,6 +411,8 @@ export default function AdminInbound() {
   className="chart-card"
   sx={{
     height: "280px",
+    borderRadius:"10px",
+              boxShadow: "0px 2px 10px rgba(0, 43, 92, 0.08)"
     
   }}
 >
@@ -323,7 +455,7 @@ export default function AdminInbound() {
             width: 14,
             height: 3,
             borderRadius: 2,
-            bgcolor: "#4B5CEB",
+            bgcolor:"#003A70",
           }}
         />
 
@@ -371,6 +503,11 @@ export default function AdminInbound() {
 
   {/* Chart */}
   <LineChart
+   yAxis={[
+    {
+      width: 30, // or even 15
+    },
+  ]}
  slots={{
     legend: () => null,
   }}
@@ -412,7 +549,7 @@ export default function AdminInbound() {
           19,
         ],
         label: "Current",
-        color: "#4B5CEB",
+        color: "#003A70",
       },
       {
         data: [
@@ -435,12 +572,12 @@ export default function AdminInbound() {
       },
     ]}
 
-    height={240}
+    height={260}
 
     
 
     margin={{
-      left: 35,
+      left: 0,
       right: 10,
       top: 10,
       bottom: 25,
@@ -471,7 +608,11 @@ export default function AdminInbound() {
       </Box>
       {/* Inbound Entries */}
 
-      <Paper className="table-card">
+      <Paper className="table-card"
+      sx={{
+        borderRadius:"10px",
+              boxShadow: "0px 2px 10px rgba(0, 43, 92, 0.08)"
+      }}>
 
         <Box className="table-header">
 
@@ -585,7 +726,10 @@ export default function AdminInbound() {
 
       {/* Inventory Aging Summary */}
 
-      <Paper className="table-card">
+      <Paper className="table-card" sx={{
+        borderRadius:"10px",
+              boxShadow: "0px 2px 10px rgba(0, 43, 92, 0.08)"
+      }}>
 
         <Box className="table-header">
 

@@ -10,7 +10,7 @@ import {
   Collapse,
 } from "@mui/material";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import AssignmentIcon from "@mui/icons-material/Assignment";
@@ -63,33 +63,33 @@ const menuItems: MenuItem[] = [
     children: [
       {
         title: "User Management",
-        icon: (
-          <img
-            src={UserIcon}
-            alt="User"
-            style={{
-              width: 18,
-              height: 18,
-            }}
-          />
-        ),
+        // icon: (
+        //   <img
+        //     src={UserIcon}
+        //     alt="User"
+        //     style={{
+        //       width: 18,
+        //       height: 18,
+        //     }}
+        //   />
+        // ),
         path: "/UserManagement",
 
       },
       {
         title: "Master Data",
-        icon: <img
-          src={MasterIcon}
-          alt="User"
-          style={{
-            width: 18,
-            height: 18,
-          }}
-        />,
+        // icon: <img
+        //   src={MasterIcon}
+        //   alt="User"
+        //   style={{
+        //     width: 18,
+        //     height: 18,
+        //   }}
+        // />,
         children: [
           { title: "KSPCB Data", path: "/AdminKSPCB" },
           { title: "Scrap Part Number", path: "/AdminScrapPart" },
-          { title: "Source and Destination", path: "/AdminSourceDestination" },
+          { title: "Source Management", path: "/AdminSourceDestination" },
           { title: "Slideshow Display Images", path: "/AdminSlideDisplay" },
           { title: "Vendor Management", path: "/AdminVendor" },
         ],
@@ -108,6 +108,7 @@ const MenuList = ({
   parentTitle?: string;
 }) => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [openItems, setOpenItems] = useState<Record<string, boolean>>(() => {
     const saved = localStorage.getItem("sidebar-open-items");
@@ -154,44 +155,60 @@ const MenuList = ({
           <ListItem disablePadding>
             <ListItemButton
               onClick={() => handleClick(item)}
-              sx={{
-                pl: 2 + level * 3,
-                borderRadius: "8px",
-                mb: parentTitle === "Dashboard" || parentTitle === "Master Data" ? 0 : 1,
-                ml: parentTitle === "Dashboard" ? 2.5 : 0,
-                color: "#fff",
-                position: "relative",
+            sx={{
+  pl: 2 + level * 3,
+  borderRadius: "8px",
+  mb: parentTitle === "Dashboard" || parentTitle === "Master Data" ? 0 : 1,
+  ml: parentTitle === "Dashboard" ? 2.5 : 0,
+  color: "#fff",
+  position: "relative",
 
-                "&:hover": {
-                  background: "rgba(255,255,255,0.10)",
-                },
+  backgroundColor:
+    location.pathname === item.path
+      ? "rgba(255,255,255,0.12)"
+      : "transparent",
 
-                // Connector only for Dashboard children
-                ...((parentTitle === "Dashboard" || parentTitle === "Master Data") && {
-                  "&::before": {
-                    content: '""',
-                    position: "absolute",
-                    left: `${20 + (level - 1) * 24}px`,
-                    top: index === 0 ? "50%" : 0,
-                    bottom: index === items.length - 1 ? "50%" : 0,
-                    width: "1px",
-                    backgroundColor: "rgba(255,255,255,0.35)",
-                  },
+  "&:hover": {
+    background: "rgba(255,255,255,0.10)",
+  },
 
-                  "&::after": {
-                    content: '""',
-                    position: "absolute",
-                    left: `${16 + (level - 1) * 24}px`,
-                    top: "50%",
-                    width: "6px",
-                    height: "6px",
-                    borderRadius: "50%",
-                    backgroundColor: "transparent",
-                    transform: "translateY(-50%)",
-                    border: "1px solid #f5f5f5"
-                  },
-                }),
-              }}
+  "&::before": {
+    ...(parentTitle === "Dashboard" || parentTitle === "Master Data"
+      ? {
+          content: '""',
+          position: "absolute",
+          left: `${20 + (level - 1) * 24}px`,
+          top: index === 0 ? "50%" : 0,
+          bottom: index === items.length - 1 ? "50%" : 0,
+          width: "1px",
+          backgroundColor: "rgba(255,255,255,0.35)",
+        }
+      : {}),
+  },
+
+  "&::after": {
+    ...(parentTitle === "Dashboard" || parentTitle === "Master Data"
+      ? {
+          content: '""',
+          position: "absolute",
+          left: `${16 + (level - 1) * 24}px`,
+          top: "50%",
+          width: "6px",
+          height: "6px",
+          borderRadius: "50%",
+          transform: "translateY(-50%)",
+
+          // Filled when selected
+          backgroundColor:
+            location.pathname === item.path
+              ? "#ffffff"
+              : "transparent",
+
+          border: "1px solid #f5f5f5",
+        }
+      : {}),
+  },
+}}
             >
               {item.icon && (
                 <ListItemIcon

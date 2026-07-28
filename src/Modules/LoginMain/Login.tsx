@@ -52,7 +52,12 @@ const LoginPage = () => {
               {/* Email */}
               <div className="input-field">
 
-                <label>Email</label>
+                <label style={{
+                  fontWeight:400,
+                  color:"#4A5565",
+                  fontSize:"16px"
+
+                }}>Email</label>
 
                 <input
                   type="email"
