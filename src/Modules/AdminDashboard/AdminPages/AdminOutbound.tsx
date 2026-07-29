@@ -80,12 +80,12 @@ const agingData = [
     percent: "6.9%",
     color: "#3B82F6",
   },
-  {
-    bucket: "61 - 90 Days",
-    totalWeight: "5.430",
-    percent: "6.1%",
-    color: "#F59E0B",
-  },
+  // {
+  //   bucket: "61 - 90 Days",
+  //   totalWeight: "5.430",
+  //   percent: "6.1%",
+  //   color: "#F59E0B",
+  // },
   {
     bucket: "90 Days",
     totalWeight: "7.600",
@@ -362,8 +362,8 @@ export default function AdminOutbound() {
 
     <Typography
       fontSize={12}
-      color="primary"
-      sx={{ cursor: "pointer" }}
+      color="#0a3369"
+      sx={{ cursor: "pointer", fontWeight:500 }}
     >
       View Full Report
     </Typography>
@@ -374,7 +374,7 @@ export default function AdminOutbound() {
     sx={{
       border: "1px solid #E5E7EB",
       borderRadius: "8px",
-      overflow: "hidden",
+      overflowY: "auto",
     }}
   >
     <Table size="small">
@@ -383,6 +383,7 @@ export default function AdminOutbound() {
         <TableRow
           sx={{
             background: "#F8FAFC",
+           
           }}
         >
           <TableCell
@@ -429,6 +430,7 @@ export default function AdminOutbound() {
           <TableRow
             key={item.bucket}
             sx={{
+              
               "&:last-child td": {
                 borderBottom: 0,
               },
@@ -476,6 +478,7 @@ export default function AdminOutbound() {
               sx={{
                 fontSize: 12,
                 color: "#374151",
+                 height:"28px",
               }}
             >
               {item.percent}
@@ -489,6 +492,7 @@ export default function AdminOutbound() {
         <TableRow
           sx={{
             background: "#F8FAFC",
+           
           }}
         >
 
@@ -596,16 +600,15 @@ export default function AdminOutbound() {
   />
 </Paper>
       </Box>
-      {/* Inbound Entries */}
-
+     
       <Paper className="table-card"  sx={{
           borderRadius:"10px",
               boxShadow: "0px 2px 10px rgba(0, 43, 92, 0.08)"
         }}>
         <Box className="table-header">
-          <Typography fontWeight={500}>Inbound Entries</Typography>
+          <Typography fontWeight={500}>Outbound Disposal Entries</Typography>
 
-          <Typography className="view-link">View All Entries</Typography>
+          <Typography className="view-link" sx={{fontSize:"12px"}}>View All Entries</Typography>
         </Box>
 
         <TableContainer>
@@ -613,8 +616,9 @@ export default function AdminOutbound() {
             size="small"
             sx={{
               "& .MuiTableCell-root": {
-                padding: "14px 12px",
+                padding: "8px 12px",
                 fontSize: "12px",
+                height:"28px"
               },
               "& .MuiTableHead-root .MuiTableCell-root": {
                 fontSize: "12px",
@@ -626,7 +630,7 @@ export default function AdminOutbound() {
             <TableHead>
               <TableRow
                 sx={{
-                  height: 36,
+                  height: 32,
                 }}
               >
                 <TableCell>Disposal Code</TableCell>
@@ -698,7 +702,7 @@ export default function AdminOutbound() {
   }}
 >
   <Typography fontWeight={500} mb={2}>
-    Disposal Readiness
+    Weighment Slip Upload Status
   </Typography>
 
   <Box

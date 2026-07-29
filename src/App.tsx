@@ -18,6 +18,7 @@ import AdminScrapPart from "./Modules/AdminDashboard/AdminPages/AdminScrapPart"
 import AdminSourceDestination from "./Modules/AdminDashboard/AdminPages/AdminSourceDestination"
 import AdminSlideDisplay from "./Modules/AdminDashboard/AdminPages/AdminSlideDisplay"
 import AdminVendor from "./Modules/AdminDashboard/AdminPages/AdminVendor"
+import CommonTable from "../src/Common/Components/UI/commonTable/CommonTable"
 
 
 export default function App() {
@@ -111,6 +112,10 @@ export default function App() {
             </AppLayout>
           }
         />
+       <Route 
+ path="/view-all/:tableType" 
+ element={<CommonTable/>}
+/>
         
       </Routes>
       

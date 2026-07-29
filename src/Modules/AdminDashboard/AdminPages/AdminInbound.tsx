@@ -17,7 +17,7 @@ import {
   TableRow,
 } from "@mui/material";
 
-
+import { useNavigate } from "react-router-dom";
 import TotalScrap from "../../../assets/image-assets/Total_scrap.svg"
 import InVentory from "../../../assets/image-assets/INHand.svg"
 import Disposable_schedule from "../../../assets/image-assets/Disposed.svg"
@@ -123,7 +123,7 @@ const inventoryAgingData = [
 ];
 
 export default function AdminInbound() {
-
+const navigate = useNavigate();
   return (
 
     <Box className="dashboard-container">
@@ -220,8 +220,10 @@ export default function AdminInbound() {
 
           <Typography sx={{
              fontWeight: 500,
-            fontSize: "14px"
-          }}>
+            fontSize: "14px",
+            cursor:"pointer"
+          }}
+            onClick={() => navigate("/view-all/scrap-source")}>
             View all
           </Typography>
           </Box>
@@ -230,7 +232,7 @@ export default function AdminInbound() {
           <BarChart
            yAxis={[
     {
-      width: 30, // or even 15
+      width: 30, 
     },
   ]}
   margin={{
@@ -299,12 +301,27 @@ export default function AdminInbound() {
               boxShadow: "0px 2px 10px rgba(0, 43, 92, 0.08)"
         }}>
 
+           <Box sx={{
+            display:"flex",
+            justifyContent:"space-between"
+          }}>
           <Typography sx={{
             fontWeight: 500,
             fontSize: "14px"
           }}>
-            Scrap by Material Type (T)
+           Scarp by Material Type (T)
           </Typography>
+
+          <Typography sx={{
+             fontWeight: 500,
+            fontSize: "14px",
+            cursor:"pointer"
+          }}
+            onClick={() => navigate("/view-all/scrap-source")}>
+            View all
+          </Typography>
+          </Box>
+
 
 
          <Box
@@ -620,9 +637,15 @@ export default function AdminInbound() {
             Inbound Entries
           </Typography>
 
-          <Typography className="view-link">
-            View All Entries
-          </Typography>
+          <Typography
+  className="view-link"
+  onClick={() => navigate("/view-all/inbound-entry")}
+  sx={{
+    cursor:"pointer"
+  }}
+>
+  View All Entries
+</Typography>
 
         </Box>
 
@@ -737,9 +760,9 @@ export default function AdminInbound() {
             Inventory Aging Summary
           </Typography>
 
-          <Typography className="view-link">
+          {/* <Typography className="view-link">
             View All Entries
-          </Typography>
+          </Typography> */}
 
         </Box>
 

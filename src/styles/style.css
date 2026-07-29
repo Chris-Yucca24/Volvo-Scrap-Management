@@ -497,7 +497,186 @@ body {
   width: 18px;
   height: 18px;
 }
+/* calender styles */
+/* Calendar container */
+.calendar-popup {
+  position: absolute;
+  right: 10;
+  top: 55px;
+  z-index: 9999;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 15px rgba(0,0,0,0.18);
+  width: 340px;
+  padding: 12px 10px 15px;
+}
 
+
+/* Remove default border */
+.rdrCalendarWrapper {
+  background: white;
+  border: none;
+  font-family: Arial, sans-serif;
+}
+
+
+/* Month header */
+.rdrMonthAndYearWrapper {
+  height: 55px;
+  padding-top: 0;
+}
+
+
+.rdrMonthAndYearPickers {
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+}
+
+/* Month navigation buttons */
+.rdrNextPrevButton {
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 50% !important;
+  background: transparent !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 5px;
+}
+
+/* Arrow icon */
+.rdrNextPrevButton i {
+  /* border-color: #666 !important; */
+  margin: 0 !important;
+}
+
+/* Hover effect */
+.rdrNextPrevButton:hover {
+  background: #eef1ff !important;
+  
+}
+
+/* Week names */
+.rdrWeekDays {
+  margin-top: 10px;
+}
+
+
+.rdrWeekDay {
+  color: #555;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+
+
+/* Date cells */
+.rdrDay {
+  height: 42px;
+}
+
+
+.rdrDayNumber span {
+
+  font-size: 13px;
+  color: #333;
+
+}
+
+.rdrNextPrevButton:focus {
+  outline: none;
+}
+/* Hover circle */
+.rdrDay:not(.rdrDayPassive):hover .rdrDayNumber span {
+
+  border-radius:50%;
+  background:#eef1ff;
+
+}
+
+
+
+/* Selected date */
+/* Dates between start & end */
+.rdrInRange {
+  background: #eef3ff !important;
+  color: #000 !important;
+}
+
+/* Start & End */
+.rdrStartEdge,
+.rdrEndEdge,
+.rdrSelected {
+  background: #172B75 !important;
+}
+
+.rdrInRange ~ .rdrDayNumber span,
+.rdrDayInRange .rdrDayNumber span,
+.rdrDayInPreview .rdrDayNumber span {
+  color: #000 !important;
+}
+
+.rdrStartEdge,
+.rdrEndEdge {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  transform: translateX(7px); /* Adjust 1–3px as needed */
+}
+
+
+
+
+
+/* Selected number */
+
+.rdrSelected span,
+.rdrStartEdge span,
+.rdrEndEdge span {
+
+  color:white !important;
+
+}
+
+
+
+/* Remove blue rectangle */
+.rdrDayStartPreview,
+.rdrDayEndPreview {
+
+  border:none;
+
+}
+
+
+
+/* Previous/next month dates */
+
+.rdrDayPassive .rdrDayNumber span {
+
+  color:#b8b8b8;
+
+}
+
+
+
+/* Bottom apply button */
+.apply-btn {
+  display: block;
+  margin: 12px 0 0 auto;
+  width: 78px;
+  height: 34px;
+  background: #172b75;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
 
 @keyframes spin {
   from {
