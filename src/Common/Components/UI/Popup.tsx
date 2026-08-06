@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 
 import AppButton from "./ButtonUI";
+import cloudExport from "../../../assets/image-assets/cloudexport.svg"
 
 
 export type PopupField = {
@@ -368,75 +369,144 @@ export default function Popup({
 
 
 
-                {/* FILE */}
+              
 
-                {
-                  field.type === "file" && (
+             {/* FILE */}
 
-                    <Box
+{
+  field.type === "file" && (
+           
+    <Box
+      sx={{
+        position: "relative",
+        width: "100%",
+      }}
+    >
 
-                      sx={{
+      <Box
+        sx={{
+          height: "120px",
+           border: "1.5px dashed #124682",
+          borderRadius: "10px",
+          backgroundColor: "#F8FBFF",
 
-                        position:"relative",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
 
-                        width:"100%",
+          gap: 0.8,
 
-                      }}
+          cursor: "pointer",
 
-                    >
+          transition: "0.2s",
 
-                      <TextField
+          "&:hover": {
+            backgroundColor: "#F0F6FF",
+          },
 
-                        fullWidth
+        }}
+      >
 
-                        size="small"
+       <img
+       src={cloudExport}
+       alt="upload"
+       height={16}></img>
 
-                        sx={fieldStyles}
+        <Typography
 
-                        value={
-                          formData[field.name]?.name || ""
-                        }
+          sx={{
+            fontSize: "14px",
+            color:"#124682",
+            fontWeight:400,
+          }}
 
-                        placeholder="Select JPG, PNG, PDF"
+        >
 
-                        InputProps={{
+          Click to upload 
+          <Box
+            component="span"
+            sx={{
+              color:"#6B7280",
+              fontWeight:400,
+            }}
+          >
+             {" "}or drag and drop
+          </Box>
 
-                          readOnly:true,
-
-                        }}
-
-                      />
-
-
-                      <input
-
-                        type="file"
-
-                        accept=".jpg,.jpeg,.png,.pdf"
-
-                        name={field.name}
-
-                        style={{
-
-                          position:"absolute",
-
-                          inset:0,
-
-                          opacity:0,
-
-                          cursor:"pointer",
-
-                        }}
-
-                        onChange={onChange}
-
-                      />
+        </Typography>
 
 
-                    </Box>
 
-                  )
-                }
+        <Typography
+
+          sx={{
+            fontSize:"12px",
+            color:"#9CA3AF",
+          }}
+
+        >
+
+          PDF, PNG, JPEG (Max 5MB)
+
+        </Typography>
+
+
+
+        {
+          formData[field.name]?.name && (
+
+            <Typography
+
+              sx={{
+                mt:0.5,
+                fontSize:"12px",
+                color:"#374151",
+              }}
+
+            >
+
+              {formData[field.name].name}
+
+            </Typography>
+
+          )
+        }
+
+
+      </Box>
+
+
+
+      <input
+
+        type="file"
+
+        accept=".jpg,.jpeg,.png,.pdf"
+
+        name={field.name}
+
+        style={{
+
+          position:"absolute",
+
+          inset:0,
+
+          opacity:0,
+
+          cursor:"pointer",
+
+        }}
+
+        onChange={onChange}
+
+      />
+
+
+    </Box>
+
+  )
+}
 
 
 

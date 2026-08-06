@@ -101,7 +101,7 @@ export const tableConfig = {
   
 
 
-  rows: Array.from({ length: 15 }, (_, index) => ({
+  rows: Array.from({ length: 12 }, (_, index) => ({
     
     scrapCode: `SCR${String(index + 1).padStart(3, "0")}`,
 
@@ -120,15 +120,21 @@ export const tableConfig = {
 
 
     "totalWeight(T)":
-      `${(Math.random() * 50 + 10).toFixed(2)} T`,
+      `${(Math.random() * 50 + 10).toFixed(2)} `,
 
 
-    "approvedWeight(T)":
-      `${(Math.random() * 40 + 5).toFixed(2)} T`,
+   "approvedWeight(T)": (
+  <span style={{ color: "#4caf50", fontWeight: 400 }}>
+    {(Math.random() * 40 + 5).toFixed(2)}
+  </span>
+),
 
 
-    "pendingWeight(T)":
-      `${(Math.random() * 15 + 1).toFixed(2)} T`
+    "pendingWeight(T)": (
+  <span style={{ color: "#f57c00", fontWeight: 400 }}>
+    {(Math.random() * 15 + 1).toFixed(2)}
+  </span>
+),
 
   })),
 

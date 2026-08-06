@@ -87,7 +87,7 @@ const agingData = [
   //   color: "#F59E0B",
   // },
   {
-    bucket: "90 Days",
+    bucket: ">90 Days",
     totalWeight: "7.600",
     percent: "8.7%",
     color: "#EF4444",

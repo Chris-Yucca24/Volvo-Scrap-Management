@@ -309,17 +309,17 @@ const navigate = useNavigate();
             fontWeight: 500,
             fontSize: "14px"
           }}>
-           Scarp by Material Type (T)
+           Scrap by Material Type (T)
           </Typography>
 
-          <Typography sx={{
+          {/* <Typography sx={{
              fontWeight: 500,
             fontSize: "14px",
             cursor:"pointer"
           }}
             onClick={() => navigate("/view-all/scrap-source")}>
             View all
-          </Typography>
+          </Typography> */}
           </Box>
 
 

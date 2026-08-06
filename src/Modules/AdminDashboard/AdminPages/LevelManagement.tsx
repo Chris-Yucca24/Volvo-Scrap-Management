@@ -162,7 +162,7 @@ export default function LevelManagement() {
         <div className="log-user-main">
           <div className="log-left-main">
             <div className="log-header">
-              <h3>Export Report</h3>
+              <h3> Reports</h3>
             </div>
             <div className="left-log-content">
               <Paper
@@ -354,7 +354,7 @@ export default function LevelManagement() {
                 }}
               >
                 <div className="grid-main-log">
-                  <span className="log-list-head">Log List</span>
+                  <span className="log-list-head">Report List</span>
 
                   <div
                     style={{
@@ -459,7 +459,7 @@ export default function LevelManagement() {
                   {/* Right Side */}
                   <AppButton variant="filled" className="export-btn">
                     <img src={ExportIcon} alt="export" className="export-icon" />
-                    Export Log
+                    Export Report
                   </AppButton>
                 </div>
               </Paper>

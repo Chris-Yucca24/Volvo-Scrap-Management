@@ -16,11 +16,9 @@ import {
   Pagination,
 } from "@mui/material";
 
-
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-
 
 import Navbar from "../../../DashboardComponents/NavBar";
 import Sidebar from "../../../DashboardComponents/Sidebar";
@@ -34,21 +32,44 @@ const CommonTable = () => {
 
   const navigate = useNavigate();
 
-  const [expandedRow, setExpandedRow] = React.useState<string | null>(null);
+  const [expandedRow, setExpandedRow] = React.useState<number | null>(null);
 
 
-const currentTable = tableConfig[tableType || "scrap-source"];
+  const currentTable =
+    tableConfig[tableType || "scrap-source"];
 
-const title = currentTable.title;
 
-const rows = currentTable.rows;
-  
+  const title = currentTable.title;
+
+  const rows = currentTable.rows;
+
+
+
+  // Dynamic column alignment
+  const getAlignment = (column: string) => {
+
+    if(column === "Actions"){
+      return "center";
+    }
+
+    return currentTable.alignments?.[column] || "left";
+
+  };
+
+
+
+  // Dynamic row height
+  const getRowHeight = () => {
+
+    return currentTable.rowHeight || 48;
+
+  };
 
 
 
   return (
 
-    <Box sx={{ display:"flex" }}>
+    <Box sx={{display:"flex"}}>
 
 
       <Sidebar />
@@ -61,13 +82,18 @@ const rows = currentTable.rows;
           minHeight:"100vh",
         }}
       >
+
         <Navbar />
+
+
         <Box
           sx={{
             p:3,
             mt:"64px",
           }}
         >
+
+
           <Paper
             sx={{
               borderRadius:"10px",
@@ -77,7 +103,10 @@ const rows = currentTable.rows;
               p:2,
             }}
           >
+
+
             {/* Header */}
+
             <Box
               sx={{
                 display:"flex",
@@ -86,16 +115,20 @@ const rows = currentTable.rows;
                 mb:2,
               }}
             >
+
+
               <Box
                 sx={{
                   display:"flex",
                   alignItems:"center",
                   gap:0.5,
                 }}
+                 onClick={()=>navigate(-1)}
               >
+
                 <IconButton
                   size="small"
-                  onClick={() => navigate(-1)}
+                 
                   sx={{
                     color:"#000",
                     p:0,
@@ -103,7 +136,7 @@ const rows = currentTable.rows;
                 >
                   <ChevronLeftIcon
                     sx={{
-                      fontSize:"30px",
+                      fontSize:"30px"
                     }}
                   />
                 </IconButton>
@@ -111,214 +144,306 @@ const rows = currentTable.rows;
                   sx={{
                     fontSize:"16px",
                     fontWeight:500,
-                    color:"#000",
                   }}
                 >
                   {title}
                 </Typography>
               </Box>
-              <Box
+             <Box
                 sx={{
-                  width:"220px",
+                  width:"220px"
                 }}
               >
-                <SearchField />
+               <SearchField />
               </Box>
             </Box>
-            <TableContainer sx={{
+            <TableContainer
+              sx={{
                 border:"1px solid #f5f5f5"
-            }}>
+              }}
+            >
+
+
               <Table
+
                 size="small"
+
                 sx={{
+
                   "& .MuiTableCell-root":{
-                    padding:"8px 12px",
+                    padding:"8px",
                     fontSize:"12px",
-                    
+
+                    verticalAlign:"middle",
+
                   },
+
+
+                  "& .MuiTableBody-root .MuiTableRow-root":{
+
+                    height:getRowHeight(),
+
+                  },
+
+
+                  "& .MuiTableHead-root .MuiTableCell-root":{
+
+                    background:"#F5F7FA",
+
+                    fontWeight:500,
+
+                  }
+
                 }}
+
               >
+
+
+
+
+                {/* HEADER */}
+
                 <TableHead>
-  <TableRow
-    sx={{
-      background:"#F5F7FA",
-    }}
-  >
 
-    {currentTable.columns.map((column)=>(
-      <TableCell
-        key={column}
-        align={column === "Actions" ? "center" : "left"}
-        sx={{
-          fontWeight:500
-        }}
-      >
-        {column}
-      </TableCell>
-    ))}
+                  <TableRow>
 
-  </TableRow>
-</TableHead>
-                <TableBody>
-  {rows.map((row, index) => (
-    <React.Fragment key={index}>
 
-      {/* Main Row */}
-      <TableRow>
+                    {
+                      currentTable.columns.map((column)=>(
 
-        {currentTable.columns.map((column) => {
 
-          // Actions column
-          if (column === "Actions") {
-            return (
-              <TableCell
-                key={column}
-                align="center"
-              >
+                        <TableCell
 
-                {currentTable.expandable && (
-                  <IconButton
-                    size="small"
-                    onClick={() =>
-                      setExpandedRow(
-                        expandedRow === index
-                          ? null
-                          : index
-                      )
+                          key={column}
+
+                          align={getAlignment(column)}
+
+                        >
+
+                          {column}
+
+
+                        </TableCell>
+
+
+                      ))
                     }
-                  >
-
-                    {expandedRow === index ? (
-                      <KeyboardArrowUpIcon fontSize="medium" />
-                    ) : (
-                      <KeyboardArrowDownIcon fontSize="medium" />
-                    )}
-
-                  </IconButton>
-                )}
-
-              </TableCell>
-            );
-          }
 
 
-          // Convert column name into object key
-          const key =
-            column
-              .replaceAll(" ", "")
-              .charAt(0)
-              .toLowerCase() +
-            column
-              .replaceAll(" ", "")
-              .slice(1);
+                  </TableRow>
+
+
+                </TableHead>
 
 
 
-          // Status chip handling
-          if (key === "status") {
-
-            return (
-              <TableCell
-                key={column}
-                align="left"
-              >
-
-                <Chip
-                  label={row[key]}
-                  size="small"
-                  sx={{
-                    height:26,
-                    fontSize:"12px",
-                    fontWeight:500,
-                    borderRadius:"8px",
-                    padding:"10px",
-
-                    backgroundColor:
-                      row[key] === "Active"
-                      ? "#E1F8E0"
-                      : "#FEE2E2",
-
-                    color:
-                      row[key] === "Active"
-                      ? "#258c20"
-                      : "#DC2626",
-                  }}
-                />
-
-              </TableCell>
-            );
-          }
 
 
 
-          return (
-            <TableCell
-              key={column}
-            >
-              {row[key]}
-            </TableCell>
-          );
+                {/* BODY */}
 
 
-        })}
-
-      </TableRow>
+                <TableBody>
 
 
+                {
+                  rows.map((row,index)=>(
 
-      {/* Expanded Row */}
-
-      {
-        currentTable.expandable &&
-        expandedRow === index && (
-
-          <TableRow>
-
-            <TableCell
-              colSpan={currentTable.columns.length}
-            >
-
-              <Box
-                sx={{
-                  background:"#F8FAFC",
-                  border:"1px solid #E5E7EB",
-                  borderRadius:"6px",
-                  p:2,
-                }}
-              >
-
-                <Typography
-                  sx={{
-                    fontSize:"13px",
-                    fontWeight:500,
-                  }}
-                >
-                  Details - {row.sourceName}
-                </Typography>
+                    <React.Fragment key={index}>
 
 
-                {/* Nested table will come here */}
+                    <TableRow>
 
 
-              </Box>
-
-            </TableCell>
-
-          </TableRow>
-
-        )
-      }
+                    {
+                      currentTable.columns.map((column)=>{
 
 
-    </React.Fragment>
-  ))}
-</TableBody>
+                        // ACTION COLUMN
+
+                        if(column==="Actions"){
+
+                          return(
+
+                            <TableCell
+
+                              key={column}
+
+                              align="center"
+
+                            >
+
+                              {
+                                currentTable.expandable &&
+
+                                <IconButton
+
+                                  size="small"
+
+                                  onClick={()=>setExpandedRow(
+                                    expandedRow===index
+                                    ? null
+                                    : index
+                                  )}
+
+                                >
+
+                                  {
+                                    expandedRow===index
+
+                                    ?
+
+                                    <KeyboardArrowUpIcon/>
+
+                                    :
+
+                                    <KeyboardArrowDownIcon/>
+
+                                  }
+
+
+                                </IconButton>
+                              }
+
+
+                            </TableCell>
+
+                          )
+
+                        }
+
+
+
+
+
+                        const key =
+                          column
+                          .replaceAll(" ","")
+                          .charAt(0)
+                          .toLowerCase()
+
+                          +
+
+                          column
+                          .replaceAll(" ","")
+                          .slice(1);
+
+
+
+
+
+
+                        // STATUS CHIP
+
+
+                        if(key==="status"){
+
+
+                          return(
+
+                            <TableCell
+
+                              key={column}
+
+                              align={getAlignment(column)}
+
+                            >
+
+
+                              <Chip
+
+                                label={row[key]}
+
+                                size="small"
+
+                                sx={{
+
+                                  height:26,
+
+                                  fontSize:"12px",
+
+                                  borderRadius:"8px",
+
+                                  fontWeight:500,
+
+
+                                  backgroundColor:
+
+                                  row[key]==="Active"
+
+                                  ?
+
+                                  "#E1F8E0"
+
+                                  :
+
+                                  "#FEE2E2",
+                                  color:
+                                  row[key]==="Active"
+                                  ?
+                                  "#258c20"
+                                  :
+                                  "#DC2626"
+                                }}
+                              />
+                            </TableCell>
+                          )
+
+                        }
+                        return(
+                          <TableCell
+                            key={column}
+                            align={getAlignment(column)}
+                          >
+                            {row[key]}
+                          </TableCell>
+                        )
+                      })
+                    }
+                    </TableRow>
+                    {/* EXPANDED ROW */}
+                    {
+                      currentTable.expandable &&
+                      expandedRow===index &&
+                      (
+                        <TableRow>
+                          <TableCell
+                            colSpan={
+                              currentTable.columns.length
+                            }
+                          >
+                            <Box
+                              sx={{
+                                background:"#F8FAFC",
+                                border:"1px solid #E5E7EB",
+                                borderRadius:"6px",
+                                p:2,
+                              }}
+                            >
+                              <Typography
+                                sx={{
+                                  fontSize:"13px",
+                                  fontWeight:500,
+                                }}
+                              >
+                                Details - {row.sourceName}
+                              </Typography>
+                            </Box>
+                          </TableCell>
+                        </TableRow>
+                      )
+
+                    }
+                    </React.Fragment>
+                  ))
+                }
+                </TableBody>
               </Table>
             </TableContainer>
-           <Box
+            <Box
               sx={{
                 display:"flex",
-                justifyContent:"flex-end",
+                justifyContent:"center",
                 p:2,
               }}
             >
@@ -331,7 +456,7 @@ const rows = currentTable.rows;
         </Box>
       </Box>
     </Box>
-  );
+  )
 };
 
 export default CommonTable;
